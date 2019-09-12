@@ -48,21 +48,21 @@ async function run() {
         // this sequence scales the image up or down to fit into canvas element
         // consider scaling to a percentage of the canvas
         let scale = 1; 
-        if (img.width > img.height) {
-            scale = canvas.offsetWidth / img.width ;
-        } else {
-            scale = canvas.offsetHeight / img.height;
+        // temporary solution to image scaling incorrectly, have to analyze this more
+        if (canvas.offsetHeight > img.height && canvas.offsetWidth > img.width) {
+            resized_img_height = img.height;
+            resized_img_width = img.width;
         }
 
-        if (canvas.offsetWidth < img.width) {
-            resized_img_width = img.width * scale; 
+        let width_scale = canvas.offsetHeight / img.height;
+        let height_scale = canvas.offsetWidth / img.width ;
+        if (width_scale < height_scale) {
+            scale = width_scale;
         } else {
-            resized_img_width = img.width * scale;
+            scale = height_scale;
         }
 
-        if (canvas.offsetHeight < img.height) {
-            resized_img_height = img.height * scale; 
-        } else {
+        resized_img_width = img.width * scale; 
             resized_img_height = img.height * scale;
         }
 
