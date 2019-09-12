@@ -9,11 +9,16 @@ div {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+    max-height: 90%;
     min-height: 90%;
     min-width: 100%;
+    max-width: 100%;
 }
 
 canvas {
-    min-height: 0;
+    max-height: 90%;
+    min-height: 90%;
     min-width: 48%;
+    max-width: 50%;
+    
 }
