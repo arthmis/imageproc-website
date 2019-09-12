@@ -9,12 +9,29 @@
     </head>
 
     <body>
+        <div id="main">
+            <div id="options">
+                <div id="invert-option" class="processing-options"><p>Invert</p></div>
+                <div id="histogram-option" class="processing-options"><p>Histogram</p></div>
+                <div id="edge-detection-options" class="processing-options"><p>Edge Detection</p></div>
+                <div id="blur-options" class="processing-options"><p>Blur</p></div>
+                <div id="hough-option" class="processing-options"><p>Line Detection</p></div>
+                <div id="corners-option" class="processing-options"><p>Corner Detection</p></div>
+                <div id="kernels-option" class="processing-options"><p>Convolution Kernels</p></div>
+                <!-- <div id="waveform-option" class="processing-options"><p>Waveform</p></div> -->
+                
+            </div>
+            <div id="image-options">
         <div id="two-canvases">
             <canvas id="input-canvas"></canvas>
             <canvas id="output-canvas"></canvas>
         </div>
+                <div>
         <button id="invert">Invert</button>
         <input type="file" id="file-input">
+                </div>
+            </div>
+        </div>
 
         <script src="main.js"></script>
     </body>
