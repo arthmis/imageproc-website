@@ -37,6 +37,59 @@ async function run() {
     let center_x = 0;
     let center_y = 0;
 
+    function display_image(canvas, img) {
+        let ctx = canvas.getContext("2d");
+        let resized_img_width = 0;
+        let resized_img_height = 0;
+        console.log("canvas width", canvas.width);
+        console.log("canvas height", canvas.height);
+        console.log("canvas offset width", canvas.offsetWidth);
+        console.log("canvas offset height", canvas.offsetHeight);
+        // this sequence scales the image up or down to fit into canvas element
+        // consider scaling to a percentage of the canvas
+        let scale = 1; 
+        if (img.width > img.height) {
+            scale = canvas.offsetWidth / img.width ;
+        } else {
+            scale = canvas.offsetHeight / img.height;
+        }
+
+        if (canvas.offsetWidth < img.width) {
+            resized_img_width = img.width * scale; 
+        } else {
+            resized_img_width = img.width * scale;
+        }
+
+        if (canvas.offsetHeight < img.height) {
+            resized_img_height = img.height * scale; 
+        } else {
+            resized_img_height = img.height * scale;
+        }
+
+        resized_img_height = Math.round(resized_img_height);
+        resized_img_width = Math.round(resized_img_width);
+
+        // resize the canvas to fit into canvas element size
+        canvas.width = canvas.offsetWidth;
+        canvas.height = canvas.offsetHeight;
+
+        // these two variables center the image within the canvas
+        center_x = (canvas.width - resized_img_width) / 2;
+        center_y = (canvas.height - resized_img_height) / 2;
+        // console.log("canvas width", canvas.width);
+        // console.log("canvas height", canvas.height);
+        // console.log("resized width", resized_img_width);
+        // console.log("resized height", resized_img_height);
+
+        ctx.drawImage(
+            img, 
+            center_x, 
+            center_y, 
+            resized_img_width, 
+            resized_img_height, 
+        );
+        
+    }
     // extracted this because its used in the on drop and file dialog click events
     function import_and_display(image_url) {
         original_img.addEventListener('load', function () {
@@ -86,6 +139,23 @@ async function run() {
             console.log("resized width", resized_img_width);
             console.log("resized height", resized_img_height);
 
+
+            display_image(input_canvas, original_img);
+            display_image(output_canvas, output_img);
+            // input_ctx.drawImage(
+            //     original_img, 
+            //     center_x, 
+            //     center_y, 
+            //     resized_img_width, 
+            //     resized_img_height, 
+            // );
+            // output_ctx.drawImage(
+            //     output_img, 
+            //     center_x, 
+            //     center_y, 
+            //     resized_img_width, 
+            //     resized_img_height, 
+            // );
 
             // create canvas for both original and output image in order to get
             // underlying pixel data
@@ -150,6 +220,12 @@ async function run() {
         import_and_display(image);
 
     }, false);
+    window.addEventListener('resize', function(event) {
+        console.log(window.innerHeight);
+        console.log(window.innerWidth);
+        display_image(input_canvas, original_img);
+        display_image(output_canvas, output_img);
+    });
 }
 
 run();
