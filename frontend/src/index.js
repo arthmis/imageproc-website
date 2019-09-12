@@ -5,7 +5,7 @@ async function run() {
     // wasm to be loaded.
     // await init('./edit-algorithms/pkg/edit_algorithms_bg.wasm');
     // web assembly initialization
-    // await init();
+    const imageproc = await import('../../image_processing/pkg');
 
     let input_canvas = document.getElementById("input-canvas");
     let output_canvas = document.getElementById("output-canvas")
@@ -29,6 +29,8 @@ async function run() {
     // });
     let original_img = new Image();
     let output_img = new Image();
+    let output_img_data = new ImageData(1, 1);
+    let original_img_data = new ImageData(1, 1);
     // let canvas_img = new Image();
     let resized_img_width = 0;
     let resized_img_height = 0;
@@ -85,20 +87,57 @@ async function run() {
             console.log("resized height", resized_img_height);
 
 
-            input_ctx.drawImage(
-                original_img, 
+            // create canvas for both original and output image in order to get
+            // underlying pixel data
+            let output_img_canvas = document.createElement('canvas');
+            let original_img_canvas = document.createElement('canvas');
+            let output_img_ctx = output_img_canvas.getContext("2d");
+            let original_img_ctx = original_img_canvas.getContext("2d");
+
+            // resizes the canvas to image dimensions so that image isn't clipped
+            // when calling getImageData()
+            output_img_canvas.width = original_img.width;
+            output_img_canvas.height = original_img.height;
+            original_img_canvas.width = original_img.width;
+            original_img_canvas.height = original_img.height;
+            output_img_ctx.drawImage(output_img, 0, 0);
+            original_img_ctx.drawImage(original_img, 0, 0);
+
+            output_img_data = output_img_ctx.getImageData(
+                0, 
+                0, 
+                output_img.width, 
+                output_img.height
+            );
+            original_img_data = original_img_ctx.getImageData(
+                0, 
+                0, 
+                original_img.width, 
+                original_img.height
+            );
+
+            let invert_button = document.getElementById("invert");
+            invert_button.addEventListener("click", function() {
+                output_data = output_ctx.getImageData(
                 center_x, 
                 center_y, 
                 resized_img_width, 
                 resized_img_height, 
             );
-            output_ctx.drawImage(
-                output_img, 
+                let inverted_raw_data = new Uint8ClampedArray(
+                    imageproc.invert(output_data.data, output_data.width),
+                );
+                let inverted_data = new ImageData(inverted_raw_data, output_data.width);
+                output_ctx.putImageData(
+                    inverted_data, 
                 center_x, 
                 center_y, 
+                    0,
+                    0,
                 resized_img_width, 
                 resized_img_height, 
             );
+            });
 
         });
 
@@ -113,4 +152,4 @@ async function run() {
     }, false);
 }
 
-run()
+run();

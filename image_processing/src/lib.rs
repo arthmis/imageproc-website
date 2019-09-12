@@ -1,10 +1,7 @@
-use image::RgbaImage;
+use image::{RgbaImage, GrayImage};
 use image::ConvertBuffer;
-// use image_processing::pixel_operations::*;
-// use image::Rgba;
-// use image::ImageBuffer;
+use pixel_ops::*;
 use wasm_bindgen::prelude::*;
-// use image::ImageBuffer::from_raw;
 
 pub mod hsv;
 pub mod histogram;
@@ -21,16 +18,20 @@ const CHANNEL_COUNT: u32 = 4;
 #[wasm_bindgen]
 pub fn invert(input_image: Vec<u8>, width: u32) -> Vec<u8> {
     let height = (input_image.len() as u32 / CHANNEL_COUNT) / width;
-    console_log!("width: {}\nheight: {}", width, height);
+    // console_log!("width: {}\nheight: {}", width, height);
     // let mut image: RgbaImage =
     //     image::ImageBuffer::from_vec(width, height, input_image).expect("expected image from canvas");
-    let mut image: RgbaImage =
+    let image: RgbaImage =
         image::ImageBuffer::from_vec(width, height, input_image).expect("expected image from canvas");
+    // console_log!("width: {} height: {}", image.width(), image.height());
+    let mut image: GrayImage = image.convert();
     invert_mut(&mut image);
     // invert_mut()
     // let mut img: RgbaImage = ImageBuffer::from_pixel(1, 1, Rgba([100, 100, 100, 255]));
     // image::imageops::invert_mut(&mut img);
     // image::imageops::colorops::invert(&mut img);
 
+    // console_log!("width: {} height: {}", image.width(), image.height());
+    let image: RgbaImage = image.convert();
     image.into_vec()
 }
