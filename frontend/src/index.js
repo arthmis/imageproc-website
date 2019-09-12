@@ -52,7 +52,7 @@ async function run() {
         if (canvas.offsetHeight > img.height && canvas.offsetWidth > img.width) {
             resized_img_height = img.height;
             resized_img_width = img.width;
-        }
+        } else {
 
         let width_scale = canvas.offsetHeight / img.height;
         let height_scale = canvas.offsetWidth / img.width ;
@@ -68,6 +68,7 @@ async function run() {
 
         resized_img_height = Math.round(resized_img_height);
         resized_img_width = Math.round(resized_img_width);
+        }
 
         // resize the canvas to fit into canvas element size
         canvas.width = canvas.offsetWidth;
