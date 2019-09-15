@@ -1,5 +1,7 @@
 use image::{RgbaImage, GrayImage};
 use image::ConvertBuffer;
+use image::imageops::resize;
+use image::FilterType;
 use pixel_ops::*;
 use wasm_bindgen::prelude::*;
 
@@ -17,6 +19,7 @@ const CHANNEL_COUNT: u32 = 4;
 
 #[wasm_bindgen]
 pub fn invert(input_image: Vec<u8>, width: u32) -> Vec<u8> {
+// pub fn invert(input_image: &[u8], width: u32) -> Vec<u8> {
     let height = (input_image.len() as u32 / CHANNEL_COUNT) / width;
     // console_log!("width: {}\nheight: {}", width, height);
     // let mut image: RgbaImage =
@@ -34,4 +37,12 @@ pub fn invert(input_image: Vec<u8>, width: u32) -> Vec<u8> {
     // console_log!("width: {} height: {}", image.width(), image.height());
     let image: RgbaImage = image.convert();
     image.into_vec()
+}
+
+#[wasm_bindgen]
+pub fn resize_img(input_image: Vec<u8>, width: u32, new_width: u32, new_height: u32) -> Vec<u8> {
+    let height = (input_image.len() as u32 / CHANNEL_COUNT) / width;
+    let image: RgbaImage = image::ImageBuffer::from_vec(width, height, input_image).expect("expected image from canvas");
+    let resized_img = resize(&image, new_width, new_height, FilterType::Triangle);
+    resized_img.into_vec()
 }

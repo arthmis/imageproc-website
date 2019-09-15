@@ -5,6 +5,7 @@ html, body, #main, #image-options {
     margin: 0;
 }
 
+
 #main {
     display: grid;
     grid-template-columns: 2fr 10fr;
@@ -22,7 +23,8 @@ html, body, #main, #image-options {
     grid-column: 1;
     display: flex;
     flex-direction: column;
-    justify-content: flex-start;
+    /* justify-content: center; */
+    justify-content: space-around;
     align-items: center;
     width: 100%;
     height: 100%;
@@ -50,13 +52,23 @@ html, body, #main, #image-options {
     height: 10%;
     width: 90%;
     background-color: #aaaaaa;
-    margin-top: 5px;
+    /* margin-top: 5px; */
     align-items: center;
     text-align: center;
     justify-content: center;
+    box-shadow: 3px 3px 3px #dddddd;
 }
-    
+
+.select-option {
+    background-color: #eeeeee;
+}
+
 .processing-options:hover {
     background-color: #eeeeee;
     cursor: pointer;
+}
+
+.processing-options:active {
+    /* box-shadow: 3px 3px 3px #9daef5; */
+    box-shadow: none;
 }

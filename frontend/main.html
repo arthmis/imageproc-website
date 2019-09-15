@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+
+    <head>
+        <title>Image Processing</title>
+        <meta content="text/html;charset=UTF-8" http-equiv="Content-Type"/>
+        <link rel="stylesheet" type = "text/css" href="main.css"/>
+
+    </head>
+
+    <body>
+        <div id="main">
+            <div id="options">
+                <div id="invert-option" class="processing-options">Invert</div>
+                <div id="histogram-option" class="processing-options">Histogram</div>
+                <div id="edge-detection-options" class="processing-options">Edge Detection</div>
+                <div id="blur-options" class="processing-options">Blur</div>
+                <div id="hough-option" class="processing-options">Line Detection</div>
+                <div id="corners-option" class="processing-options">Corner Detection</div>
+                <div id="kernels-option" class="processing-options">Convolution Kernels</div>
+            </div>
+            <div id="image-options">
+                <div id="two-canvases">
+                    <canvas id="input-canvas"></canvas>
+                    <canvas id="output-canvas"></canvas>
+                </div>
+                <div>
+                    <button id="invert">Invert</button>
+                    <input type="file" id="file-input" accept="image/png, image/jpeg">
+                </div>
+            </div>
+        </div>
+
+        <script type="module" src="main.js"></script>
+    </body>
+</html>
