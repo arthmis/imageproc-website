@@ -11,6 +11,10 @@
     <body>
         <div id="main">
             <div id="options">
+                <div id="input-image">
+                    <input type="file" id="file-input" accept="image/png, image/jpeg" style="display: none;">
+                    <button id="upload-image">Upload Image</button>
+                </div>
                 <div id="invert-option" class="processing-options">Invert</div>
                 <div id="histogram-option" class="processing-options">Histogram</div>
                 <div id="edge-detection-options" class="processing-options">Edge Detection</div>
@@ -21,12 +25,11 @@
             </div>
             <div id="image-options">
                 <div id="two-canvases">
-                    <canvas id="input-canvas"></canvas>
+                    <canvas id="input-canvas" class="one-active-canvas"></canvas>
                     <canvas id="output-canvas"></canvas>
                 </div>
                 <div>
                     <button id="invert">Invert</button>
-                    <input type="file" id="file-input" accept="image/png, image/jpeg">
                 </div>
             </div>
         </div>

@@ -40,11 +40,27 @@ html, body, #main, #image-options {
     max-width: 100%;
 }
 
-#input-canvas, #output-canvas {
+/* #input-canvas, #output-canvas {
     max-height: 90%;
     min-height: 90%;
     min-width: 48%;
     max-width: 50%;
+} */
+.active-canvases {
+    max-height: 90%;
+    min-height: 90%;
+    min-width: 48%;
+    max-width: 50%;
+}
+.one-active-canvas {
+/* #input-canvas { */
+    max-height: 90%;
+    min-height: 90%;
+    min-width: 98%;
+    max-width: 100%;
+}
+#output-canvas {
+    display: none;
 }
 
 .processing-options {

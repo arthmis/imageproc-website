@@ -1,4 +1,4 @@
-import { invert, resize_img, default as init } from "../wasm/image_processing.js";
+import { invert, resize_img, to_grayscale, default as init } from "../wasm/image_processing.js";
 async function main() {
     // web assembly initialization
     // const imageproc = await import('../../image_processing/pkg');
@@ -100,7 +100,7 @@ async function main() {
             )
         );
 
-        // find new origin to center image
+        // find new origin to center image on canvas
         let center_x = (ctx.canvas.width - resized_img_width) / 2;
         let center_y = (ctx.canvas.height - resized_img_height) / 2;
 
@@ -124,6 +124,9 @@ async function main() {
         let raw_data = new Uint8ClampedArray(
             invert(input_data.data, output_width),
         );
+        // let raw_data = new Uint8ClampedArray(
+        //     to_grayscale(input_data.data, output_width),
+        // );
         output_img_data = new ImageData(raw_data, output_width); 
         put_image_data_canvas(output_img_data, output_ctx);
     });
@@ -156,7 +159,7 @@ async function main() {
             raw_output_canvas.height = original_img.height;
             raw_img_canvas.width = original_img.width;
             raw_img_canvas.height = original_img.height;
-            raw_output_ctx.drawImage(output_img, 0, 0);
+            raw_output_ctx.drawImage(original_img, 0, 0);
             raw_img_ctx.drawImage(original_img, 0, 0);
 
             output_img_data = raw_output_ctx.getImageData(
@@ -171,12 +174,8 @@ async function main() {
                 raw_img_canvas.width, 
                 raw_img_canvas.height
             );
-
-
         });
-
         original_img.src = window.URL.createObjectURL(image_url);
-
     }
 
     let file_input = document.getElementById("file-input");
@@ -184,6 +183,15 @@ async function main() {
         let image = file_input.files[0];
         import_and_display(image);
         file_input.value = null;
+        output_canvas.classList.remove("active-canvases");
+        input_canvas.classList.remove("active-canvases");
+        input_canvas.classList.add("one-active-canvas");
+        output_canvas.style.display = "none";
+    });
+
+    let upload_image = document.getElementById("upload-image");
+    upload_image.addEventListener("click", () => {
+        file_input.click();
     });
 
     window.addEventListener('resize', () => {
@@ -197,6 +205,13 @@ async function main() {
         put_image_data_canvas(original_img_data, input_ctx);
         put_image_data_canvas(output_img_data, output_ctx);
     });
+
+    function resize_canvases(input_canvas, output_canvas) {
+        input_canvas.width = input_canvas.offsetWidth;
+        input_canvas.height = input_canvas.offsetHeight;
+        output_canvas.width = input_canvas.width;
+        output_canvas.height = input_canvas.height;
+    }
 
     let invert_option = document.getElementById("invert-option");
     let histogram_option = document.getElementById("histogram-option");
@@ -216,6 +231,13 @@ async function main() {
         if (event.target.matches("#invert-option")) {
             invert_option.classList.add("select-option");
             active_option = invert_option;
+            output_canvas.classList.add("active-canvases");
+            input_canvas.classList.add("active-canvases");
+            input_canvas.classList.remove("one-active-canvas");
+            output_canvas.style.display = "block";
+            resize_canvases(input_canvas, output_canvas);
+            put_image_data_canvas(original_img_data, input_ctx);
+            put_image_data_canvas(output_img_data, output_ctx);
         }
         if (event.target.matches("#histogram-option")) {
             histogram_option.classList.add("select-option");
