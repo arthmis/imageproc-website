@@ -117,6 +117,17 @@ async function main() {
         );
     }
 
+    function change_to_grayscale(img_data) {
+        // let input_data = output_img_data;
+        let width = img_data.width;
+        let raw_data = new Uint8ClampedArray(
+            to_grayscale(img_data.data, width),
+        );
+        // output_img_data = new ImageData(raw_data, width); 
+        return new ImageData(raw_data, width); 
+        // put_image_data_canvas(output_img_data, output_ctx);
+
+    }
     let invert_button = document.getElementById("invert");
     invert_button.addEventListener("click", function() {
         let input_data = output_img_data;
@@ -174,6 +185,12 @@ async function main() {
                 raw_img_canvas.width, 
                 raw_img_canvas.height
             );
+            // make this more performant
+            original_img_data = change_to_grayscale(original_img_data);
+            output_img_data = change_to_grayscale(output_img_data);
+
+            put_image_data_canvas(original_img_data, input_ctx);
+            put_image_data_canvas(output_img_data, output_ctx);
         });
         original_img.src = window.URL.createObjectURL(image_url);
     }
@@ -238,6 +255,13 @@ async function main() {
             input_canvas.classList.remove("one-active-canvas");
             output_canvas.style.display = "block";
             resize_canvases(input_canvas, output_canvas);
+
+            let input_data = output_img_data;
+            let output_width = input_data.width;
+            let raw_data = new Uint8ClampedArray(
+                invert(input_data.data, output_width)
+            );
+            output_img_data = new ImageData(raw_data, output_width); 
             put_image_data_canvas(original_img_data, input_ctx);
             put_image_data_canvas(output_img_data, output_ctx);
         }
