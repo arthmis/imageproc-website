@@ -21,13 +21,10 @@ const CHANNEL_COUNT: u32 = 4;
 pub fn invert(input_image: Vec<u8>, width: u32) -> Vec<u8> {
 // pub fn invert(input_image: &[u8], width: u32) -> Vec<u8> {
     let height = (input_image.len() as u32 / CHANNEL_COUNT) / width;
-    // console_log!("width: {}\nheight: {}", width, height);
-    // let mut image: RgbaImage =
-    //     image::ImageBuffer::from_vec(width, height, input_image).expect("expected image from canvas");
-    let image: RgbaImage =
+    let mut image: RgbaImage =
         image::ImageBuffer::from_vec(width, height, input_image).expect("expected image from canvas");
-    // console_log!("width: {} height: {}", image.width(), image.height());
-    let mut image: GrayImage = image.convert();
+    // let mut image: GrayImage = image.convert();
+    convert_to_grayscale(&mut image);
     invert_mut(&mut image);
     // invert_mut()
     // let mut img: RgbaImage = ImageBuffer::from_pixel(1, 1, Rgba([100, 100, 100, 255]));
@@ -45,4 +42,13 @@ pub fn resize_img(input_image: Vec<u8>, width: u32, new_width: u32, new_height: 
     let image: RgbaImage = image::ImageBuffer::from_vec(width, height, input_image).expect("expected image from canvas");
     let resized_img = resize(&image, new_width, new_height, FilterType::Triangle);
     resized_img.into_vec()
+}
+
+#[wasm_bindgen]
+pub fn to_grayscale(input_image: Vec<u8>, width: u32) -> Vec<u8> {
+    let height = (input_image.len() as u32 / CHANNEL_COUNT) / width;
+    let mut image: RgbaImage =
+        image::ImageBuffer::from_vec(width, height, input_image).expect("expected image from canvas");
+    convert_to_grayscale(&mut image);
+    image.into_vec()
 }

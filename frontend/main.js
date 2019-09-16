@@ -183,6 +183,8 @@ async function main() {
         let image = file_input.files[0];
         import_and_display(image);
         file_input.value = null;
+        // will have to make sure this displays the new image without 
+        // any weird bugs 
         output_canvas.classList.remove("active-canvases");
         input_canvas.classList.remove("active-canvases");
         input_canvas.classList.add("one-active-canvas");
