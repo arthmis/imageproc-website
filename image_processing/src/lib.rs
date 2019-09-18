@@ -1,13 +1,17 @@
-use image::{RgbaImage, GrayImage};
-use image::ConvertBuffer;
+use image::{RgbaImage};
 use image::imageops::resize;
 use image::FilterType;
-use pixel_ops::*;
 use wasm_bindgen::prelude::*;
 
-pub mod hsv;
 pub mod histogram;
 pub mod pixel_ops;
+#[cfg(feature = "display-window")]
+pub mod window;
+pub mod blur;
+
+use pixel_ops::*;
+// use histogram::*;
+
 // useful console logging macro from rustwasm documentation
 macro_rules! console_log {
     ( $( $t:tt )* ) => {
@@ -23,6 +27,7 @@ pub fn invert(input_image: Vec<u8>, width: u32) -> Vec<u8> {
     let mut image: RgbaImage =
         image::ImageBuffer::from_vec(width, height, input_image).expect("expected image from canvas");
     invert_mut(&mut image);
+    console_log!("height {}", height);
 
     image.into_vec()
 }
@@ -31,7 +36,7 @@ pub fn invert(input_image: Vec<u8>, width: u32) -> Vec<u8> {
 pub fn resize_img(input_image: Vec<u8>, width: u32, new_width: u32, new_height: u32) -> Vec<u8> {
     let height = (input_image.len() as u32 / CHANNEL_COUNT) / width;
     let image: RgbaImage = image::ImageBuffer::from_vec(width, height, input_image).expect("expected image from canvas");
-    let resized_img = resize(&image, new_width, new_height, FilterType::Triangle);
+    let resized_img: RgbaImage = resize(&image, new_width, new_height, FilterType::Triangle);
     resized_img.into_vec()
 }
 
@@ -43,3 +48,16 @@ pub fn to_grayscale(input_image: Vec<u8>, width: u32) -> Vec<u8> {
     convert_to_grayscale(&mut image);
     image.into_vec()
 }
+
+// #[wasm_bindgen]
+// pub fn draw_luma_histogram(input_image: Vec<u8>, width: u32) -> Vec<u8> {
+//     let height = (input_image.len() as u32 / CHANNEL_COUNT) / width;
+//     let mut image: RgbaImage =
+//         image::ImageBuffer::from_vec(width, height, input_image).expect("expected image from canvas");
+//     let histogram = LumaHistogram::from_rgba_image(&image);
+//     let hist_image = convert_to_image(256, 256, &histogram);
+
+//     // hist_image.into_vec()
+//     image.into_vec()
+
+// }
