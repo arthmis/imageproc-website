@@ -38,3 +38,16 @@ pub fn convert_to_grayscale(image: &mut RgbaImage) {
         }
     }
 }
+
+pub fn threshold_mut(image: &mut GrayImage, threshold: u8) {
+    let (width, height) = image.dimensions();
+    for y in 0..height {
+        for x in 0..width {
+            if image.get_pixel(x, y).0[0] > threshold {
+                image.get_pixel_mut(x, y).0[0] = 255;
+            } else {
+                image.get_pixel_mut(x, y).0[0] = 0;
+            }
+        }
+    }
+}
