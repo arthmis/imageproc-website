@@ -1,17 +1,8 @@
 //! Operations that only deal with one pixel
 
-use image::{GenericImage, Pixel, Primitive, RgbaImage, GrayImage};
-use num_traits::cast::NumCast;
+use image::{Pixel, RgbaImage, GrayImage};
+// use num_traits::cast::NumCast;
 
-pub fn clamp<T: Primitive>(value: T, min: T, max: T) -> T {
-    if value < min {
-        min
-    } else if value > max {
-        max
-    } else {
-        value
-    }
-}
 
 // pub fn invert_mut(image: &mut GrayImage) {
 pub fn invert_mut(image: &mut RgbaImage) {
