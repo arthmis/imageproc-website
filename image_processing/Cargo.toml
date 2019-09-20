@@ -22,19 +22,20 @@ display-window = ["sdl2"]
 version = "0.32.1"
 default-features = false
 features = ["bundled"]
-optional = true
+optional = true 
 
 [dependencies.web-sys]
 version = "0.3.27"
 features = [
     'console',
-    'CanvasRenderingContext2d',
-    'Document',
-    'Element',
-    'HtmlElement',
-    'Node',
-    'Window',
 ]
+
+[dev-dependencies]
+criterion = "0.3"
+
+[[bench]]
+name = "sobel"
+harness = false
 
 [profile.release]
 opt-level = "s" 
