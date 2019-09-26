@@ -1,0 +1,2 @@
+wasm:
+    wasm-pack build -t web -d ../frontend/wasm/ --no-typescript 

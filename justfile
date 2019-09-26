@@ -1,0 +1,2 @@
+wasm:
+    just proc/wasm
