@@ -14,12 +14,6 @@ async function main() {
     );
 
     let raw_images = null;
-    const input_canvas = document.getElementById("input-canvas");
-    const output_canvas = document.getElementById("output-canvas")
-
-    const input_ctx = input_canvas.getContext("2d");
-    const output_ctx = output_canvas.getContext("2d");
-    
     const two_canvases = document.getElementById("two-canvases");
 
     // create canvas for both original and output image in order to get
@@ -28,8 +22,6 @@ async function main() {
     // let raw_img_ctx = raw_img_canvas.getContext("2d");
 
     let original_img = new Image();
-    let output_img_data = new ImageData(1, 1);
-    let original_img_data = new ImageData(1, 1);
 
     // function change_to_grayscale(img_data) {
     //     // let input_data = output_img_data;
@@ -43,15 +35,15 @@ async function main() {
 
     // }
     let invert_button = document.getElementById("invert");
-    // invert_button.addEventListener("click", function() {
-    //     let input_data = output_img_data;
-    //     let output_width = input_data.width;
-    //     let raw_data = new Uint8ClampedArray(
-    //         invert(input_data.data, output_width),
-    //     );
-    //     output_img_data = new ImageData(raw_data, output_width); 
-    //     put_image_data_canvas(output_img_data, output_ctx);
-    // });
+    invert_button.addEventListener("click", function() {
+        let input_data = raw_images.output_img();
+        let output_width = input_data.width;
+        let raw_data = new Uint8ClampedArray(
+            invert(input_data.data, output_width),
+        );
+        raw_images.set_output_image(new ImageData(raw_data, output_width)); 
+        draw_canvases.put_images(raw_images.original_img(), raw_images.output_img());
+    });
 
     // let convert_button = document.getElementById("convert");
     // convert_button.addEventListener("click", () => {
@@ -137,6 +129,10 @@ async function main() {
         }
 
         if (event.target.matches("#invert-option")) {
+            if (raw_images === null) {
+                alert("Upload an image to use these algorithms");
+                return;
+            }
             invert_option.classList.add("select-option");
             active_option = invert_option;
 
