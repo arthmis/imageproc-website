@@ -12,12 +12,6 @@ html, body, #main, #image-options {
     grid-gap: 5px;
 }
 
-#image-options {
-    max-height: 100%;
-    min-height: 100%;
-    min-width: 100%;
-    max-width: 100%;
-}
 
 #options {
     grid-column: 1;
@@ -30,22 +24,35 @@ html, body, #main, #image-options {
     height: 100%;
 }
 
-#two-canvases {
-    grid-column: 2;
-    display: flex;
-    flex-direction: row;
-    max-height: 90%;
-    min-height: 90%;
+#image-options {
+    display: grid;
+    grid-template-rows: 11fr 1fr;
+    max-height: 100%;
+    min-height: 100%;
     min-width: 100%;
     max-width: 100%;
+    grid-column: 2;
 }
 
-/* #input-canvas, #output-canvas {
-    max-height: 90%;
-    min-height: 90%;
-    min-width: 48%;
-    max-width: 50%;
-} */
+#two-canvases {
+    grid-row: 1;
+    /* grid-column: 2; */
+    display: flex;
+    flex-direction: row;
+    max-height: 100%;
+    min-height: 100%;
+    min-width: 100%;
+    max-width: 100%;
+    align-items: center;
+}
+
+#processing-options {
+    grid-row: 2;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
 .active-canvases {
     max-height: 90%;
     min-height: 90%;

@@ -38,6 +38,23 @@ pub fn resize_img(
         image::ImageBuffer::from_vec(width, height, input_image)
             .expect("expected image from canvas");
     let resized_img: RgbaImage =
-        resize(&image, new_width, new_height, FilterType::Nearest);
+        resize(&image, new_width, new_height, FilterType::CatmullRom);
     resized_img.into_vec()
+}
+
+#[wasm_bindgen]
+pub fn box_blur(input_image: Vec<u8>, width: u32, kernel_size: u32) -> Vec<u8> {
+    let height = (input_image.len() as u32 / CHANNEL_COUNT) / width;
+    let image: RgbaImage =
+        image::ImageBuffer::from_vec(width, height, input_image)
+            .expect("expected image from canvas");
+    let mut image: GrayImage = image.convert();
+
+    let kernel = MeanKernel::new(kernel_size);
+    box_filter_mut(kernel, &mut image);
+
+    let image: RgbaImage = image.convert();
+
+    image.into_vec()
+    
 }
