@@ -86,6 +86,10 @@ export class RawImage {
         this.output_image_ctx.putImageData(image, 0, 0);
     }
 
+    set_output_image_to_original() {
+        this.set_output_image(this.original_img());
+    }
+
     // set_original_image(image) {
     //     this.original_image = image;
     // }

@@ -139,6 +139,8 @@ async function main() {
                 invert_option.classList.remove("select-option");
                 active_input.style.display = "none";
                 active_option = document.createElement("p");
+
+                raw_images.set_output_image_to_original();
                 draw_canvases.draw_image(raw_images.original_img_canvas());
             } else {
                 // makes active input a dummy element
@@ -176,6 +178,8 @@ async function main() {
                 blur_option.classList.remove("select-option");
                 active_option = document.createElement("p");
                 active_input.style.display = "none";
+
+                raw_images.set_output_image_to_original();
                 draw_canvases.draw_image(raw_images.original_img_canvas());
             } else {
                 blur_option.classList.add("select-option");
