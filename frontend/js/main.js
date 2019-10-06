@@ -1,4 +1,3 @@
-// import { invert, resize_img, to_grayscale, draw_luma_histogram, default as init } from "../wasm/proc.js";
 import { invert, resize_img, box_blur, default as init } from "../wasm/proc.js";
 import { DrawCanvases } from "./draw_canvases.js";
 import { RawImage } from "./raw_image.js";
@@ -100,26 +99,16 @@ async function main() {
             const [resized_img_width, resized_img_height] = 
                 scale_img_dimensions_to_canvas(
                     raw_images.original_img(), 
-                draw_canvases.processed_image_canvas
-            );
-            let new_img = new Uint8ClampedArray(
-                resize_img(
-                    raw_images.original_img().data,
-                    raw_images.original_img().width,
-                    resized_img_width,
-                    resized_img_height,
-                )
-            );
-            // for now this just resizes the image without preserving
-            // the edit the current image processing input made if there was one
-            // look into figuring out how to get the edit that was made so it
-            // can be re applied, otherwise I will have to use parametric
-            // editing
-            raw_images.set_output_image_resized(
-                new ImageData(new_img, resized_img_width)
-            );
-            draw_canvases.put_image(
-                raw_images.output_img_resized()
+                    draw_canvases.processed_image_canvas
+                );
+
+            draw_canvases.resize_canvases();
+
+            draw_canvases.resized_width = resized_img_width;
+            draw_canvases.resized_height = resized_img_height;
+
+            draw_canvases.draw_image(
+                raw_images.output_img_canvas(), 
             );
         }
     });
@@ -150,22 +139,14 @@ async function main() {
                 invert_option.classList.remove("select-option");
                 active_input.style.display = "none";
                 active_option = document.createElement("p");
-                draw_canvases.put_image(raw_images.output_img_resized());
+                draw_canvases.draw_image(raw_images.original_img_canvas());
             } else {
                 // makes active input a dummy element
+                active_input.style.display = "none";
                 active_input = document.createElement("p");
 
                 invert_option.classList.add("select-option");
                 active_option = invert_option; 
-
-
-                let image_width = raw_images.output_img_resized().width;
-
-                let raw_data = new Uint8ClampedArray(
-                    invert(raw_images.output_img_resized().data, image_width)
-                );
-
-                draw_canvases.put_image(new ImageData(raw_data, image_width));
 
                 // modifies the original image separately in case there needs
                 // to be resizing done. This way I don't have to re modify
@@ -178,7 +159,10 @@ async function main() {
                     invert(raw_images.original_img().data, original_image_width)
                 );
 
-                raw_images.set_output_image(new ImageData(inverted_raw_data, original_image_width)); 
+                raw_images.set_output_image(
+                    new ImageData(inverted_raw_data, original_image_width)
+                ); 
+                draw_canvases.draw_image(raw_images.output_img_canvas());
 
             }
 
@@ -192,13 +176,13 @@ async function main() {
                 blur_option.classList.remove("select-option");
                 active_option = document.createElement("p");
                 active_input.style.display = "none";
-                draw_canvases.put_image(raw_images.output_img_resized());
+                draw_canvases.draw_image(raw_images.original_img_canvas());
             } else {
                 blur_option.classList.add("select-option");
                 active_option = blur_option;
-                // displays the slider for box blur
-                // box_blur_slider_wrapper = document.getElementById("box-blur-slider-wrapper");
+
                 active_input.style.display = "none";
+                // displays the slider for box blur
                 box_blur_slider_wrapper.style.display = "";
                 active_input = box_blur_slider_wrapper;
 
@@ -208,59 +192,39 @@ async function main() {
                 // box_blur_slider = document.getElementById("box-blur-slider");
                 box_blur_slider.value = 1;
 
-                let image_width = raw_images.output_img_resized().width;
-
                 let kernel_size = box_blur_slider.valueAsNumber;
-
-                let raw_data = new Uint8ClampedArray(
-                    box_blur(raw_images.output_img_resized().data, image_width, kernel_size)
-                );
-
-                // raw_images.set_output_image_resized(new ImageData(raw_data, image_width)); 
-
-                draw_canvases.put_image(new ImageData(raw_data, image_width));
 
                 // modifies the original image separately in case there needs
                 // to be resizing done. This way I don't have to re modify
                 // the original image and resize
                 // eventually this operation will occur in a web worker so it doesn't
                 // block the ui
-                let original_image_width = raw_images.output_img().width;
+                let original_image_width = raw_images.original_img().width;
 
-                let original_raw_data = new Uint8ClampedArray(
-                    box_blur(raw_images.original_img().data, original_image_width, kernel_size)
+                let box_blur_raw_data = new Uint8ClampedArray(
+                    box_blur(
+                        raw_images.original_img().data, 
+                        original_image_width, 
+                        kernel_size
+                    )
                 );
 
-                raw_images.set_output_image(new ImageData(original_raw_data, original_image_width)); 
+                raw_images.set_output_image(
+                    new ImageData(box_blur_raw_data, original_image_width)
+                ); 
+
+                draw_canvases.draw_image(raw_images.output_img_canvas());
             }
         }
     });
 
-    // let invert_button = document.getElementById("invert");
-    // invert_button.addEventListener("click", function() {
-    //     let input_data = raw_images.output_img_resized();
-    //     let output_width = input_data.width;
-    //     let raw_data = new Uint8ClampedArray(
-    //         invert(input_data.data, output_width),
-    //     );
-    //     raw_images.set_output_image_resized(new ImageData(raw_data, output_width)); 
-    //     // draw_canvases.put_images(raw_images.original_img(), raw_images.output_img());
-    //     draw_canvases.put_image(raw_images.output_img_resized());
-    // });
-
     let box_blur_slider_wrapper = document.getElementById("box-blur-slider-wrapper");
     let box_blur_slider = document.getElementById("box-blur-slider");
     box_blur_slider.addEventListener("input", (event) => {
-        let image_data = raw_images.output_img_resized();
-        let image_width = image_data.width;
         let kernel_size = event.target.valueAsNumber;
-        let raw_data = new Uint8ClampedArray(
-            box_blur(image_data.data, image_width, kernel_size)
-        );
-        draw_canvases.put_image(new ImageData(raw_data, image_width));
 
         // box blurs full size image preview 
-        let original_image_width = raw_images.output_img().width;
+        let original_image_width = raw_images.original_img().width;
 
         let original_raw_data = new Uint8ClampedArray(
             box_blur(
@@ -271,6 +235,7 @@ async function main() {
         );
 
         raw_images.set_output_image(new ImageData(original_raw_data, original_image_width)); 
+        draw_canvases.draw_image(raw_images.output_img_canvas());
         
     });
     function scale_img_dimensions_to_canvas(img, canvas) {

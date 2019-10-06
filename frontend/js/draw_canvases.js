@@ -8,10 +8,9 @@ export class DrawCanvases {
     }
 
     display_image(html_img) {
-        // let ctx = canvas.getContext("2d");
         // this sequence scales the image up or down to fit into canvas element
         // consider scaling to a percentage of the canvas
-        const [resized_img_width, resized_img_height] = 
+        const [resized_width, resized_height] = 
             this.scale_img_dimensions_to_canvas(html_img, this.processed_image_canvas);
 
         // resize the canvas to fit into canvas element size
@@ -19,15 +18,15 @@ export class DrawCanvases {
         this.processed_image_canvas.height = this.processed_image_canvas.offsetHeight;
 
         // these two variables center the image within the canvas
-        const center_x = (this.processed_image_canvas.width - resized_img_width) / 2;
-        const center_y = (this.processed_image_canvas.height - resized_img_height) / 2;
+        const center_x = (this.processed_image_canvas.width - resized_width) / 2;
+        const center_y = (this.processed_image_canvas.height - resized_height) / 2;
 
         this.processed_image_ctx.drawImage(
             html_img, 
             center_x, 
             center_y, 
-            resized_img_width, 
-            resized_img_height, 
+            resized_width, 
+            resized_height, 
         );
         
     }    
@@ -143,6 +142,31 @@ export class DrawCanvases {
             0,
             img.width, 
             img.height, 
+        );
+    }
+
+    draw_image(image_canvas) {
+
+        // resize the canvas to fit into canvas element size
+        this.processed_image_canvas.width = this.processed_image_canvas.offsetWidth;
+        this.processed_image_canvas.height = this.processed_image_canvas.offsetHeight;
+
+        const [resized_width, resized_height] = 
+            this.scale_img_dimensions_to_canvas(
+                image_canvas, 
+                this.processed_image_canvas
+            );
+
+        // these two variables center the image within the canvas
+        const center_x = (this.processed_image_canvas.width - resized_width) / 2;
+        const center_y = (this.processed_image_canvas.height - resized_height) / 2;
+
+        this.processed_image_ctx.drawImage(
+            image_canvas, 
+            center_x, 
+            center_y, 
+            resized_width, 
+            resized_height, 
         );
     }
 
