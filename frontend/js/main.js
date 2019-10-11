@@ -1,6 +1,7 @@
-import { invert, resize_img, box_blur, default as init } from "../wasm/proc.js";
+import { default as init } from "../wasm/proc.js";
 import { DrawCanvases } from "./draw_canvases.js";
 import { RawImage } from "./raw_image.js";
+import { invert_image, box_blur_image } from "./image_proc.js";
 
 async function main() {
     // web assembly initialization
@@ -8,7 +9,7 @@ async function main() {
     await init();
 
     const draw_canvases = new DrawCanvases(
-        document.getElementById("input-canvas"), 
+        document.getElementById("input-canvas"),
         document.getElementById("output-canvas")
     );
 
@@ -64,7 +65,7 @@ async function main() {
             draw_canvases.display_image(original_img);
 
             raw_images = new RawImage(
-                original_img, 
+                original_img,
                 draw_canvases.processed_image_canvas,
             );
 
@@ -96,9 +97,9 @@ async function main() {
         if (raw_images !== null) {
             // uses original image to resize to the new output canvas 
             // dimensions
-            const [resized_img_width, resized_img_height] = 
+            const [resized_img_width, resized_img_height] =
                 scale_img_dimensions_to_canvas(
-                    raw_images.original_img(), 
+                    raw_images.original_img(),
                     draw_canvases.processed_image_canvas
                 );
 
@@ -108,17 +109,17 @@ async function main() {
             draw_canvases.resized_height = resized_img_height;
 
             draw_canvases.draw_image(
-                raw_images.output_img_canvas(), 
+                raw_images.output_img_canvas(),
             );
         }
     });
 
     let invert_option = document.getElementById("invert-option");
-    let blur_option = document.getElementById("blur-options"); 
+    let blur_option = document.getElementById("blur-options");
     // just make this null
     let active_option = document.createElement("p"); // creates dummy element so it wouldn't be null
     // also this will be null
-    let active_input= document.createElement("p"); // creates dummy element so it wouldn't be null
+    let active_input = document.createElement("p"); // creates dummy element so it wouldn't be null
 
     let options = document.getElementById("options");
     // these events should check if they are the active event and if clicked again
@@ -133,7 +134,7 @@ async function main() {
                 alert("Upload an image to use these algorithms");
                 return;
             }
-            
+
 
             if (active_option === invert_option) {
                 invert_option.classList.remove("select-option");
@@ -148,22 +149,16 @@ async function main() {
                 active_input = document.createElement("p");
 
                 invert_option.classList.add("select-option");
-                active_option = invert_option; 
+                active_option = invert_option;
 
                 // modifies the original image separately in case there needs
                 // to be resizing done. This way I don't have to re modify
                 // the original image and resize
                 // eventually this operation will occur in a web worker so it doesn't
                 // block the ui
-                let original_image_width = raw_images.original_img().width;
-
-                let inverted_raw_data = new Uint8ClampedArray(
-                    invert(raw_images.original_img().data, original_image_width)
-                );
-
                 raw_images.set_output_image(
-                    new ImageData(inverted_raw_data, original_image_width)
-                ); 
+                    invert_image(raw_images.original_img())
+                );
                 draw_canvases.draw_image(raw_images.output_img_canvas());
 
             }
@@ -203,19 +198,22 @@ async function main() {
                 // the original image and resize
                 // eventually this operation will occur in a web worker so it doesn't
                 // block the ui
-                let original_image_width = raw_images.original_img().width;
+                // let original_image_width = raw_images.original_img().width;
 
-                let box_blur_raw_data = new Uint8ClampedArray(
-                    box_blur(
-                        raw_images.original_img().data, 
-                        original_image_width, 
-                        kernel_size
-                    )
-                );
+                // let box_blur_raw_data = new Uint8ClampedArray(
+                //     box_blur(
+                //         raw_images.original_img().data, 
+                //         original_image_width, 
+                //         kernel_size
+                //     )
+                // );
 
+                // raw_images.set_output_image(
+                //     new ImageData(box_blur_raw_data, original_image_width)
+                // ); 
                 raw_images.set_output_image(
-                    new ImageData(box_blur_raw_data, original_image_width)
-                ); 
+                    box_blur_image(raw_images.original_img(), kernel_size)
+                );
 
                 draw_canvases.draw_image(raw_images.output_img_canvas());
             }
@@ -228,23 +226,15 @@ async function main() {
         let kernel_size = event.target.valueAsNumber;
 
         // box blurs full size image preview 
-        let original_image_width = raw_images.original_img().width;
-
-        let original_raw_data = new Uint8ClampedArray(
-            box_blur(
-                raw_images.original_img().data, 
-                original_image_width, 
-                kernel_size
-            )
+        raw_images.set_output_image(
+            box_blur_image(raw_images.original_img(), kernel_size)
         );
-
-        raw_images.set_output_image(new ImageData(original_raw_data, original_image_width)); 
         draw_canvases.draw_image(raw_images.output_img_canvas());
-        
+
     });
     function scale_img_dimensions_to_canvas(img, canvas) {
 
-        let scale = 0; 
+        let scale = 0;
         let new_height = img.height;
         let new_width = img.width;
 
@@ -254,13 +244,13 @@ async function main() {
         if (width_scale < height_scale) {
             scale = width_scale;
         } else {
-            scale = height_scale; 
+            scale = height_scale;
         }
 
         if (canvas.offsetWidth < img.width || canvas.offsetHeight < img.height) {
-            new_width = Math.round(img.width * scale); 
-            new_height = Math.round(img.height * scale); 
-        } 
+            new_width = Math.round(img.width * scale);
+            new_height = Math.round(img.height * scale);
+        }
 
         return [new_width, new_height];
     }

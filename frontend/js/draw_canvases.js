@@ -1,4 +1,4 @@
-import { resize_img} from "../wasm/proc.js";
+import { resize_img } from "../wasm/proc.js";
 export class DrawCanvases {
     constructor(input_canvas, output_canvas) {
         this.processed_image_canvas = input_canvas;
@@ -10,7 +10,7 @@ export class DrawCanvases {
     display_image(html_img) {
         // this sequence scales the image up or down to fit into canvas element
         // consider scaling to a percentage of the canvas
-        const [resized_width, resized_height] = 
+        const [resized_width, resized_height] =
             this.scale_img_dimensions_to_canvas(html_img, this.processed_image_canvas);
 
         // resize the canvas to fit into canvas element size
@@ -22,18 +22,18 @@ export class DrawCanvases {
         const center_y = (this.processed_image_canvas.height - resized_height) / 2;
 
         this.processed_image_ctx.drawImage(
-            html_img, 
-            center_x, 
-            center_y, 
-            resized_width, 
-            resized_height, 
+            html_img,
+            center_x,
+            center_y,
+            resized_width,
+            resized_height,
         );
-        
-    }    
+
+    }
 
     scale_img_dimensions_to_canvas(img, canvas) {
 
-        let scale = 0; 
+        let scale = 0;
         let new_height = img.height;
         let new_width = img.width;
 
@@ -43,13 +43,13 @@ export class DrawCanvases {
         if (width_scale < height_scale) {
             scale = width_scale;
         } else {
-            scale = height_scale; 
+            scale = height_scale;
         }
 
         if (canvas.offsetWidth < img.width || canvas.offsetHeight < img.height) {
-            new_width = Math.round(img.width * scale); 
-            new_height = Math.round(img.height * scale); 
-        } 
+            new_width = Math.round(img.width * scale);
+            new_height = Math.round(img.height * scale);
+        }
 
         return [new_width, new_height];
     }
@@ -60,22 +60,22 @@ export class DrawCanvases {
         // get new image dimensions to fit on canvas
         // use input canvas because output canvas by not be visible
         // therefore it would have no width or height
-        const [resized_img_width, resized_img_height] = 
+        const [resized_img_width, resized_img_height] =
             this.scale_img_dimensions_to_canvas(img, this.processed_image_canvas);
 
         let resized_img = new Uint8ClampedArray(
             resize_img(
-                img.data, 
-                img.width, 
-                resized_img_width, 
+                img.data,
+                img.width,
+                resized_img_width,
                 resized_img_height
             )
         );
         let resized_output_img = new Uint8ClampedArray(
             resize_img(
-                output_img.data, 
-                output_img.width, 
-                resized_img_width, 
+                output_img.data,
+                output_img.width,
+                resized_img_width,
                 resized_img_height
             )
         );
@@ -88,23 +88,23 @@ export class DrawCanvases {
 
         this.processed_image_ctx.putImageData(
             original_data,
-            center_x, 
-            center_y, 
+            center_x,
+            center_y,
             0,
             0,
-            resized_img_width, 
-            resized_img_height, 
+            resized_img_width,
+            resized_img_height,
         );
 
         let output_data = new ImageData(resized_output_img, resized_img_width);
         this.original_image_ctx.putImageData(
-            output_data, 
-            center_x, 
-            center_y, 
+            output_data,
+            center_x,
+            center_y,
             0,
             0,
-            resized_img_width, 
-            resized_img_height, 
+            resized_img_width,
+            resized_img_height,
         );
     }
 
@@ -136,12 +136,12 @@ export class DrawCanvases {
 
         this.processed_image_ctx.putImageData(
             img,
-            center_x, 
-            center_y, 
+            center_x,
+            center_y,
             0,
             0,
-            img.width, 
-            img.height, 
+            img.width,
+            img.height,
         );
     }
 
@@ -151,9 +151,9 @@ export class DrawCanvases {
         this.processed_image_canvas.width = this.processed_image_canvas.offsetWidth;
         this.processed_image_canvas.height = this.processed_image_canvas.offsetHeight;
 
-        const [resized_width, resized_height] = 
+        const [resized_width, resized_height] =
             this.scale_img_dimensions_to_canvas(
-                image_canvas, 
+                image_canvas,
                 this.processed_image_canvas
             );
 
@@ -162,11 +162,11 @@ export class DrawCanvases {
         const center_y = (this.processed_image_canvas.height - resized_height) / 2;
 
         this.processed_image_ctx.drawImage(
-            image_canvas, 
-            center_x, 
-            center_y, 
-            resized_width, 
-            resized_height, 
+            image_canvas,
+            center_x,
+            center_y,
+            resized_width,
+            resized_height,
         );
     }
 

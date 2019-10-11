@@ -1,4 +1,4 @@
-import { resize_img} from "../wasm/proc.js";
+import { resize_img } from "../wasm/proc.js";
 
 export class RawImage {
     constructor(original_img, canvas) {
@@ -60,8 +60,8 @@ export class RawImage {
 
     original_img() {
         return this.original_image_ctx.getImageData(
-            0, 
-            0, 
+            0,
+            0,
             this.original_image.width,
             this.original_image.height,
         );
@@ -75,8 +75,8 @@ export class RawImage {
     }
     output_img() {
         return this.output_image_ctx.getImageData(
-            0, 
-            0, 
+            0,
+            0,
             this.output_image.width,
             this.output_image.height,
         );
@@ -96,7 +96,7 @@ export class RawImage {
 
     scale_img_dimensions_to_canvas(img, canvas) {
 
-        let scale = 0; 
+        let scale = 0;
         let new_height = img.height;
         let new_width = img.width;
 
@@ -106,13 +106,13 @@ export class RawImage {
         if (width_scale < height_scale) {
             scale = width_scale;
         } else {
-            scale = height_scale; 
+            scale = height_scale;
         }
 
         if (canvas.offsetWidth < img.width || canvas.offsetHeight < img.height) {
-            new_width = Math.round(img.width * scale); 
-            new_height = Math.round(img.height * scale); 
-        } 
+            new_width = Math.round(img.width * scale);
+            new_height = Math.round(img.height * scale);
+        }
 
         return [new_width, new_height];
     }
