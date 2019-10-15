@@ -11,29 +11,34 @@
     <body>
         <div id="main">
             <div id="options">
-                <div id="input-image">
+                <div id="input-image"> 
                     <input type="file" id="file-input" accept="image/png, image/jpeg" style="display: none;">
-                    <button id="upload-image">Upload Image</button>
+                    <button id="upload-image">Import</button>
                 </div>
-                <div id="invert-option" class="processing-options">Invert</div>
-                <div id="histogram-option" class="processing-options">Histogram</div>
-                <div id="edge-detection-options" class="processing-options">Edge Detection</div>
-                <div id="blur-options" class="processing-options">Blur</div>
-                <div id="hough-option" class="processing-options">Line Detection</div>
-                <div id="corners-option" class="processing-options">Corner Detection</div>
-                <div id="kernels-option" class="processing-options">Convolution Kernels</div>
+
+                <ul class="processing-category"><span>Pixel Ops</span>
+                    <li id="invert-option" class="sidebar-elem sidebar-first-elem">Invert</li>
+                    <li id="gamma-option" class="sidebar-elem">Gamma</li>
+                </ul>
+
+                <ul class="processing-category"><span>Blur</span>
+                    <li id="blur-options" class="processing-options sidebar-elem sidebar-first-elem">Box Blur</li>
+                </ul>
             </div>
             <div id="image-options">
                 <div id="two-canvases">
                     <canvas id="input-canvas" class="one-active-canvas"></canvas>
                     <canvas id="output-canvas"></canvas>
                 </div>
-                <div>
-                    <button id="invert">Invert</button>
+                <div id="processing-options">
+                    <div id="box-blur-slider-wrapper" style="display: none;">
+                        <input id="box-blur-slider" type="range" name="box-blur" min="1" max="99" step="2">
+                        <label for="box-blur">box diameter</label>
+                    </div>
                 </div>
             </div>
         </div>
 
-        <script type="module" src="main.js"></script>
+        <script type="module" src="./js/main.js"></script>
     </body>
 </html>
