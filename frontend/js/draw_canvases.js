@@ -1,4 +1,4 @@
-import { resize_img } from "../wasm/proc.js";
+// import { resize_img } from "../wasm/proc.js";
 export class DrawCanvases {
     constructor(input_canvas, output_canvas) {
         this.processed_image_canvas = input_canvas;
@@ -54,59 +54,59 @@ export class DrawCanvases {
         return [new_width, new_height];
     }
 
-    put_images(img, output_img) {
-        // resize canvases to fit their new offset width and height
-        this.resize_canvases();
-        // get new image dimensions to fit on canvas
-        // use input canvas because output canvas by not be visible
-        // therefore it would have no width or height
-        const [resized_img_width, resized_img_height] =
-            this.scale_img_dimensions_to_canvas(img, this.processed_image_canvas);
+    // put_images(img, output_img) {
+    //     // resize canvases to fit their new offset width and height
+    //     this.resize_canvases();
+    //     // get new image dimensions to fit on canvas
+    //     // use input canvas because output canvas by not be visible
+    //     // therefore it would have no width or height
+    //     const [resized_img_width, resized_img_height] =
+    //         this.scale_img_dimensions_to_canvas(img, this.processed_image_canvas);
 
-        let resized_img = new Uint8ClampedArray(
-            resize_img(
-                img.data,
-                img.width,
-                resized_img_width,
-                resized_img_height
-            )
-        );
-        let resized_output_img = new Uint8ClampedArray(
-            resize_img(
-                output_img.data,
-                output_img.width,
-                resized_img_width,
-                resized_img_height
-            )
-        );
+    //     let resized_img = new Uint8ClampedArray(
+    //         resize_img(
+    //             img.data,
+    //             img.width,
+    //             resized_img_width,
+    //             resized_img_height
+    //         )
+    //     );
+    //     let resized_output_img = new Uint8ClampedArray(
+    //         resize_img(
+    //             output_img.data,
+    //             output_img.width,
+    //             resized_img_width,
+    //             resized_img_height
+    //         )
+    //     );
 
-        // find new origin to center image on canvas
-        let center_x = (this.processed_image_ctx.canvas.width - resized_img_width) / 2;
-        let center_y = (this.processed_image_ctx.canvas.height - resized_img_height) / 2;
+    //     // find new origin to center image on canvas
+    //     let center_x = (this.processed_image_ctx.canvas.width - resized_img_width) / 2;
+    //     let center_y = (this.processed_image_ctx.canvas.height - resized_img_height) / 2;
 
-        let original_data = new ImageData(resized_img, resized_img_width);
+    //     let original_data = new ImageData(resized_img, resized_img_width);
 
-        this.processed_image_ctx.putImageData(
-            original_data,
-            center_x,
-            center_y,
-            0,
-            0,
-            resized_img_width,
-            resized_img_height,
-        );
+    //     this.processed_image_ctx.putImageData(
+    //         original_data,
+    //         center_x,
+    //         center_y,
+    //         0,
+    //         0,
+    //         resized_img_width,
+    //         resized_img_height,
+    //     );
 
-        let output_data = new ImageData(resized_output_img, resized_img_width);
-        this.original_image_ctx.putImageData(
-            output_data,
-            center_x,
-            center_y,
-            0,
-            0,
-            resized_img_width,
-            resized_img_height,
-        );
-    }
+    //     let output_data = new ImageData(resized_output_img, resized_img_width);
+    //     this.original_image_ctx.putImageData(
+    //         output_data,
+    //         center_x,
+    //         center_y,
+    //         0,
+    //         0,
+    //         resized_img_width,
+    //         resized_img_height,
+    //     );
+    // }
 
     put_image(img) {
         // resize canvases to fit their new offset width and height

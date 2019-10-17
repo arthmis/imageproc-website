@@ -1,4 +1,4 @@
-import { resize_img } from "../wasm/proc.js";
+// import { resize_img } from "../wasm/proc.js";
 
 export class RawImage {
     constructor(original_img, canvas) {
