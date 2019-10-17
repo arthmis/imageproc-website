@@ -1,12 +1,37 @@
-import { default as init } from "../wasm/proc.js";
 import { DrawCanvases } from "./draw_canvases.js";
 import { RawImage } from "./raw_image.js";
-import { invert_image, box_blur_image } from "./image_proc.js";
 
 async function main() {
-    // web assembly initialization
-    // const imageproc = await import('../../image_processing/pkg');
-    await init();
+    let image_worker = new Worker("./js/bundle_worker.js");
+    image_worker.onmessage = event => {
+        if (event.data.message === "wasm INITIALIZED") {
+            console.log(`${event.data.message}`);
+        }
+        else if (event.data.message === "INVERTED") {
+            console.log(`${event.data.message}`);
+            let image = new ImageData(
+                new Uint8ClampedArray(event.data.image), event.data.width
+            );
+            raw_images.set_output_image(
+                image
+            );
+            draw_canvases.draw_image(raw_images.output_img_canvas());
+        }
+        else if (event.data.message === "BOX BLUR") {
+            console.log(`${event.data.message}`);
+            let image = new ImageData(
+                new Uint8ClampedArray(event.data.image), event.data.width
+            );
+            raw_images.set_output_image(
+                image
+            );
+            draw_canvases.draw_image(raw_images.output_img_canvas());
+        }
+        else {
+            console.log(`unrecognized message from web worker: ${event.data.message}`);
+        }
+    };
+
 
     const draw_canvases = new DrawCanvases(
         document.getElementById("input-canvas"),
@@ -156,10 +181,14 @@ async function main() {
                 // the original image and resize
                 // eventually this operation will occur in a web worker so it doesn't
                 // block the ui
-                raw_images.set_output_image(
-                    invert_image(raw_images.original_img())
+                image_worker.postMessage(
+                    {
+                        message: "INVERT",
+                        image: raw_images.original_img().data.buffer,
+                        width: raw_images.original_img().width,
+                    },
+                    [raw_images.original_img().data.buffer]
                 );
-                draw_canvases.draw_image(raw_images.output_img_canvas());
 
             }
 
@@ -198,24 +227,15 @@ async function main() {
                 // the original image and resize
                 // eventually this operation will occur in a web worker so it doesn't
                 // block the ui
-                // let original_image_width = raw_images.original_img().width;
-
-                // let box_blur_raw_data = new Uint8ClampedArray(
-                //     box_blur(
-                //         raw_images.original_img().data, 
-                //         original_image_width, 
-                //         kernel_size
-                //     )
-                // );
-
-                // raw_images.set_output_image(
-                //     new ImageData(box_blur_raw_data, original_image_width)
-                // ); 
-                raw_images.set_output_image(
-                    box_blur_image(raw_images.original_img(), kernel_size)
+                image_worker.postMessage(
+                    {
+                        message: "BOX BLUR",
+                        image: raw_images.original_img().data.buffer,
+                        width: raw_images.original_img().width,
+                        kernel_size: kernel_size,
+                    },
+                    [raw_images.original_img().data.buffer]
                 );
-
-                draw_canvases.draw_image(raw_images.output_img_canvas());
             }
         }
     });
@@ -226,10 +246,15 @@ async function main() {
         let kernel_size = event.target.valueAsNumber;
 
         // box blurs full size image preview 
-        raw_images.set_output_image(
-            box_blur_image(raw_images.original_img(), kernel_size)
+        image_worker.postMessage(
+            {
+                message: "BOX BLUR",
+                image: raw_images.original_img().data.buffer,
+                width: raw_images.original_img().width,
+                kernel_size: kernel_size,
+            },
+            [raw_images.original_img().data.buffer]
         );
-        draw_canvases.draw_image(raw_images.output_img_canvas());
 
     });
     function scale_img_dimensions_to_canvas(img, canvas) {

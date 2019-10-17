@@ -5,6 +5,7 @@ use image::{GrayImage, RgbaImage};
 use wasm_bindgen::prelude::*;
 
 use image_processing::pixel_ops::*;
+use image_processing::blur::*;
 
 // useful console logging macro from rustwasm documentation
 macro_rules! console_log {
@@ -26,34 +27,31 @@ pub fn invert(input_image: Vec<u8>, width: u32) -> Vec<u8> {
     image.into_vec()
 }
 
-#[wasm_bindgen]
-pub fn resize_img(
-    input_image: Vec<u8>,
-    width: u32,
-    new_width: u32,
-    new_height: u32,
-) -> Vec<u8> {
-    let height = (input_image.len() as u32 / CHANNEL_COUNT) / width;
-    let image: RgbaImage =
-        image::ImageBuffer::from_vec(width, height, input_image)
-            .expect("expected image from canvas");
-    let resized_img: RgbaImage =
-        resize(&image, new_width, new_height, FilterType::CatmullRom);
-    resized_img.into_vec()
-}
+// #[wasm_bindgen]
+// pub fn resize_img(
+//     input_image: Vec<u8>,
+//     width: u32,
+//     new_width: u32,
+//     new_height: u32,
+// ) -> Vec<u8> {
+//     let height = (input_image.len() as u32 / CHANNEL_COUNT) / width;
+//     let image: RgbaImage =
+//         image::ImageBuffer::from_vec(width, height, input_image)
+//             .expect("expected image from canvas");
+//     let resized_img: RgbaImage =
+//         resize(&image, new_width, new_height, FilterType::CatmullRom);
+//     resized_img.into_vec()
+// }
 
 #[wasm_bindgen]
 pub fn box_blur(input_image: Vec<u8>, width: u32, kernel_size: u32) -> Vec<u8> {
     let height = (input_image.len() as u32 / CHANNEL_COUNT) / width;
-    let image: RgbaImage =
+    let mut image: RgbaImage =
         image::ImageBuffer::from_vec(width, height, input_image)
             .expect("expected image from canvas");
-    let mut image: GrayImage = image.convert();
 
     let kernel = MeanKernel::new(kernel_size);
     box_filter_mut(kernel, &mut image);
-
-    let image: RgbaImage = image.convert();
 
     image.into_vec()
     
