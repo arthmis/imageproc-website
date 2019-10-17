@@ -1,0 +1,26 @@
+{
+  "name": "imageproc_website",
+  "version": "0.1.0",
+  "description": "Displays different image processing algorithms",
+  "private": true,
+  "main": "dist/main.js",
+  "scripts": {
+    "build": "webpack",
+    "watch": "webpack -w "
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lazypassion/imageproc-website.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/lazypassion/imageproc-website/issues"
+  },
+  "homepage": "https://github.com/lazypassion/imageproc-website#readme",
+  "devDependencies": {
+    "eslint": "^6.3.0",
+    "webpack": "^4.39.3",
+    "webpack-cli": "^3.3.8"
+  }
+}
