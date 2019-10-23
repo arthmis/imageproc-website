@@ -214,8 +214,8 @@ async function main() {
                 image_worker.postMessage(
                     {
                         message: "INVERT",
-                        image: raw_images.original_img().data.buffer,
-                        width: raw_images.original_img().width,
+                        image: raw_images.preview_img().data.buffer,
+                        width: raw_images.preview_img().width,
                     },
                     [raw_images.original_img().data.buffer]
                 );
@@ -260,8 +260,8 @@ async function main() {
                 image_worker.postMessage(
                     {
                         message: "BOX BLUR",
-                        image: raw_images.original_img().data.buffer,
-                        width: raw_images.original_img().width,
+                        image: raw_images.preview_img().data.buffer,
+                        width: raw_images.preview_img().width,
                         kernel_size: kernel_size,
                     },
                     [raw_images.original_img().data.buffer]
@@ -272,21 +272,25 @@ async function main() {
 
     let box_blur_slider_wrapper = document.getElementById("box-blur-slider-wrapper");
     let box_blur_slider = document.getElementById("box-blur-slider");
-    box_blur_slider.addEventListener("input", (event) => {
+    let box_slider_func = (event) => {
+    // function slider_func(event) {
         let kernel_size = event.target.valueAsNumber;
 
         // box blurs full size image preview 
         image_worker.postMessage(
             {
                 message: "BOX BLUR",
-                image: raw_images.original_img().data.buffer,
-                width: raw_images.original_img().width,
+                image: raw_images.preview_img().data.buffer,
+                width: raw_images.preview_img().width,
                 kernel_size: kernel_size,
             },
             [raw_images.original_img().data.buffer]
         );
 
-    });
+    }
+    box_blur_slider.addEventListener("input", debounce(box_slider_func, 51));
+    // box_blur_slider.addEventListener("input", throttle(slider_func, 100));
+    // box_blur_slider.addEventListener("input", slider_func);
     function scale_img_dimensions_to_canvas(img, canvas) {
 
         let scale = 0;
