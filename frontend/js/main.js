@@ -31,8 +31,9 @@ const throttle = (func, limit) => {
         }
     }
 }
+
 async function main() {
-    let image_worker = new Worker("./js/bundle_worker.js");
+    let image_worker = new Worker("./js/dist/bundle_worker.js");
     image_worker.onmessage = event => {
         if (event.data.message === "wasm INITIALIZED") {
             console.log(`${event.data.message}`);
@@ -52,9 +53,15 @@ async function main() {
             let image = new ImageData(
                 new Uint8ClampedArray(event.data.image), event.data.width
             );
-            raw_images.set_output_image(
-                image
+            raw_images.set_output_image(image);
+            draw_canvases.draw_image(raw_images.output_img_canvas());
+        }
+        else if (event.data.message === "GAMMA") {
+            console.log(`${event.data.message}`);
+            let image = new ImageData(
+                new Uint8ClampedArray(event.data.image), event.data.width
             );
+            raw_images.set_output_image(image);
             draw_canvases.draw_image(raw_images.output_img_canvas());
         }
         else {
@@ -171,6 +178,7 @@ async function main() {
 
     let invert_option = document.getElementById("invert-option");
     let blur_option = document.getElementById("blur-options");
+    let gamma_option = document.getElementById("gamma-option");
     // just make this null
     let active_option = document.createElement("p"); // creates dummy element so it wouldn't be null
     // also this will be null
@@ -179,7 +187,7 @@ async function main() {
     let options = document.getElementById("options");
     // these events should check if they are the active event and if clicked again
     // they should deactivate and present the original image
-    options.addEventListener("click", (event) => {
+    options.addEventListener("click", debounce((event) => {
         if (active_option !== null) {
             active_option.classList.remove("select-option");
         }
@@ -189,7 +197,6 @@ async function main() {
                 alert("Upload an image to use these algorithms");
                 return;
             }
-
 
             if (active_option === invert_option) {
                 invert_option.classList.remove("select-option");
@@ -268,7 +275,65 @@ async function main() {
                 );
             }
         }
-    });
+        if (event.target.matches("#gamma-option")) {
+            if (raw_images === null) {
+                alert("Upload an image to use these algorithms");
+                return;
+            }
+            if (active_option === gamma_option) {
+                gamma_option.classList.remove("select-option");
+                active_option = document.createElement("p");
+                active_input.style.display = "none";
+
+                raw_images.set_output_image_to_original();
+                draw_canvases.draw_image(raw_images.original_img_canvas());
+            } else {
+                gamma_option.classList.add("select-option");
+                active_option = gamma_option;
+
+                active_input.style.display = "none";
+                // displays the slider for gamma transformation 
+                gamma_slider_wrapper.style.display = "";
+                active_input = box_blur_slider_wrapper;
+
+                // puts the gamma slider at 1 because this keeps the image unchanged 
+                gamma_slider.value = 1;
+
+                let gamma = gamma_slider.valueAsNumber;
+
+                image_worker.postMessage(
+                    {
+                        message: "GAMMA",
+                        image: raw_images.preview_img().data.buffer,
+                        width: raw_images.preview_img().width,
+                        gamma: gamma,
+                    },
+                    [raw_images.original_img().data.buffer]
+                );
+            }
+
+        }
+
+    }), 33);
+
+    let gamma_slider_wrapper = document.getElementById("gamma-slider-wrapper");
+    let gamma_slider = document.getElementById("gamma-slider");
+    let gamma_slider_func = (event) => {
+        let gamma = event.target.valueAsNumber;
+
+        // does a gamma transformation on full size image preview 
+        image_worker.postMessage(
+            {
+                message: "GAMMA",
+                image: raw_images.preview_img().data.buffer,
+                width: raw_images.preview_img().width,
+                gamma: gamma,
+            },
+            [raw_images.original_img().data.buffer]
+        );
+
+    }
+    gamma_slider.addEventListener("input", debounce(gamma_slider_func, 51));
 
     let box_blur_slider_wrapper = document.getElementById("box-blur-slider-wrapper");
     let box_blur_slider = document.getElementById("box-blur-slider");
