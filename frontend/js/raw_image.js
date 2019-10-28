@@ -1,9 +1,14 @@
 // import { resize_img } from "../wasm/proc.js";
 
+const max_dimension = 1500;
+
 export class RawImage {
     constructor(original_img, canvas) {
         this.output_image = document.createElement('canvas');
         this.original_image = document.createElement('canvas');
+        this.preview_image = document.createElement('canvas');
+
+        this.preview_image_ctx = this.preview_image.getContext("2d");
         this.output_image_ctx = this.output_image.getContext("2d");
         this.original_image_ctx = this.original_image.getContext("2d");
 
@@ -18,6 +23,19 @@ export class RawImage {
 
         this.output_image_ctx.drawImage(original_img, 0, 0);
         this.original_image_ctx.drawImage(original_img, 0, 0);
+        this.preview_image.offsetHeight
+        let [preview_width, preview_height] = 
+            resize_preview_image(
+                original_img, 
+                max_dimension
+            );
+        this.preview_image.width = preview_width;
+        this.preview_image.height = preview_height;
+        this.output_image.width = preview_width;
+        this.output_image.height = preview_height;
+
+        this.preview_image_ctx.drawImage(original_img, 0, 0, preview_width, preview_height);
+        this.output_image_ctx.drawImage(original_img, 0, 0, preview_width, preview_height);
 
         // this.output_image = output_img_ctx.getImageData(
         //     0, 
@@ -82,6 +100,18 @@ export class RawImage {
         );
     }
 
+    preview_img_canvas() {
+        return this.preview_image;
+    }
+    preview_img() {
+        return this.preview_image_ctx.getImageData(
+            0,
+            0, 
+            this.preview_image.width,
+            this.preview_image.height,
+        );
+    }
+
     set_output_image(image) {
         this.output_image_ctx.putImageData(image, 0, 0);
     }
@@ -94,26 +124,48 @@ export class RawImage {
     //     this.original_image = image;
     // }
 
-    scale_img_dimensions_to_canvas(img, canvas) {
+    // scale_img_dimensions_to_canvas(img, canvas) {
 
-        let scale = 0;
-        let new_height = img.height;
-        let new_width = img.width;
+    //     let scale = 0;
+    //     let new_height = img.height;
+    //     let new_width = img.width;
 
-        const width_scale = canvas.offsetWidth / img.width;
-        const height_scale = canvas.offsetHeight / img.height;
+    //     const width_scale = canvas.offsetWidth / img.width;
+    //     const height_scale = canvas.offsetHeight / img.height;
 
-        if (width_scale < height_scale) {
-            scale = width_scale;
-        } else {
-            scale = height_scale;
-        }
+    //     if (width_scale < height_scale) {
+    //         scale = width_scale;
+    //     } else {
+    //         scale = height_scale;
+    //     }
 
-        if (canvas.offsetWidth < img.width || canvas.offsetHeight < img.height) {
-            new_width = Math.round(img.width * scale);
-            new_height = Math.round(img.height * scale);
-        }
+    //     if (canvas.offsetWidth < img.width || canvas.offsetHeight < img.height) {
+    //         new_width = Math.round(img.width * scale);
+    //         new_height = Math.round(img.height * scale);
+    //     }
 
-        return [new_width, new_height];
+    //     return [new_width, new_height];
+    // }
+}
+
+function resize_preview_image(img, max_long_edge) {
+    let scale = 0;
+    let new_height = img.height;
+    let new_width = img.width;
+
+    const width_scale = max_long_edge / img.width;
+    const height_scale = max_long_edge / img.height;
+
+    if (width_scale < height_scale) {
+        scale = width_scale;
+    } else {
+        scale = height_scale;
     }
+
+    if (max_long_edge < img.width || max_long_edge < img.height) {
+        new_width = Math.round(img.width * scale);
+        new_height = Math.round(img.height * scale);
+    }
+
+    return [new_width, new_height];
 }

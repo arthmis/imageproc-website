@@ -1,9 +1,9 @@
-self.importScripts('../wasm/proc.js');
+self.importScripts('../../wasm/proc.js');
 
-const {invert, box_blur} = wasm_bindgen;
+const {invert, box_blur, gamma_transform} = wasm_bindgen;
 
 async function initialize() {
-    await wasm_bindgen('../wasm/proc_bg.wasm');
+    await wasm_bindgen('../../wasm/proc_bg.wasm');
     
     self.postMessage({
         message: "wasm INITIALIZED",
@@ -31,6 +31,14 @@ async function initialize() {
         return box_blur_raw_data;
     }
 
+    function gamma(img, width, gamma_value) {
+        let gamma_transform_raw_data = new Uint8ClampedArray(
+            gamma_transform(img, width, gamma_value)
+        );
+
+        return gamma_transform_raw_data;
+    }
+
     self.addEventListener('message', event => {
         let message = event.data.message;
         let image_data = new Uint8Array();
@@ -42,6 +50,9 @@ async function initialize() {
         } else if (message === "BOX BLUR") {
             width = event.data.width;
             image_data = new Uint8Array(event.data.image); 
+        } else if (message === "GAMMA") {
+            width = event.data.width;
+            image_data = new Uint8Array(event.data.image);
         }
 
         if (message === "INVERT") {
@@ -66,6 +77,17 @@ async function initialize() {
                 },
                 [image_data.buffer]
             );
+        } else if (message === "GAMMA") {
+            console.log("performing gamma transformation");
+            image_data = gamma(image_data, width, event.data.gamma);
+            self.postMessage(
+                {
+                    message: "GAMMA",
+                    image: image_data.buffer,
+                    width: width,
+                },
+                [image_data.buffer]
+            )
         } else {
             console.log("Message was unrecognized");
             self.postMessage("Unrecognized message", []);
