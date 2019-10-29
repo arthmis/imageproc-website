@@ -3,7 +3,7 @@ import { RawImage } from "./raw_image.js";
 
 const debounce = (func, delay) => {
     let inDebounce;
-    return function() {
+    return function () {
         const context = this;
         const args = arguments;
         clearTimeout(inDebounce);
@@ -14,15 +14,15 @@ const debounce = (func, delay) => {
 const throttle = (func, limit) => {
     let lastFunc;
     let lastRan;
-    return function() {
+    return function () {
         const context = this;
         const args = arguments;
         if (!lastRan) {
             func.apply(context, args);
             lastRan = Date.now();
         } else {
-        clearTimeout(lastFunc);
-            lastFunc = setTimeout(function() {
+            clearTimeout(lastFunc);
+            lastFunc = setTimeout(function () {
                 if ((Date.now() - lastRan) >= limit) {
                     func.apply(context, args);
                     lastRan = Date.now();
@@ -142,6 +142,14 @@ async function main() {
         let image = file_input.files[0];
         import_and_display(image);
         file_input.value = null;
+        // deselects any active option and hides any sliders
+        // that were in effect if user is selecting a new image
+        // this will need some more working if I decide to
+        // make active_input and active_option null capable
+        // variables
+        active_option.classList.remove("select-option");
+        active_input.style.display = "none";
+        active_option = document.createElement("p");
         // will have to make sure this displays the new image without 
         // any weird bugs 
         draw_canvases.display_only_processed_image();
@@ -294,7 +302,7 @@ async function main() {
                 active_input.style.display = "none";
                 // displays the slider for gamma transformation 
                 gamma_slider_wrapper.style.display = "";
-                active_input = box_blur_slider_wrapper;
+                active_input = gamma_slider_wrapper;
 
                 // puts the gamma slider at 1 because this keeps the image unchanged 
                 gamma_slider.value = 1;
@@ -338,7 +346,7 @@ async function main() {
     let box_blur_slider_wrapper = document.getElementById("box-blur-slider-wrapper");
     let box_blur_slider = document.getElementById("box-blur-slider");
     let box_slider_func = (event) => {
-    // function slider_func(event) {
+        // function slider_func(event) {
         let kernel_size = event.target.valueAsNumber;
 
         // box blurs full size image preview 
