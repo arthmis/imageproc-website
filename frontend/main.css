@@ -1,6 +1,15 @@
+/* 
+Color pallete information:
+#FBC2B5
+#E58f65
+#D05353
+#191919
+#FFBC42
+*/
+
 html, body, #main, #image-options {
     width: 100%;
-    height: 100%;
+    /* height: 100%; */
     padding: 0;
     margin: 0;
     font-size: 16px;
@@ -14,6 +23,21 @@ html, body, #main, #image-options {
 }
 
 
+
+
+
+#image-options {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    /* max-height: 100%;
+    min-height: 100%; */
+    /* height: 100vh; */
+    min-width: 100%;
+    max-width: 100%;
+    grid-column: 2;
+}
+
 #options {
     grid-column: 1;
     display: flex;
@@ -21,27 +45,26 @@ html, body, #main, #image-options {
     justify-content: flex-start;
     align-items: center;
     width: 100%;
-    height: 100%;
+    height: 90vh;
 }
 
 
-
-#image-options {
+#two-canvases-wrapper {
+    height: 80vh;
     display: grid;
     grid-template-rows: 11fr 1fr;
-    max-height: 100%;
-    min-height: 100%;
-    min-width: 100%;
-    max-width: 100%;
-    grid-column: 2;
+    /* flex-direction: column;
+    justify-content: space-between; */
 }
 
 #two-canvases {
     grid-row: 1;
     display: flex;
     flex-direction: row;
-    max-height: 100%;
-    min-height: 100%;
+
+    max-height: 80%;
+    min-height: 80%;
+
     min-width: 100%;
     max-width: 100%;
     align-items: center;
@@ -50,8 +73,13 @@ html, body, #main, #image-options {
 #processing-options {
     grid-row: 2;
     display: flex;
+    flex-direction: column;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-start;
+}
+
+.algorithm-info > h2 {
+    color: #D05353;
 }
 
 .active-canvases {
@@ -86,20 +114,22 @@ html, body, #main, #image-options {
     height: 2em;
     width: 80%;
     border: 0.1em solid #eeeeee;
-    background-color: #6b7a88;
+    /* background-color: #6b7a88; */
     border-radius: 0.2em;
     color: white;
 }
 #input-image > button {
-    font-size: 1.2em;
+    /* background-color: #6b7a88; */
+    background-color: #E58F65;
+    color: white;
 }
 
 #input-image > button:hover {
-    background-color: #516d86;
+    background-color: #e66b2d;
 }
 
 #input-image > button:active {
-    background-color: #516d86;
+    background-color: #e66b2d;
 }
 
 .select-option {

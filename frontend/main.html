@@ -16,7 +16,7 @@
                     <button id="upload-image">Import</button>
                 </div>
 
-                <ul class="processing-category"><span>Pixel Ops</span>
+                <ul class="processing-category"><span>Pixel Operations</span>
                     <li id="invert-option" class="sidebar-elem sidebar-first-elem">Invert</li>
                     <li id="gamma-option" class="sidebar-elem">Gamma</li>
                 </ul>
@@ -26,15 +26,38 @@
                 </ul>
             </div>
             <div id="image-options">
-                <div id="two-canvases">
-                    <canvas id="input-canvas" class="one-active-canvas"></canvas>
-                    <canvas id="output-canvas"></canvas>
-                </div>
-                <div id="processing-options">
-                    <div id="box-blur-slider-wrapper" style="display: none;">
-                        <input id="box-blur-slider" type="range" name="box-blur" min="1" max="99" step="2">
-                        <label for="box-blur">box diameter</label>
+                <div id="two-canvases-wrapper">
+                    <div id="two-canvases">
+                        <canvas id="input-canvas" class="one-active-canvas"></canvas>
+                        <canvas id="output-canvas"></canvas>
                     </div>
+                    <div id="processing-options" style="display: none;">
+                        <div id="box-blur-slider-wrapper" style="display: none;">
+                            <input id="box-blur-slider" type="range" name="box-blur" min="1" max="51" step="2">
+                            <label for="box-blur">box diameter</label>
+                        </div>
+                        <div id="gamma-slider-wrapper" style="display: none;">
+                            <input id="gamma-slider" type="range" name="gamma" min="0.1" max="20" step="0.1">
+                            <label for="gamma">gamma</label>
+                            <div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="invert-info" class="algorithm-info" style="display: none;">
+                    <h2>How Invert works</h2>
+                    <p>Inversion is when the current pixel value is subtracted</p>
+                    <p>from the max brightness value. That would be 255 for 8 bit images.</p>
+                </div>
+                <div id="box-blur-info" class="algorithm-info" style="display: none;">
+                    <h2>How Box Blur works</h2>
+                    <p>A box blur is a convolution filter of the form: </p>
+                </div>
+                <div id="gamma-info" class="algorithm-info" style="display: none;">
+                    <h2>How Gamma works</h2>
+                    <p>Gamma is related to how the image values should be transformed</p>
+                    <p>to be displayed on different viewing devices</p>
                 </div>
             </div>
         </div>

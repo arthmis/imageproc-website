@@ -150,6 +150,7 @@ async function main() {
         active_option.classList.remove("select-option");
         active_input.style.display = "none";
         active_option = document.createElement("p");
+        processing_options.style.display = "none";
         // will have to make sure this displays the new image without 
         // any weird bugs 
         draw_canvases.display_only_processed_image();
@@ -187,13 +188,19 @@ async function main() {
     let invert_option = document.getElementById("invert-option");
     let blur_option = document.getElementById("blur-options");
     let gamma_option = document.getElementById("gamma-option");
-    // just make this null
+    let processing_options = document.getElementById("processing-options");
+    // maybe make this null
     let active_option = document.createElement("p"); // creates dummy element so it wouldn't be null
-    // also this will be null
+    // also maybe make this null
     let active_input = document.createElement("p"); // creates dummy element so it wouldn't be null
 
+    let invert_info = document.getElementById("invert-info");
+    let box_blur_info = document.getElementById("box-blur-info");
+    let gamma_info = document.getElementById("gamma-info");
+    let active_info = document.createElement("p");
+
     let options = document.getElementById("options");
-    // these events should check if they are the active event and if clicked again
+    // these events should check if they are the active option and if clicked again
     // they should deactivate and present the original image
     options.addEventListener("click", debounce((event) => {
         if (active_option !== null) {
@@ -211,10 +218,16 @@ async function main() {
                 active_input.style.display = "none";
                 active_option = document.createElement("p");
 
+                active_info.style.display = "none";
+
                 raw_images.set_output_image_to_original();
                 draw_canvases.draw_image(raw_images.original_img_canvas());
             } else {
                 // makes active input a dummy element
+                active_info.style.display = "none";
+                active_info = invert_info;
+                active_info.style.display = "";
+
                 active_input.style.display = "none";
                 active_input = document.createElement("p");
 
@@ -243,10 +256,15 @@ async function main() {
                 alert("Upload an image to use these algorithms");
                 return;
             }
+
             if (active_option === blur_option) {
                 blur_option.classList.remove("select-option");
                 active_option = document.createElement("p");
                 active_input.style.display = "none";
+
+                active_info.style.display = "none";
+
+                processing_options.style.display = "none";
 
                 raw_images.set_output_image_to_original();
                 draw_canvases.draw_image(raw_images.original_img_canvas());
@@ -254,10 +272,16 @@ async function main() {
                 blur_option.classList.add("select-option");
                 active_option = blur_option;
 
+                active_info.style.display = "none";
+                active_info = box_blur_info;
+                active_info.style.display = "";
+
                 active_input.style.display = "none";
                 // displays the slider for box blur
                 box_blur_slider_wrapper.style.display = "";
                 active_input = box_blur_slider_wrapper;
+
+                processing_options.style.display = "";
 
                 // puts the box blur slider at 1 because the default is in the middle
                 // this way the user doesn't get an image blurred at 500 when they
@@ -293,16 +317,26 @@ async function main() {
                 active_option = document.createElement("p");
                 active_input.style.display = "none";
 
+                active_info.style.display = "none";
+
+                processing_options.style.display = "none";
+
                 raw_images.set_output_image_to_original();
                 draw_canvases.draw_image(raw_images.original_img_canvas());
             } else {
                 gamma_option.classList.add("select-option");
                 active_option = gamma_option;
 
+                active_info.style.display = "none";
+                active_info = gamma_info;
+                active_info.style.display = "";
+
                 active_input.style.display = "none";
                 // displays the slider for gamma transformation 
                 gamma_slider_wrapper.style.display = "";
                 active_input = gamma_slider_wrapper;
+
+                processing_options.style.display = "";
 
                 // puts the gamma slider at 1 because this keeps the image unchanged 
                 gamma_slider.value = 1;
