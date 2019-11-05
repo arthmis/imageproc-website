@@ -87,6 +87,16 @@ html, body, #main, #image-options {
     justify-content: flex-start;
 }
 
+.algorithm-info {
+    max-width: 95ch;
+    min-width: 50ch;
+}
+.algorithm-info > p {
+    word-wrap: break-word;
+    line-height: 1.5;
+    font-size: 1em;
+
+}
 .algorithm-info > h2 {
     color: #D05353;
 }

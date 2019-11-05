@@ -4,6 +4,7 @@
     <head>
         <title>Image Processing</title>
         <meta content="text/html;charset=UTF-8" http-equiv="Content-Type"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.5">
         <link rel="stylesheet" type = "text/css" href="main.css"/>
 
     </head>
@@ -43,8 +44,10 @@
                     </div>
                     <div id="invert-info" class="algorithm-info" style="display: none;">
                         <h2>How Invert works</h2>
-                        <p>Inversion is when the current pixel value is subtracted</p>
-                        <p>from the max brightness value. That would be 255 for 8 bit images.</p>
+                        <p>Inversion is when the current pixel value is subtracted
+                        from the max brightness value. That would be 255 for 8 bit images.
+                        Once the new value is found it is assigned to the pixel to create 
+                        an inverted pixel channel.</p>
                     </div>
                     <div id="box-blur-info" class="algorithm-info" style="display: none;">
                         <h2>How Box Blur works</h2>
