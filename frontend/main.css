@@ -50,28 +50,37 @@ html, body, #main, #image-options {
 
 
 #two-canvases-wrapper {
-    height: 80vh;
-    display: grid;
-    grid-template-rows: 11fr 1fr;
+    /* height: 90vh; */
+    /* display: grid;
+    grid-template-rows: 11fr 1fr; */
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    /* justify-content: space-around; */
     /* flex-direction: column;
     justify-content: space-between; */
 }
 
 #two-canvases {
-    grid-row: 1;
+    /* grid-row: 1; */
+    /* height: 75vh; */
+    min-height: 70vh;
+    max-height: 80vh;
     display: flex;
     flex-direction: row;
 
-    max-height: 80%;
-    min-height: 80%;
+    /* max-height: 80%; */
+    /* min-height: 80%; */
 
-    min-width: 100%;
-    max-width: 100%;
+    /* min-width: 100%; */
+    /* max-width: 100%; */
     align-items: center;
+    justify-content: center;
 }
 
 #processing-options {
-    grid-row: 2;
+    /* height: 11vh; */
+    /* grid-row: 2; */
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -89,11 +98,14 @@ html, body, #main, #image-options {
     max-width: 50%;
 }
 .one-active-canvas {
-    max-height: 90%;
+    max-height: 95%;
     min-height: 90%;
-    min-width: 98%;
-    max-width: 100%;
+    min-width: 90%;
+    max-width: 95%;
+    /* height: 100%;
+    width: 100%; */
 }
+
 #output-canvas {
     display: none;
 }
