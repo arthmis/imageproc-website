@@ -13,7 +13,8 @@ html, body, #main, #image-options {
     padding: 0;
     margin: 0;
     font-size: 16px;
-    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    /* font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif; */
+    font-family: "Trebuchet MS", Helvetica, sans-serif;
 }
 
 
@@ -91,14 +92,19 @@ html, body, #main, #image-options {
     max-width: 95ch;
     min-width: 50ch;
 }
-.algorithm-info > p {
+/* .algorithm-info > p {
     word-wrap: break-word;
-    line-height: 1.5;
+    line-height: 1.8;
     font-size: 1em;
 
-}
+} */
 .algorithm-info > h2 {
     color: #D05353;
+}
+
+.algorithm-explanation {
+    line-height: 1.8;
+    font-size: 1em;
 }
 
 .active-canvases {
