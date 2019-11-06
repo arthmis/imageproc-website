@@ -42,12 +42,21 @@
                             <label for="gamma">gamma</label>
                         </div>
                     </div>
-                    <div id="invert-info" class="algorithm-info" style="display: none;">
+                    <div id="invert-info" class="algorithm-info algorithm-explanation" style="display: none;">
                         <h2>How Invert works</h2>
-                        <p>Inversion is when the current pixel value is subtracted
-                        from the max brightness value. That would be 255 for 8 bit images.
-                        Once the new value is found it is assigned to the pixel to create 
-                        an inverted pixel channel.</p>
+                        <p>
+                            Color inversion is when the luminance of the pixel gets mapped to the opposite.
+                            In other words, white gets mapped to black and black is mapped to white. If we assume
+                            an image with the color channels red, green, blue and 8 bits per channel, then
+                            the formula to map the luminance value is given by:
+                            <blockquote>
+                                <i>I<sub>invert</sub>(x, y) = Luminance<sub>max</sub> - I(x, y)</i>
+                            </blockquote>                        
+                            where <i>I</i> is the image, <i>Luminance<sub>max</sub></i> is 255 for an image with 8 bits
+                            per color channel, and <i>x</i> and <i>y</i> are the coordinates of the pixel.
+                            Using the above formula, if you have the RGB pixel <i>I(x, y)</i> = (50, 120, 200)
+                            then <i>I<sub>invert</sub>(x, y)</i> = (205, 135, 55).
+                        </p>
                     </div>
                     <div id="box-blur-info" class="algorithm-info" style="display: none;">
                         <h2>How Box Blur works</h2>
