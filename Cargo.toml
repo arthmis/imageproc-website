@@ -2,4 +2,5 @@
 
 members = [
     "proc",
+    "gamma_images",
 ]
