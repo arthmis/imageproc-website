@@ -14,7 +14,7 @@ html, body, #main, #image-options {
     margin: 0;
     font-size: 16px;
     /* font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif; */
-    font-family: "Trebuchet MS", Helvetica, sans-serif;
+    font-family: "Verdana", Geneva, sans-serif;
 }
 
 
@@ -23,8 +23,55 @@ html, body, #main, #image-options {
     grid-template-columns: 2fr 10fr;
 }
 
+.navbar {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    max-height: 4em;
+    min-height: 3em;
+    width: 100%;
+    border-bottom: 1px solid rgb(200, 200, 200);
+}
 
+.navbar > a > img  {
+    height: 2em;
+    width: 3em;
+}
+.navbar > a:hover {
+    cursor: pointer;
+}
 
+.navbar > button {
+    margin-left: auto;
+}
+
+#input-image {
+    min-height: 7%;
+    height: 7%;
+    max-height: 5%;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+#upload-image, #upload-image:hover, #upload-image:active {
+    font-size: 1.2em;
+    font-family: inherit;
+    height: 2em;
+    width: 8em;
+    border: 0.1em solid #eeeeee;
+    border-radius: 0.2em;
+    color: white;
+}
+#upload-image {
+    background-color: #E58F65;
+    color: white;
+}
+
+#upload-image:hover, #upload-image:active {
+    background-color: #e66b2d;
+}
 
 
 #image-options {
@@ -90,14 +137,18 @@ html, body, #main, #image-options {
 
 .algorithm-info {
     max-width: 95ch;
-    min-width: 50ch;
+    min-width: 40ch;
 }
-/* .algorithm-info > p {
-    word-wrap: break-word;
-    line-height: 1.8;
-    font-size: 1em;
+#algorithm-info {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    max-width: 100%;
+    min-width: 90%;
+    /* padding: 5em; */
+}
 
-} */
 .algorithm-info > h2 {
     color: #D05353;
 }
@@ -105,6 +156,23 @@ html, body, #main, #image-options {
 .algorithm-explanation {
     line-height: 1.8;
     font-size: 1em;
+}
+
+.diagram {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.diagram > img {
+    width: 500px;
+    height: 187.5px; 
+}
+.diagram > p {
+    max-width: 45ch;
+    font-size: 0.9em;
+    color: #686868;
 }
 
 .active-canvases {
@@ -127,38 +195,6 @@ html, body, #main, #image-options {
 }
 
 
-#input-image {
-    min-height: 7%;
-    height: 7%;
-    max-height: 5%;
-    width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-#input-image > button, button:hover, button:active {
-    font-size: 1.2em;
-    font-family: inherit;
-    height: 2em;
-    width: 80%;
-    border: 0.1em solid #eeeeee;
-    /* background-color: #6b7a88; */
-    border-radius: 0.2em;
-    color: white;
-}
-#input-image > button {
-    /* background-color: #6b7a88; */
-    background-color: #E58F65;
-    color: white;
-}
-
-#input-image > button:hover {
-    background-color: #e66b2d;
-}
-
-#input-image > button:active {
-    background-color: #e66b2d;
-}
 
 .select-option {
     background-color: #eeeeee;
