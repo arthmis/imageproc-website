@@ -7,16 +7,23 @@ Color pallete information:
 #FFBC42
 */
 
-html, body, #main, #image-options {
-    width: 100%;
-    /* height: 100%; */
-    padding: 0;
-    margin: 0;
-    font-size: 16px;
-    /* font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif; */
-    font-family: "Verdana", Geneva, sans-serif;
+@font-face {
+    font-family: "Open Sans";
+    src: url("./fonts/OpenSans-Regular.ttf") format("ttf"),
+         url("./fonts/OpenSans-Italic.ttf") format("ttf");
 }
 
+html, body, #main, #image-options {
+    width: 100%;
+    padding: 0;
+    margin: 0;
+}
+
+body {
+    font-size: 16px;
+    /* font-family: "Verdana", Geneva, sans-serif; */
+    font-family: "Open Sans", Arial, sans-serif;
+}
 
 #main {
     display: grid;
@@ -166,13 +173,18 @@ html, body, #main, #image-options {
 }
 
 .diagram > img {
-    width: 500px;
-    height: 187.5px; 
+    width: 768px;
+    height: 75px; 
 }
 .diagram > p {
     max-width: 45ch;
     font-size: 0.9em;
     color: #686868;
+}
+
+.formula {
+    text-indent: 3em;
+    /* letter-spacing: 0.1em; */
 }
 
 .active-canvases {
@@ -243,4 +255,26 @@ html, body, #main, #image-options {
 
 .sidebar-elem:active {
     box-shadow: none;
+}
+
+.slider, .slider-value {
+    width: 20em;
+}
+
+.slider-value {
+    display: flex;
+    justify-content: space-between;
+}
+.slider-value > input[type="text"] {
+    border: none;
+    text-align: right;
+    width: 2.5em;
+    font-size: 1em;
+}
+
+.slider {
+    padding-top: 0.5em;
+}
+.slider > input[type=range] {
+    width: 100%;
 }

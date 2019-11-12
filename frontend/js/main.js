@@ -188,6 +188,7 @@ async function main() {
     let invert_option = document.getElementById("invert-option");
     let blur_option = document.getElementById("blur-options");
     let gamma_option = document.getElementById("gamma-option");
+    let gamma_value_elem = document.getElementById("gamma-value");
     let processing_options = document.getElementById("processing-options");
     // maybe make this null
     let active_option = document.createElement("p"); // creates dummy element so it wouldn't be null
@@ -340,6 +341,7 @@ async function main() {
 
                 // puts the gamma slider at 1 because this keeps the image unchanged 
                 gamma_slider.value = 1;
+                gamma_value_elem.value = 1;
 
                 let gamma = gamma_slider.valueAsNumber;
 
@@ -362,6 +364,7 @@ async function main() {
     let gamma_slider = document.getElementById("gamma-slider");
     let gamma_slider_func = (event) => {
         let gamma = event.target.valueAsNumber;
+        gamma_value_elem.value = gamma;
 
         // does a gamma transformation on full size image preview 
         image_worker.postMessage(
