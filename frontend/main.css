@@ -68,7 +68,8 @@ body {
     height: 2em;
     width: 8em;
     border: 0.1em solid #eeeeee;
-    border-radius: 0.2em;
+    border-radius: 0.3em;
+    /* border-radius: 0.8em; */
     color: white;
 }
 #upload-image {
@@ -143,7 +144,7 @@ body {
 }
 
 .algorithm-info {
-    max-width: 95ch;
+    max-width: 85ch;
     min-width: 40ch;
 }
 #algorithm-info {
@@ -172,14 +173,19 @@ body {
     align-items: center;
 }
 
-.diagram > img {
-    width: 768px;
-    height: 75px; 
-}
 .diagram > p {
     max-width: 45ch;
     font-size: 0.9em;
     color: #686868;
+}
+.box-blur-demo {
+    width: 768px;
+    height: 500px; 
+}
+
+.gamma-images {
+    width: 768px;
+    height: 75px; 
 }
 
 .formula {
