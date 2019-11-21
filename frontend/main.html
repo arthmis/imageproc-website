@@ -73,13 +73,65 @@
                                 then <i>I<sub>invert</sub>(x, y)</i> = (205, 135, 55).
                             </p>
                         </div>
-                        <div id="box-blur-info" class="algorithm-info" style="display: none;">
+                        <div id="box-blur-info" class="algorithm-info algorithm-explanation" style="display: none;">
                             <h2>How Box Blur works</h2>
-                            <p>A box blur is a convolution filter of the form: </p>
+                            <p>
+                                Box blur is a <a href="https://en.wikipedia.org/wiki/Convolution">convolution filter</a> that blurs an image. 
+                                It is also known as a mean filter. What it essentially does is add all the neighboring 
+                                pixels of the pixel it is centered on. Then it 
+                                takes the average of all the pixels including the centered pixel and uses this new value 
+                                as the value of the new pixel in the new image. 
+                            </p>
+                            <p>
+                                The <a href="https://en.wikipedia.org/wiki/Kernel_(image_processing)">kernel</a> used 
+                                for convolution filter in image processing comes in the form of a matrix: 
+                            </p>
+                            <div class="diagram">
+                                <img src="images/box-blur.png" alt="box blur kernel" style="width: 20em; height: 20em;">
+                                <p>
+                                    Box Blur Kernel
+                                </p>
+                            </div>
+                            <p>
+                                The diameter of the kernel is measured in pixels. So the above kernel is 3 pixels wide
+                                by 3 pixels high. Each square overlaps a pixel on the image. The kernel can be any diameter
+                                from 1 to <span style="font-size: 1.5em;">&infin;</span>; larger kernels create a stronger blur.
+                            </p>
+                            <p>
+                                Show an example of how the filter centers on a pixel.
+                            </p>
+                            <div class="diagram">
+                                <img src="" alt="Box blur convolution start">
+                                <p>box blur convolution beginning</p>
+                            </div>
+                            <p>
+                                The diagram shows a problem with convolution filters. Sometimes the filter,
+                                at the edges, goes beyond the border of the image. If your image is represented
+                                by an array, then trying to access outside of the image would be an out of bounds
+                                access, which should crash the program. There are a few ways to deal with filters
+                                at the edges of images. One would be to create a clone of the image with the border
+                                extended to accomodate the filter size. This would be slow and impractical. Another 
+                                choice is to wrap the filter around the image. So if the filter passes the top border
+                                of the image then the part that doesn't overlap will overlap the bottom of the image.  
+                                Besides that, one can take the pixels at the border and use those as the pixel value
+                                whenever exceeding the border. You can also ignore the boundaries which will shrink the 
+                                image, but that probably isn't correct for most applications.
+                            </p>
+                            <p>
+                                Convolution matrices sometimes have a property that makes them separable.
+                                Being separable means if you have a n x n matrix, <i>A</i> then <i>A</i> can be split 
+                                into a <i>1 x n</i> row vector, <i>B</i> and a <i>n x 1</i> column vector, <i>C</i>.
+                                These vectors multiplied together recreate <i>A</i>.
+                            </p>
+                            <div class="diagram">
+                                <img src="" alt="separable filter">
+                                <p>separable box blur</p>
+                            </div>
+                            <p>Heres a demo of how box blur kernel convolves with an image: </p>
                             <div class="diagram">
                                 <img class="box-blur-demo" src="./images/box-blur.gif" alt="box blur animation">
                                 <p>
-                                    Box blur demo
+                                    3 x 3 box blur demo
                                 </p>
                             </div>
                         </div>
