@@ -194,6 +194,7 @@ a:active {
     max-width: 45ch;
     font-size: 0.9em;
     color: #686868;
+    line-height: 1.2;
 }
 .box-blur-demo {
     width: 768px;
