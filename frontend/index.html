@@ -11,6 +11,64 @@
     </head>
 
     <body>
+        <nav class="navbar">
+            <a href="index.html">
+                <!-- Icon made by Freepik from www.flaticon.com -->
+                <img src="./icons/house-black-silhouette-without-door.svg" alt="home page">
+            </a>
+            
+            <button id="upload-image">Upload Image</button>
+        </nav>
         <h1>Image Processing</h1>
+        <h2>What is Image Processing?</h2>
+        <p>
+            Image processing consists of algorithms that are used to manipulate images. They are
+            either used to preprocess an image for further processing or to create interesting effects
+            and image manipulations. 
+        </p>
+        <h2>What is an Image?</h2>
+        <p>
+            Images in the digital world are essentially represented as a matrix. They are a n x m grid of pixels
+            that are usually represented with the RGB color space. Each unit of an image is known as a pixel and each
+            pixel consists of a red, green, and blue value. Most viewing devices are built the same way and within
+            each pixel of the screen, there are 3 separate subpixels that emit light for each primary color. Internally,
+            for example in a computer's memory, most image pixels are represented using 8 bits. Pixels represented with larger
+            amounts of bits are larger, but have smoother gradients. They can handle more image processing
+            before the information in the image is visually damaged.
+        </p>
+        <h2>Why is image processing relevant?</h2>
+        <p>
+            Image processing is used in some shape or form whenever digital images are being handled. Before
+            images are displayed on any screen or device, the image is manipulated by the monitor or the gpu.
+            When a camera takes an image, it does its own processing on the image for final viewing by the user. 
+            Autonomous vehicles capture the environment around them, and gather information on their environment
+            using different image processing techniques in order to make decisions. Image editors have the strongest
+            relation to image processing as a field, because image editors distill image process algorithms into
+            focused operations that achieve effects that are useful for a someone's creative vision. In deep space
+            photography, astronomers use the properties of the light spectrum to capture the vivid colors of deep space
+            objects that require multiple exposures in different light spectrums in order to catpure.
+        </p>
+        <h2>What is this website about?</h2>
+        <p>
+            This website aims to demonstrate some basic image processing algorithms and show how they manipulate
+            images and explain what they are and how they're used in different imaging contexts.
+        </p>
+        <h2>Imaging pipeline</h2>
+        <p>
+            Cameras are usually the primary imaging device. Cameras have sensors that particularly sensitive
+            to light. They in fact capture most light from the entire light spectrum like infrared and ultraviolet.
+            Cameras take photos and videos; from there, it converts the analog signal, or the photons that hit
+            the sensor into a digital signal. The more light that hits the sensor, the better the analog signal, the less
+            noise is found in the image. The image or video that is converted from the analog signal is usually known as a
+            raw image or video. This is the image in its purest form but it isn't appropriate for viewing and consumption
+            like other image formats. There are certain programs that are capable of reading raw image formats. They are
+            usually image editors. Raw image formats give an image the most amount of range for editing. Raw images
+            have the most amount of information about an image, which allows more extreme editing while still preserving
+            details and image dynamic range. For this explanation, however, I'll assume the camera edits the image
+            for consumption and outputs a JPEG file. In order to do that, the camera throws away a lot of visually redundant
+            information and compresses the image. It applies some modifications to the image's exposure and contrast, and
+            creates a final image for viewing. From here, the user is free to do more image manipulation on the image, or send
+            it for further processing on an image processing pipeline.
+        </p>
     </body>
 </html>
