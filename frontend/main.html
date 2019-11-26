@@ -163,8 +163,8 @@
                                 </p>
                                  
                                 The monitor expects a gamma to be applied to the image before being displayed. The reason
-                                why the perceptually linear image looks uniform is because the display gamma closely approximates 
-                                the perceptual uniformity the human vision system expects. For most display devices, the gamma 
+                                why the perceptually linear image looks uniform is because the gamma applied by the display devices
+                                closely approximates the perceptual uniformity the human vision system expects. For most display devices, the gamma 
                                 encoding they expect is given by:
 
                                 <p class="formula">
@@ -178,11 +178,17 @@
                             </p>
                             <h2>Why Gamma is Useful</h2>
                             <p>
-                                Gamma values of the range &#947 &lt; 1 map a narrow range of dark tones to a wider range of values. Gamma 
-                                values of the range &#947 &gt; 1 map a wider range of lighter tones to darker tones. This allows
-                                less bits to describe lighter tones while using more bits to describe darker tones, which 
-                                humans are more sensitive to. The benefit of this is that gamma encoded images can be described 
-                                with only 8 bits in order to get smooth gradients throughout the image. 
+                                Generally images are stored using 8 bit <abbr title="red, green, blue"> RGB</abbr> channels.
+                                Looking at the above linear and perceptually linear image, if 8 bits were used
+                                for the linear images, then too many bits would be used to represent lighter values, while
+                                too few would be used for darker tones, which humans are more sensitive too. In order to describe
+                                more darker tones using linear gamma encoding, one would have to use 11 bits to get sufficient 
+                                representation to avoid <a href="https://www.cambridgeincolour.com/tutorials/posterization.htm">image posterization</a>.
+                                In other words, 11 bits has to be used in order to get smooth gradients in the image, which are
+                                important for things like skies. However, if images are stored using 8 bit gamma encoded values,
+                                then it's possible to get smooth gradients using only 8 bits because gamma encoding <q cite="https://www.cambridgeincolour.com/tutorials/gamma-correction.htm">redistributes
+                                tonal levels closer to how our eyes perceive them</q>. Gamma encoding helps describe images using fewer
+                                bits, thus using less storage and memory. 
                             </p>
                         </div>
 
