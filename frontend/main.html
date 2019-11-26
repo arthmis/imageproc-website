@@ -64,9 +64,9 @@
                                 In other words, white gets mapped to black and black is mapped to white. If we assume
                                 an image with the color channels red, green, blue and 8 bits per channel, then
                                 the formula to map the luminance value is given by:
-                                <blockquote>
+                                <p class="formula">
                                     <i>I<sub>invert</sub>(x, y) = Luminance<sub>max</sub> - I(x, y)</i>
-                                </blockquote>                        
+                                </p>
                                 where <i>I</i> is the image, <i>Luminance<sub>max</sub></i> is 255 for an image with 8 bits
                                 per color channel, and <i>x</i> and <i>y</i> are the coordinates of the pixel.
                                 Using the above formula, if you have the RGB pixel <i>I(x, y)</i> = (50, 120, 200)
@@ -110,9 +110,13 @@
                             <p>
                                 The kernel starts at the first pixel of the image at the 
                                 top left corner, with the value of 25. It continues by sliding to the right
-                                and calculating the average of each pixel within the kernel window at each pixel of the 
-                                image until the end of the  first row then moves down to the next row.
+                                and calculating the average of each pixel within the kernel window at each pixel
+                                until the end of the first row then moves down to the next row.
                             </p>
+                            <footer>
+                                <h2>Sources and Related Reading</h2>
+                                <p><a href="https://en.wikipedia.org/wiki/Box_blur">https://en.wikipedia.org/wiki/Box_blur</a></p>
+                            </footer>
                         </div>
                         <div id="gamma-info" class="algorithm-info algorithm-explanation" style="display: none;">
                             <h2>How Gamma works</h2>
@@ -190,6 +194,12 @@
                                 tonal levels closer to how our eyes perceive them</q>. Gamma encoding helps describe images using fewer
                                 bits, thus using less storage and memory. 
                             </p>
+                            <footer>
+                                <h2>Sources and Related Reading</h2>
+                                <p><a href="https://blog.johnnovak.net/2016/09/21/what-every-coder-should-know-about-gamma/">https://blog.johnnovak.net/2016/09/21/what-every-coder-should-know-about-gamma/</a></p>
+                                <p><a href="https://www.cambridgeincolour.com/tutorials/gamma-correction.htm">https://www.cambridgeincolour.com/tutorials/gamma-correction.htm</a></p>
+                                <p><a href="https://en.wikipedia.org/wiki/Gamma_correction">https://en.wikipedia.org/wiki/Gamma_correction</a></p>
+                            </footer>
                         </div>
 
                     </div>
