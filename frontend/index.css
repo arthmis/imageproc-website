@@ -59,4 +59,6 @@ html, body {
 
 #upload-image:hover, #upload-image:active {
     background-color: #e66b2d;
+
+    font-family: "Verdana", Geneva, sans-serif;
 }
