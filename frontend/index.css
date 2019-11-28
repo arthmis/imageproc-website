@@ -10,15 +10,22 @@ html, body {
 }
 
 
+p {
+    line-height: 1.5;
+}
+
 .navbar {
+    position: fixed;
     display: flex;
     flex-direction: row;
     justify-content: center;
     align-items: center;
-    max-height: 4em;
-    min-height: 3em;
+    top: 0px;
+    max-height: 5em;
+    min-height: 5em;
     width: 100%;
-    border-bottom: 1px solid rgb(200, 200, 200);
+    /* border-bottom: 1px solid rgb(200, 200, 200); */
+    background: rgb(224, 224, 224);
 }
 
 .navbar > a > img  {
@@ -29,36 +36,77 @@ html, body {
     cursor: pointer;
 }
 
-.navbar > button {
+.navbar > #algorithms {
     margin-left: auto;
+    text-decoration: none;
 }
 
-#input-image {
-    min-height: 7%;
-    height: 7%;
-    max-height: 5%;
-    width: 100%;
+#algorithms {
+    /* min-height: 7%; */
+    /* height: 7%; */
+    height: 100%;
+    /* max-height: 5%; */
+    /* width: 100%; */
     display: flex;
     align-items: center;
     justify-content: center;
 }
-#upload-image, #upload-image:hover, #upload-image:active {
+#algorithms, #algorithms:hover, #algorithms:active {
     font-size: 1.2em;
     font-family: inherit;
-    height: 2em;
+    /* height: 2em; */
     width: 8em;
-    border: 0.1em solid #eeeeee;
-    border-radius: 0.3em;
+    /* border: 0.1em solid #eeeeee; */
+    /* border-radius: 0.3em; */
     /* border-radius: 0.8em; */
     color: white;
 }
-#upload-image {
+#algorithms {
     background-color: #E58F65;
     color: white;
 }
 
-#upload-image:hover, #upload-image:active {
+#algorithms:hover, #algorithms:active {
     background-color: #e66b2d;
 
     font-family: "Verdana", Geneva, sans-serif;
+}
+
+#main-body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-left: 5%;
+    padding-right: 5%;
+    padding-top: 1em;
+    max-width: 90ch;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+}
+
+footer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    background: rgb(224, 224, 224);
+}
+
+#main-body > h2, #related-fields > h2 {
+    color: #D05353;
+}
+
+#related-fields {
+    padding-left: 5%;
+    padding-right: 5%;
+    width: 90ch;
+}
+#related-fields > p > a {
+    text-decoration: none;
 }
