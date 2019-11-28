@@ -18,3 +18,20 @@
     Besides that, one can take the pixels at the border and use those as the pixel value
     whenever exceeding the border. You can also ignore the boundaries which will shrink the 
     image, but that probably isn't correct for most applications.
+
+## Imaging Pipeline
+
+    Cameras are usually the primary imaging device. Cameras have sensors that particularly sensitive
+    to light. They in fact capture most light from the entire light spectrum like infrared and ultraviolet.
+    Cameras take photos and videos; from there, it converts the analog signal, or the photons that hit
+    the sensor into a digital signal. The more light that hits the sensor, the better the analog signal, the less
+    noise is found in the image. The image or video that is converted from the analog signal is usually known as a
+    raw image or video. This is the image in its purest form but it isn't appropriate for viewing and consumption
+    like other image formats. There are certain programs that are capable of reading raw image formats. They are
+    usually image editors. Raw image formats give an image the most amount of range for editing. Raw images
+    have the most amount of information about an image, which allows more extreme editing while still preserving
+    details and image dynamic range. For this explanation, however, I'll assume the camera edits the image
+    for consumption and outputs a JPEG file. In order to do that, the camera throws away a lot of visually redundant
+    information and compresses the image. It applies some modifications to the image's exposure and contrast, and
+    creates a final image for viewing. From here, the user is free to do more image manipulation on the image, or send
+    it for further processing on an image processing pipeline.
