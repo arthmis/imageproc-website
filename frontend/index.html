@@ -18,39 +18,68 @@
                 </div>
             </nav>
             <div id="main-body">
+                <h1>Image processing website</h1>
+                <p>
+                    This website aims to demonstrate some basic image processing algorithms. It will show how they manipulate
+                    images, explain what they are and how they're used in different imaging applications. You can click
+                    the algorithms link or <a href="main.html">here</a> to go to the algorithms page. Otherwise continue reading
+                    to get an overview of image processing.
+                </p>
                 <h1>Image Processing</h1>
-                <h2>What is Image Processing?</h2>
                 <p>
                     Image processing is a field in software development that is concerned with the manipulation
-                    of images. At it's most basic, it's about using different algorithms to extract specific 
-                    information about images or manipulate them into more desirable forms.
-                    
+                    of images. At it's most basic, it's about using different algorithms to extract 
+                    information about images or modify them into more useful forms.
                 </p>
-                <h2>What is an image to a computer?</h2>
-                <p>
-                    Digital images are represented as a matrix. They are a <i>n x m</i> grid of pixels
-                    that are usually represented within the RGB color space. Each unit of an image is known as a pixel and each
-                    pixel consists of a red, green, and blue value. Most viewing devices are built to display pixels of an image
-                    therefore, within each pixel of the screen, there are 3 separate subpixels that emit light for each primary color. Internally,
-                    for example in a computer's memory, most image pixels are represented using 8 bits. Each color channel
-                    is represented by 8 bits, making an image pixel in RGB color space 24 bits in total size. 
-                </p>
-                <h2>Why is image processing relevant?</h2>
-                <p>
-                    Image processing is involved in some shape or form whenever digital images are being handled. Before
+                <h2>Image Processing Applications</h2>
+                <li>feature extraction</li>
+                <li>image restoration</li>
+                <li>projection</li>
+                <li>image stitching</li>
+                <p style="padding-bottom: 1.5em;">
+                    <a href="https://en.wikipedia.org/wiki/Digital_image_processing">Image processing</a> is involved in some shape or form whenever digital images are being handled. Before
                     images are displayed on any screen or device, the image is manipulated by the monitor or the gpu.
                     When a camera takes an image, it does its own processing on the image for final viewing by the user. 
-                    Autonomous vehicles capture the environment around them, and gather information on their environment
-                    using different image processing techniques in order to get the information it needs to make decisions. Image editors have the strongest
-                    relation to image processing as a field. Image editors combine image processing algorithms into
-                    powerful editing operations that achieve effects that are useful for transforming photos or videos to suit an artist's 
-                    creative vision. In deep space photography, astronomers use the properties of the light spectrum to capture the vivid colors of deep space
-                    objects that would otherwise be invisible to the naked eye.
+                    Image editing is closely related to image processing; sometimes they are used intechangeably depending on the context.
+                    Image editors use image processing algorithms to modify images to make the more image more pleasing
+                    or becomes someone's creative vision.
                 </p>
-                <h2>What is this website about?</h2>
-                <p style="padding-bottom: 3em;">
-                    This website aims to demonstrate some basic image processing algorithms. It will show how they manipulate
-                    images and explain what they are and how they're used in different imaging contexts.
+                <p>
+                    Feature extraction is an important application of image processing. It can be used to find corners in an
+                    image, find different features of a face using only the difference in luminance between different
+                    parts of a face. Object features detection are usually used in object detection machine learning
+                    algorithms for different kinds of image classification.
+                    A popular use of feature detection in computer vision are happens in face detection.
+                    Haar like features are used in face detection applications using the <a href="https://en.wikipedia.org/wiki/Viola%E2%80%93Jones_object_detection_framework">viola-jones object detection
+                    framework</a>. The algorithm goes through the image uses haar like features to train a learning
+                    algorithm.
+                </p>
+                <img id="haar-features-img" src="images/Haar.jpg" alt="haar features">
+                <p>
+                    Examples of simple processing algorithms used in image editing are exposure compensation, contrast, and
+                    color saturation adjustments.
+                </p>  
+                <img id="exposure-img" src="" alt="basic exposure adjustments">
+                <p>
+                    Although primarily used in video, there are is an image processing data structures
+                    called <a href="https://www.youtube.com/watch?v=VPMRg6QSKmU">waveform</a>. This is similar to an image
+                    <a href="https://en.wikipedia.org/wiki/Image_histogram">histogram</a> but provides more information, however
+                    is more computationally expensive to create.
+                </p>
+                <iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/VPMRg6QSKmU" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                <p>
+                    Autonomous vehicles need capture the environment around them, and gather information
+                    using different image processing techniques in order to make decisions in real time.
+                    Autonomous vehicles must extract a myriad of information as it moves through its environment. One important
+                    data point it has to acquire is where the lane boundaries are. If it were on a multilane highway,
+                    it might do this by finding lines on the roads in front of the camera facing the incoming road. 
+                    Here is a video of someone's attempt at lane detection:
+                </p>
+                <iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/WaxAbRy258A" frameborder="0"
+                    allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                <p>
+                    There are a plethora of other applications using image processing to make the most out of
+                    image data. A list of other applications can be found below. 
                 </p>
             </div>
 
