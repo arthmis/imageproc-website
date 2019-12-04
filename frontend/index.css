@@ -4,9 +4,7 @@ html, body {
     padding: 0;
     margin: 0;
     font-size: 16px;
-    /* font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif; */
-    /* font-family: "Verdana", Geneva, sans-serif; */
-    font-family: "Open Sans", Arial, sans-serif;
+    font-family: "Open Sans", sans-serif;
     color: rgb(49, 49, 49);
 }
 
@@ -29,6 +27,10 @@ a:visited {
 
 a:hover {
     color: rgb(216, 46, 46)
+}
+
+li {
+    list-style-type: none;
 }
 
 /* #algorithms {
@@ -66,11 +68,10 @@ a:hover {
     color: #D05353;
 }
 
-#haar-features-img {
-    max-width: 40em;
-    max-height: 30em;
+#haar-features-img, #exposure-img {
+    display: block;
     height: auto;
-    width: auto;
+    width: 100%;
 }
 
 body {
@@ -156,4 +157,22 @@ footer {
 }
 #related-fields > p > a {
     text-decoration: none;
+}
+
+.youtube {
+    /* display: block;
+    width: auto;
+    height: auto; */
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.youtube-wrapper {
+    position: relative;
+    padding-bottom: 56.25%;
+    padding-top: 30px;
+    height: 0;
 }
