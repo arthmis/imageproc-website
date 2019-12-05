@@ -1,6 +1,5 @@
 html, body {
     width: 100%;
-    /* height: 100%; */
     padding: 0;
     margin: 0;
     font-size: 16px;
@@ -46,20 +45,6 @@ li {
 } */
 
 
-#main-body {
-    display: flex;
-    flex-direction: column;
-    /* align-items: center; */
-    align-items: flex-start;
-    padding-left: 5%;
-    padding-right: 5%;
-    padding-top: 1em;
-    max-width: 90ch;
-    min-width: 30ch;
-    background: white;
-    /* height: 100vh; */
-}
-
 #main-body > h1, #main-body > h2 {
     font-size: 1.8em;
 }
@@ -72,66 +57,6 @@ li {
     display: block;
     height: auto;
     width: 100%;
-}
-
-body {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    background: rgb(226, 185, 166);
-
-}
-
-footer {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 100%;
-    background: rgb(204, 204, 204);
-}
-
-#main {
-    display: grid;
-    grid-template-columns: repeat(12, 1fr);
-}
-
-#main-body {
-    grid-column: 4 / 13;
-}
-
-
-.navbar {
-    grid-column: 1 / 4;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    top: 0px;
-    width: 100%;
-    height: 100vh;
-}
-
-.navbar > a > img  {
-    height: 2em;
-    width: 3em;
-}
-.navbar > a:hover {
-    cursor: pointer;
-}
-
-.navbar > #algorithms {
-    margin-left: auto;
-    text-decoration: none;
-}
-
-.navbar > div {
-    height: 20%;
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-around;
-    align-items: center;
 }
 
 .main-links {
@@ -153,26 +78,165 @@ footer {
 #related-fields {
     padding-left: 5%;
     padding-right: 5%;
-    width: 90ch;
+    max-width: 90ch;
+    min-width: 30ch;
 }
 #related-fields > p > a {
     text-decoration: none;
 }
 
-.youtube {
-    /* display: block;
-    width: auto;
-    height: auto; */
+/* .youtube {
+/
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-}
+} */
 
-.youtube-wrapper {
+/* .youtube-wrapper iframe, .youtube-wrapper object, .youtube-wrapper embed {
     position: relative;
     padding-bottom: 56.25%;
     padding-top: 30px;
     height: 0;
+} */
+
+@media (orientation: portrait) {
+    #main {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        align-items: flex-start;
+        justify-content: flex-start;
+    }
+
+    #main-body {
+        display: flex;
+        flex-direction: column;
+        /* padding-left: 1.5em;
+        padding-right: 1.5em; */
+        max-width: 95%;
+        min-width: 30%;
+        background: white;
+        position: absolute;
+        top: 3em;
+        width: 100%;
+    }
+
+    .navbar {
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-start;
+        width: 100%;
+        height: 3em;
+        background: rgb(226, 185, 166);
+        position: fixed;
+    }
+
+    /* .navbar > a > img  {
+        height: 2em;
+        width: 3em;
+    } */
+    /* .navbar > a:hover {
+        cursor: pointer;
+    } */
+
+    /* .navbar > #algorithms {
+        margin-left: auto;
+        text-decoration: none;
+    } */
+
+    .navbar > div {
+        height: 3em;
+        width: 100%;
+        display: flex;
+        flex-direction: row;
+        /* justify-content: flex-start; */
+        justify-content: space-between;
+        align-items: center;
+    }
+    #algorithms {
+        padding-left: 0.5em;
+    }
+    #github {
+        padding-right: 0.5em;
+    }
+
+    body {
+        display: flex;
+        flex-direction: column;
+        /* justify-content: center; */
+        /* align-items: center; */
+        /* background: rgb(226, 185, 166); */
+
+    }
+    footer {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+        background: rgb(204, 204, 204);
+    }
+    
+}
+
+@media (orientation: landscape) {
+    #main {
+        display: grid;
+        grid-template-columns: repeat(12, 1fr);
+    }
+
+    #main-body {
+        grid-column: 4 / 13;
+    }
+
+
+    .navbar {
+        grid-column: 1 / 4;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        top: 0px;
+        width: 100%;
+        height: 100vh;
+    }
+
+    .navbar > a > img  {
+        height: 2em;
+        width: 3em;
+    }
+    .navbar > a:hover {
+        cursor: pointer;
+    }
+
+    .navbar > #algorithms {
+        margin-left: auto;
+        text-decoration: none;
+    }
+
+    .navbar > div {
+        height: 20%;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+        align-items: center;
+    }
+    footer {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+        background: rgb(204, 204, 204);
+    }
+
+    body {
+        display: flex;
+        flex-direction: column;
+        /* justify-content: center; */
+        /* align-items: center; */
+        background: rgb(226, 185, 166);
+    }
+
 }
