@@ -133,7 +133,7 @@ li {
         justify-content: flex-start;
         width: 100%;
         height: 3em;
-        background: rgb(226, 185, 166);
+        background: rgb(233, 233, 233);
     }
     .main-links {
         font-size: 1.5em;
@@ -161,12 +161,13 @@ li {
     }
 
     footer {
-        background: rgb(204, 204, 204);
+        background: rgb(233, 233, 233);
     }
     #related-fields {
         max-width: 90ch;
         min-width: 30ch;
         width: 100%;
+        padding-left: 1em;
     }
     #related-fields > p > a {
         text-decoration: none;
@@ -217,7 +218,7 @@ li {
         width: 100%;
         height: 3em;
         /* background: rgb(226, 185, 166); */
-        background: rgb(228, 228, 228);
+        background: rgb(231, 232, 232);
         /* position: fixed; */
         padding-bottom: 2em;
     }
@@ -253,12 +254,14 @@ li {
     footer {
         display: flex;
         flex-direction: column;
-        /* align-items: flex-start; */
-        /* align-items: center; */
+        align-items: stretch;
         justify-content: center;
         flex-grow: 1;
         width: 100%;
-        background: rgb(204, 204, 204);
+        /* max-width: 100ch; */
+        /* min-width: 40ch; */
+        align-self: stretch;
+        background: rgb(238, 238, 238);
         /* padding-left: 3em; */
     }
 
