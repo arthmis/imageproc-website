@@ -7,12 +7,6 @@ Color pallete information:
 #FFBC42
 */
 
-@font-face {
-    font-family: "Open Sans";
-    src: url("./fonts/OpenSans-Regular.ttf") format("ttf"),
-         url("./fonts/OpenSans-Italic.ttf") format("ttf");
-}
-
 html, body, #main, #image-options {
     width: 100%;
     padding: 0;
@@ -55,10 +49,14 @@ a:active {
     max-height: 4em;
     min-height: 3em;
     width: 100%;
-    border-bottom: 1px solid rgb(200, 200, 200);
+    /* border-bottom: 1px solid rgb(200, 200, 200); */
+    padding-bottom: 2em;
+    background-color: rgb(230, 230, 230);
 }
 
 .navbar > a > img  {
+    margin-top: 0.4em;
+    padding-left: 1em;
     height: 2em;
     width: 3em;
 }
@@ -67,6 +65,7 @@ a:active {
 }
 
 .navbar > button {
+    margin-top: 0.4em;
     margin-left: auto;
 }
 
@@ -83,7 +82,8 @@ a:active {
     font-size: 1.2em;
     font-family: inherit;
     height: 2em;
-    width: 8em;
+    max-width: 10em;
+    min-width: 8em;
     border: 0.1em solid #eeeeee;
     border-radius: 0.3em;
     /* border-radius: 0.8em; */
