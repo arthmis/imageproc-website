@@ -71,55 +71,12 @@ async function main() {
 
 
     const draw_canvases = new DrawCanvases(
-        document.getElementById("input-canvas"),
-        document.getElementById("output-canvas")
+        document.getElementById("input-canvas")
     );
 
     let raw_images = null;
-    const two_canvases = document.getElementById("two-canvases");
-
-    // create canvas for both original and output image in order to get
-    // underlying pixel data
-    // let raw_output_ctx = raw_output_canvas.getContext("2d");
-    // let raw_img_ctx = raw_img_canvas.getContext("2d");
 
     let original_img = new Image();
-
-    // function change_to_grayscale(img_data) {
-    //     // let input_data = output_img_data;
-    //     let width = img_data.width;
-    //     let raw_data = new Uint8ClampedArray(
-    //         to_grayscale(img_data.data, width),
-    //     );
-    //     // output_img_data = new ImageData(raw_data, width); 
-    //     return new ImageData(raw_data, width); 
-    //     // put_image_data_canvas(output_img_data, output_ctx);
-
-    // }
-
-    // let convert_button = document.getElementById("convert");
-    // convert_button.addEventListener("click", () => {
-    //     let input_data = output_img_data;
-    //     let output_width = input_data.width;
-    //     let raw_data = new Uint8ClampedArray(
-    //         draw_luma_histogram(input_data.data, output_width),
-    //     );
-    //     output_img_data = new ImageData(raw_data, output_width); 
-    //     output_canvas.classList.add("active-canvases");
-    //     input_canvas.classList.add("active-canvases");
-    //     input_canvas.classList.remove("one-active-canvas");
-    //     output_canvas.style.display = "block";
-    //     resize_canvases(input_canvas, output_canvas);
-
-    //     // let input_data = output_img_data;
-    //     // let output_width = input_data.width;
-    //     // let raw_data = new Uint8ClampedArray(
-    //     //     invert(input_data.data, output_width)
-    //     // );
-    //     // output_img_data = new ImageData(raw_data, output_width); 
-    //     put_image_data_canvas(original_img_data, input_ctx);
-    //     put_image_data_canvas(output_img_data, output_ctx);
-    // });
 
     // takes the image url and displays it on both canvas
     function import_and_display(image_url) {

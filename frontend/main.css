@@ -134,7 +134,7 @@ a:active {
     justify-content: space-between; */
 }
 
-#two-canvases {
+#canvas-wrapper {
     /* grid-row: 1; */
     /* height: 75vh; */
     min-height: 70vh;
