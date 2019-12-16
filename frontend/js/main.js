@@ -145,10 +145,13 @@ async function main() {
     let invert_option = document.getElementById("invert-option");
     let blur_option = document.getElementById("blur-options");
     let gamma_option = document.getElementById("gamma-option");
-    let gamma_value_elem = document.getElementById("gamma-value");
-    let processing_options = document.getElementById("processing-options");
-    // maybe make this null
     let active_option = document.createElement("p"); // creates dummy element so it wouldn't be null
+
+    let gamma_value_elem = document.getElementById("gamma-value");
+    let box_blur_value_elem = document.getElementById("box-blur-value");
+    let processing_options = document.getElementById("processing-options");
+
+    // maybe make this null
     // also maybe make this null
     let active_input = document.createElement("p"); // creates dummy element so it wouldn't be null
 
@@ -246,6 +249,7 @@ async function main() {
                 // click on box blur
                 // box_blur_slider = document.getElementById("box-blur-slider");
                 box_blur_slider.value = 1;
+                box_blur_value_elem.value = box_blur_slider.value;
 
                 let kernel_size = box_blur_slider.valueAsNumber;
 
@@ -342,6 +346,7 @@ async function main() {
     let box_slider_func = (event) => {
         // function slider_func(event) {
         let kernel_size = event.target.valueAsNumber;
+        box_blur_value_elem.value = kernel_size;
 
         // box blurs full size image preview 
         image_worker.postMessage(
