@@ -8,6 +8,8 @@ Color pallete information:
 */
 
 html, body, #main, #image-options {
+    min-width: 100%;
+    max-width: 100%;
     width: 100%;
     padding: 0;
     margin: 0;
@@ -17,6 +19,8 @@ body {
     font-size: 16px;
     /* font-family: "Verdana", Geneva, sans-serif; */
     font-family: "Open Sans", Arial, sans-serif;
+    background-color: #394359;
+    color: white;
 }
 
 a:link, a:visited, a:hover, a:active {
@@ -36,43 +40,50 @@ a:active {
     color: lightcoral;
 }
 
-#main {
-    display: grid;
-    grid-template-columns: 2fr 10fr;
+main {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    align-items: center;
 }
 
 .navbar {
     display: flex;
     flex-direction: row;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
     max-height: 4em;
     min-height: 3em;
-    width: 100%;
+    /* width: 100%; */
+    max-width: 100%;
+    min-width: 100%;
     /* border-bottom: 1px solid rgb(200, 200, 200); */
     padding-bottom: 2em;
-    background-color: rgb(230, 230, 230);
+    /* background-color: rgb(230, 230, 230); */
 }
 
 .navbar > a > img  {
-    margin-top: 0.4em;
-    padding-left: 1em;
-    height: 2em;
-    width: 3em;
+    /* margin-top: 0.4em; */
+    /* padding-left: 1em; */
+    min-width: 2em;
+    min-height: 1em;
+    max-height: 2em;
+    max-width: 3em;
+}
+.navbar > a {
+    min-height: 1em;
+    min-width: 3em;
+    padding: 1em;
 }
 .navbar > a:hover {
     cursor: pointer;
 }
 
-.navbar > button {
-    margin-top: 0.4em;
-    margin-left: auto;
-}
-
 #input-image {
-    min-height: 7%;
-    height: 7%;
-    max-height: 5%;
+    padding: 1em;
+    height: 3em;
+    max-width: 10em;
+    min-width: 8em;
     width: 100%;
     display: flex;
     align-items: center;
@@ -88,32 +99,29 @@ a:active {
     border-radius: 0.3em;
     /* border-radius: 0.8em; */
     color: white;
-}
-#upload-image {
-    background-color: #E58F65;
-    color: white;
+    background-color: #ba6c65;
 }
 
 #upload-image:hover, #upload-image:active {
-    background-color: #e66b2d;
+    /* background-color: #e66b2d; */
+    background-color: #bb4c42;
 }
 
-
-#image-options {
+#upload-image-algorithms {
     display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    /* max-height: 100%;
-    min-height: 100%; */
-    /* height: 100vh; */
-    min-width: 100%;
-    max-width: 100%;
-    grid-column: 2;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
 }
+#sidebar {
+    height: 80vh;
+    min-width: 15%;
+    max-width: 20%;
+}
+
 
 #options {
-    grid-column: 1;
-    display: flex;
+    /* display: flex; */
     flex-direction: column;
     justify-content: flex-start;
     align-items: center;
@@ -122,6 +130,15 @@ a:active {
 }
 
 
+#image-options {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    /* width: 100%; */
+    max-width: 85%;
+    min-width: 80%;
+}
+
 #two-canvases-wrapper {
     /* height: 90vh; */
     /* display: grid;
@@ -129,26 +146,22 @@ a:active {
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
+    width: 100%;
     /* justify-content: space-around; */
     /* flex-direction: column;
     justify-content: space-between; */
 }
 
 #canvas-wrapper {
-    /* grid-row: 1; */
-    /* height: 75vh; */
     min-height: 70vh;
     max-height: 80vh;
+    width: 100%;
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
+    /* flex-direction: row;
 
-    /* max-height: 80%; */
-    /* min-height: 80%; */
-
-    /* min-width: 100%; */
-    /* max-width: 100%; */
     align-items: center;
-    justify-content: center;
+    justify-content: center; */
 }
 
 #processing-options {
@@ -162,16 +175,16 @@ a:active {
 
 .algorithm-info {
     max-width: 85ch;
-    min-width: 40ch;
+    /* min-width: 30ch; */
 }
 #algorithm-info {
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    /* justify-content: center; */
     align-items: center;
-    max-width: 100%;
-    min-width: 90%;
     /* padding: 5em; */
+    max-width: 85ch;
+    /* min-width: 40ch; */
 }
 
 .algorithm-info > h2 {
@@ -179,7 +192,7 @@ a:active {
 }
 
 .algorithm-explanation {
-    line-height: 1.8;
+    line-height: 1.5;
     font-size: 1em;
 }
 
@@ -211,26 +224,10 @@ a:active {
     /* letter-spacing: 0.1em; */
 }
 
-.active-canvases {
-    max-height: 90%;
-    min-height: 90%;
-    min-width: 48%;
-    max-width: 50%;
+#input-canvas {
+    height: 100%;
+    width: 100%;
 }
-.one-active-canvas {
-    max-height: 95%;
-    min-height: 90%;
-    min-width: 90%;
-    max-width: 95%;
-    /* height: 100%;
-    width: 100%; */
-}
-
-#output-canvas {
-    display: none;
-}
-
-
 
 .select-option {
     background-color: #eeeeee;
@@ -390,3 +387,93 @@ input[type=range]::-ms-fill-upper {
 input[type=range]:focus::-ms-fill-upper {
   background: #7e7e7e;
 }
+
+/* for mobile phones */
+@media only screen and (max-width: 768px) and (orientation: portrait) {
+/* @media (orientation: portrait) { */
+    body, main {
+        /* min-width: 100%;
+        max-width: 100%; */
+        width: 100%;
+    }
+    main {
+        width: 100%;
+        flex-direction: column;
+        align-items: center;
+    }
+    .mobile-hidden {
+        display: none;
+        position: absolute;
+        z-index: 1;
+    }
+    .mobile-visible {
+        display: flex;
+        position: absolute;
+        z-index: 1;
+        justify-content: center;
+        /* background-color: white; */
+        background-color: #434a58;
+    }
+
+    #upload-image {
+        max-height: 2em;
+        font-size: 1em;
+        max-width: 8em;
+        min-width: 5em;
+        border: 1px solid black;
+    }
+    #open-algorithms {
+        /* padding: 1em; */
+        font-size: 1em;
+        font-family: inherit;
+        max-height: 2em;
+        max-width: 8em;
+        min-width: 5em;
+        border-radius: 0.3em;
+        border: 1px solid black;
+        color: white;
+        background-color: #ba6c65;
+    }
+    #open-algorithms:active {
+        background-color: #bb4c42;
+    }
+    #options {
+        /* display: flex; */
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: center;
+        width: 50%;
+        height: 100vh;
+    }
+
+    #sidebar {
+        height: 70vh;
+        min-width: 50%;
+        align-self: flex-start;
+    }
+    #options {
+        width: 100%;
+    }
+
+    .sidebar-elem:active {
+        background-color: #475570;
+    }
+    .select-option {
+        background-color: #2f4369;
+
+    }
+}
+
+@media only screen and (min-width: 768px) and (orientation: landscape) {
+    #options {
+        display: flex;
+    }
+
+    #open-algorithms {
+        display: none;
+
+    }
+
+}
+
+/* for tablets */

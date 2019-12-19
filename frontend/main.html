@@ -17,28 +17,29 @@
                 <img src="./icons/house-black-silhouette-without-door.svg" alt="home page">
             </a>
             
-            <button id="upload-image">Upload Image</button>
+            <a href="https://github.com/lazypassion/imageproc-website">Github</a>
         </nav>
-        <div id="main">
-            <div id="options">
-                <div id="input-image"> 
-                    <input type="file" id="file-input" accept="image/png, image/jpeg" style="display: none;">
-                    <!-- <button id="upload-image">Import</button> -->
+        <div id="upload-image-algorithms">
+            <button id="open-algorithms">Algorithms</button>
+            <div id="input-image"> 
+                <input type="file" id="file-input" accept="image/png, image/jpeg" style="display: none;">
+                <button id="upload-image">Upload Image</button>
+            </div>
+        </div>
+        <main>
+            <div id="sidebar" class="mobile-hidden">
+                <div id="options">
+                    <ul class="processing-category"><span>Algorithms</span>
+                        <li id="invert-option" class="sidebar-elem sidebar-first-elem">Invert</li>
+                        <li id="gamma-option" class="sidebar-elem">Gamma</li>
+                        <li id="blur-options" class="sidebar-elem">Box Blur</li>
+                    </ul>
                 </div>
-
-                <ul class="processing-category"><span>Pixel Operations</span>
-                    <li id="invert-option" class="sidebar-elem sidebar-first-elem">Invert</li>
-                    <li id="gamma-option" class="sidebar-elem">Gamma</li>
-                </ul>
-
-                <ul class="processing-category"><span>Blur</span>
-                    <li id="blur-options" class="processing-options sidebar-elem sidebar-first-elem">Box Blur</li>
-                </ul>
             </div>
             <div id="image-options">
                 <div id="two-canvases-wrapper">
                     <div id="canvas-wrapper">
-                        <canvas id="input-canvas" class="one-active-canvas"></canvas>
+                        <canvas id="input-canvas"></canvas>
                     </div>
                     <div id="processing-options" style="display: none;">
                         <div id="box-blur-slider-wrapper" style="display: none;">
@@ -209,7 +210,7 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </main>
 
         <script type="module" src="./js/dist/index.js"></script>
     </body>

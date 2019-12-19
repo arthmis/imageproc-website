@@ -108,6 +108,7 @@ async function main() {
         active_input.style.display = "none";
         active_option = document.createElement("p");
         processing_options.style.display = "none";
+        document.getElementById("input-canvas").style.backgroundColor = "white";
         // will have to make sure this displays the new image without 
         // any weird bugs 
         draw_canvases.display_only_processed_image();
@@ -116,6 +117,12 @@ async function main() {
     // this button activates the file input event
     let upload_image = document.getElementById("upload-image");
     upload_image.addEventListener("click", () => {
+        if (window.matchMedia("(max-width: 768px) and (orientation: portrait)")) {
+            if (sidebar.classList.contains("mobile-visible")) {
+                sidebar.classList.remove("mobile-visible");
+                sidebar.classList.add("mobile-hidden");
+            }
+        }
         file_input.click();
     });
 
@@ -181,6 +188,18 @@ async function main() {
 
                 active_info.style.display = "none";
 
+                if (window.matchMedia("(max-width: 768px) and (orientation: portrait)")) {
+                    if (sidebar.classList.contains("mobile-hidden")) {
+                        sidebar.classList.remove("mobile-hidden");        
+                        sidebar.classList.add("mobile-visible");        
+                    } else if (sidebar.classList.contains("mobile-visible")) {
+                        sidebar.classList.remove("mobile-visible");
+                        sidebar.classList.add("mobile-hidden");
+                    } else {
+                        console.log("sidebar should have either class");
+                    }
+                }
+
                 raw_images.set_output_image_to_original();
                 draw_canvases.draw_image(raw_images.original_img_canvas());
             } else {
@@ -194,6 +213,18 @@ async function main() {
 
                 invert_option.classList.add("select-option");
                 active_option = invert_option;
+
+                if (window.matchMedia("(max-width: 768px) and (orientation: portrait)")) {
+                    if (sidebar.classList.contains("mobile-hidden")) {
+                        sidebar.classList.remove("mobile-hidden");        
+                        sidebar.classList.add("mobile-visible");        
+                    } else if (sidebar.classList.contains("mobile-visible")) {
+                        sidebar.classList.remove("mobile-visible");
+                        sidebar.classList.add("mobile-hidden");
+                    } else {
+                        console.log("sidebar should have either class");
+                    }
+                }
 
                 // modifies the original image separately in case there needs
                 // to be resizing done. This way I don't have to re modify
@@ -227,6 +258,18 @@ async function main() {
 
                 processing_options.style.display = "none";
 
+                if (window.matchMedia("(max-width: 768px) and (orientation: portrait)")) {
+                    if (sidebar.classList.contains("mobile-hidden")) {
+                        sidebar.classList.remove("mobile-hidden");        
+                        sidebar.classList.add("mobile-visible");        
+                    } else if (sidebar.classList.contains("mobile-visible")) {
+                        sidebar.classList.remove("mobile-visible");
+                        sidebar.classList.add("mobile-hidden");
+                    } else {
+                        console.log("sidebar should have either class");
+                    }
+                }
+
                 raw_images.set_output_image_to_original();
                 draw_canvases.draw_image(raw_images.original_img_canvas());
             } else {
@@ -243,6 +286,17 @@ async function main() {
                 active_input = box_blur_slider_wrapper;
 
                 processing_options.style.display = "";
+                if (window.matchMedia("(max-width: 768px) and (orientation: portrait)")) {
+                    if (sidebar.classList.contains("mobile-hidden")) {
+                        sidebar.classList.remove("mobile-hidden");        
+                        sidebar.classList.add("mobile-visible");        
+                    } else if (sidebar.classList.contains("mobile-visible")) {
+                        sidebar.classList.remove("mobile-visible");
+                        sidebar.classList.add("mobile-hidden");
+                    } else {
+                        console.log("sidebar should have either class");
+                    }
+                }
 
                 // puts the box blur slider at 1 because the default is in the middle
                 // this way the user doesn't get an image blurred at 500 when they
@@ -283,6 +337,18 @@ async function main() {
 
                 processing_options.style.display = "none";
 
+                if (window.matchMedia("(max-width: 768px) and (orientation: portrait)")) {
+                    if (sidebar.classList.contains("mobile-hidden")) {
+                        sidebar.classList.remove("mobile-hidden");        
+                        sidebar.classList.add("mobile-visible");        
+                    } else if (sidebar.classList.contains("mobile-visible")) {
+                        sidebar.classList.remove("mobile-visible");
+                        sidebar.classList.add("mobile-hidden");
+                    } else {
+                        console.log("sidebar should have either class");
+                    }
+                }
+
                 raw_images.set_output_image_to_original();
                 draw_canvases.draw_image(raw_images.original_img_canvas());
             } else {
@@ -299,6 +365,19 @@ async function main() {
                 active_input = gamma_slider_wrapper;
 
                 processing_options.style.display = "";
+
+                if (window.matchMedia("(max-width: 768px) and (orientation: portrait)")) {
+                    if (sidebar.classList.contains("mobile-hidden")) {
+                        sidebar.classList.remove("mobile-hidden");        
+                        sidebar.classList.add("mobile-visible");        
+                    } else if (sidebar.classList.contains("mobile-visible")) {
+                        sidebar.classList.remove("mobile-visible");
+                        sidebar.classList.add("mobile-hidden");
+                    } else {
+                        console.log("sidebar should have either class");
+                    }
+                }
+
 
                 // puts the gamma slider at 1 because this keeps the image unchanged 
                 gamma_slider.value = 1;
@@ -385,6 +464,22 @@ async function main() {
 
         return [new_width, new_height];
     }
+    
+    let sidebar = document.getElementById("sidebar");
+    let algorithms_button = document.getElementById("open-algorithms");
+    algorithms_button.addEventListener("click", () => {
+        if (window.matchMedia("(max-width: 768px) and (orientation: portrait)")) {
+            if (sidebar.classList.contains("mobile-hidden")) {
+                sidebar.classList.remove("mobile-hidden");        
+                sidebar.classList.add("mobile-visible");        
+            } else if (sidebar.classList.contains("mobile-visible")) {
+                sidebar.classList.remove("mobile-visible");
+                sidebar.classList.add("mobile-hidden");
+            } else {
+                console.log("sidebar should have either class");
+            }
+        }
+    });
 }
 
 main();
