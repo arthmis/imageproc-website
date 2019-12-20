@@ -1,12 +1,3 @@
-/* 
-Color pallete information:
-#FBC2B5
-#E58f65
-#D05353
-#191919
-#FFBC42
-*/
-
 html, body, #main, #image-options {
     min-width: 100%;
     max-width: 100%;
@@ -17,7 +8,6 @@ html, body, #main, #image-options {
 
 body {
     font-size: 16px;
-    /* font-family: "Verdana", Geneva, sans-serif; */
     font-family: "Open Sans", Arial, sans-serif;
     background-color: #394359;
     color: white;
@@ -33,7 +23,7 @@ a:link {
 a:visited {
     color: darkred;
 }
-a:hover {
+a:hover 
     color: lightcoral;
 }
 a:active {
@@ -54,17 +44,12 @@ main {
     align-items: center;
     max-height: 4em;
     min-height: 3em;
-    /* width: 100%; */
     max-width: 100%;
     min-width: 100%;
-    /* border-bottom: 1px solid rgb(200, 200, 200); */
-    padding-bottom: 2em;
-    /* background-color: rgb(230, 230, 230); */
+    padding-bottom: 1em;
 }
 
 .navbar > a > img  {
-    /* margin-top: 0.4em; */
-    /* padding-left: 1em; */
     min-width: 2em;
     min-height: 1em;
     max-height: 2em;
@@ -74,45 +59,13 @@ main {
     min-height: 1em;
     min-width: 3em;
     padding: 1em;
+    color: #f2be8d;
 }
 .navbar > a:hover {
     cursor: pointer;
 }
 
-#input-image {
-    padding: 1em;
-    height: 3em;
-    max-width: 10em;
-    min-width: 8em;
-    width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-#upload-image, #upload-image:hover, #upload-image:active {
-    font-size: 1.2em;
-    font-family: inherit;
-    height: 2em;
-    max-width: 10em;
-    min-width: 8em;
-    border: 0.1em solid #eeeeee;
-    border-radius: 0.3em;
-    /* border-radius: 0.8em; */
-    color: white;
-    background-color: #ba6c65;
-}
 
-#upload-image:hover, #upload-image:active {
-    /* background-color: #e66b2d; */
-    background-color: #bb4c42;
-}
-
-#upload-image-algorithms {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-}
 #sidebar {
     height: 80vh;
     min-width: 15%;
@@ -121,7 +74,6 @@ main {
 
 
 #options {
-    /* display: flex; */
     flex-direction: column;
     justify-content: flex-start;
     align-items: center;
@@ -134,39 +86,27 @@ main {
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
-    /* width: 100%; */
     max-width: 85%;
     min-width: 80%;
 }
 
 #two-canvases-wrapper {
-    /* height: 90vh; */
-    /* display: grid;
-    grid-template-rows: 11fr 1fr; */
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
     width: 100%;
-    /* justify-content: space-around; */
-    /* flex-direction: column;
-    justify-content: space-between; */
 }
 
 #canvas-wrapper {
-    min-height: 70vh;
-    max-height: 80vh;
     width: 100%;
     display: flex;
     flex-direction: column;
-    /* flex-direction: row;
 
     align-items: center;
-    justify-content: center; */
+    justify-content: center; 
 }
 
 #processing-options {
-    /* height: 11vh; */
-    /* grid-row: 2; */
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -175,16 +115,14 @@ main {
 
 .algorithm-info {
     max-width: 85ch;
-    /* min-width: 30ch; */
+    min-width: 30ch;
 }
 #algorithm-info {
     display: flex;
     flex-direction: column;
-    /* justify-content: center; */
     align-items: center;
-    /* padding: 5em; */
     max-width: 85ch;
-    /* min-width: 40ch; */
+    min-width: 30ch;
 }
 
 .algorithm-info > h2 {
@@ -210,18 +148,17 @@ main {
     line-height: 1.2;
 }
 .box-blur-demo {
-    width: 768px;
-    height: 500px; 
+    width: 100%;
+    height: auto; 
 }
 
 .gamma-images {
-    width: 768px;
-    height: 75px; 
+    width: 100%;
+    height: auto; 
 }
 
 .formula {
     text-indent: 3em;
-    /* letter-spacing: 0.1em; */
 }
 
 #input-canvas {
@@ -291,6 +228,8 @@ main {
     text-align: right;
     width: 2.5em;
     font-size: 1em;
+    background-color: #394359;
+    color: white;
 }
 
 .slider {
@@ -298,6 +237,7 @@ main {
 }
 .slider > input[type=range] {
     width: 100%;
+    background-color: #394359;
 }
 /* from css tricks on styling sliders */
 /* Special styling for WebKit/Blink */
@@ -392,8 +332,6 @@ input[type=range]:focus::-ms-fill-upper {
 @media only screen and (max-width: 768px) and (orientation: portrait) {
 /* @media (orientation: portrait) { */
     body, main {
-        /* min-width: 100%;
-        max-width: 100%; */
         width: 100%;
     }
     main {
@@ -411,56 +349,89 @@ input[type=range]:focus::-ms-fill-upper {
         position: absolute;
         z-index: 1;
         justify-content: center;
-        /* background-color: white; */
         background-color: #434a58;
     }
 
-    #upload-image {
-        max-height: 2em;
-        font-size: 1em;
-        max-width: 8em;
-        min-width: 5em;
-        border: 1px solid black;
+    #upload-image-algorithms {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        padding-bottom: 1em;
     }
-    #open-algorithms {
-        /* padding: 1em; */
+
+    #upload-image, #open-algorithms {
+        height: 2em;
         font-size: 1em;
-        font-family: inherit;
-        max-height: 2em;
-        max-width: 8em;
-        min-width: 5em;
-        border-radius: 0.3em;
+        max-width: 10em;
+        /* min-width: 8em; */
         border: 1px solid black;
         color: white;
         background-color: #ba6c65;
+        border-radius: 0.3em;
+        font-family: inherit;
     }
-    #open-algorithms:active {
+    #upload-image-algorithms > #open-algorithms {
+        padding-left: 1em;
+    }
+
+    #open-algorithms:active, #upload-image:active {
         background-color: #bb4c42;
     }
+
+    #open-algorithms-wrapper {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding-left: 1em;
+    }
+
+    #input-image {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding-right: 1em;
+    }
+
     #options {
-        /* display: flex; */
+        display: flex;
         flex-direction: column;
         justify-content: flex-start;
         align-items: center;
-        width: 50%;
+        width: 100%;
         height: 100vh;
     }
 
+    #image-options {
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+    }
     #sidebar {
-        height: 70vh;
+        height: 85vh;
         min-width: 50%;
         align-self: flex-start;
     }
-    #options {
-        width: 100%;
+    .processing-category > span {
+        align-self: center;
     }
 
+    .sidebar-elem {
+        width: 100%;
+    }
     .sidebar-elem:active {
         background-color: #475570;
     }
     .select-option {
         background-color: #2f4369;
 
+    }
+
+    #box-blur-slider-wrapper {
+        padding-top: 1em;
+    }
+    #gamma-slider-wrapper {
+        padding-top: 1em;
     }
 }
 
@@ -469,9 +440,37 @@ input[type=range]:focus::-ms-fill-upper {
         display: flex;
     }
 
-    #open-algorithms {
+    #open-algorithms-wrapper {
+        display: none;
+    }
+    /* #open-algorithms {
         display: none;
 
+    } */
+
+    #upload-image, #upload-image:hover, #upload-image:active {
+        font-size: 1.2em;
+        font-family: inherit;
+        height: 2em;
+        border: 0.1em solid #eeeeee;
+        border-radius: 0.3em;
+        color: white;
+        background-color: #ba6c65;
+    }
+
+    #upload-image:hover, #upload-image:active {
+        background-color: #bb4c42;
+    }
+
+    #input-image {
+        /* padding: 1em; */
+        height: 3em;
+        max-width: 12em;
+        min-width: 8em;
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
     }
 
 }

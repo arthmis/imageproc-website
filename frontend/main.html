@@ -7,6 +7,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.5">
         <link rel="stylesheet" type = "text/css" href="main.css"/>
         <link href="https://fonts.googleapis.com/css?family=Open+Sans&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="fonts/font-awesome-4.7.0/css/font-awesome.min.css">
 
     </head>
 
@@ -14,16 +15,28 @@
         <nav class="navbar">
             <a href="index.html">
                 <!-- Icon made by Freepik from www.flaticon.com -->
-                <img src="./icons/house-black-silhouette-without-door.svg" alt="home page">
+                <!-- <img src="./icons/house-black-silhouette-without-door.svg" alt="home page"> -->
+                <i class="fa fa-home" aria-hidden="true" style="font-size:2em;"></i>
             </a>
             
-            <a href="https://github.com/lazypassion/imageproc-website">Github</a>
+            <a href="https://github.com/lazypassion/imageproc-website">
+                <i class="fa fa-github" aria-hidden="true" style="font-size:1.4em;"></i>
+                Github
+            </a>
         </nav>
         <div id="upload-image-algorithms">
-            <button id="open-algorithms">Algorithms</button>
+            <div id="open-algorithms-wrapper">
+                <button id="open-algorithms">
+                    <i id="open-algorithms-arrow" class="fa fa-angle-right" aria-hidden="true" style="font-size:1.2em;"></i>
+                    Algorithms
+                </button>
+            </div>
             <div id="input-image"> 
                 <input type="file" id="file-input" accept="image/png, image/jpeg" style="display: none;">
-                <button id="upload-image">Upload Image</button>
+                <button id="upload-image">
+                    <i class="fa fa-upload" aria-hidden="true" style="font-size:1em;"></i>
+                    Upload Image
+                </button>
             </div>
         </div>
         <main>
@@ -45,7 +58,7 @@
                         <div id="box-blur-slider-wrapper" style="display: none;">
                             <div class="slider-value">
                                 <label for=box-blur-value">blur diameter</label>
-                                <input id="box-blur-value" type="text" name="box-blur-value">
+                                <input id="box-blur-value" type="text" name="box-blur-value" readonly>
                             </div>
                             <div class="slider">
                                 <input class="slider-style" id="box-blur-slider" type="range" name="box-blur" min="1" max="51" step="2">
@@ -54,7 +67,7 @@
                         <div id="gamma-slider-wrapper" style="display: none;">
                             <div class="slider-value">
                                 <label for="gamma-value">Gamma</label>
-                                <input id="gamma-value" type="text" name="gamma-value">
+                                <input id="gamma-value" type="text" name="gamma-value" readonly>
                             </div>
                             <div class="slider">
                                 <input class="slider-style" id="gamma-slider" type="range" name="gamma" min="0.1" max="5" step="0.01">
