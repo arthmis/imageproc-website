@@ -23,7 +23,7 @@ a:link {
 a:visited {
     color: darkred;
 }
-a:hover 
+a:hover {
     color: lightcoral;
 }
 a:active {
@@ -34,7 +34,6 @@ main {
     display: flex;
     flex-direction: row;
     width: 100%;
-    align-items: center;
 }
 
 .navbar {
@@ -77,18 +76,12 @@ main {
     flex-direction: column;
     justify-content: flex-start;
     align-items: center;
-    width: 100%;
+    width: 90%;
     height: 90vh;
+    padding-left: 10%;
 }
 
 
-#image-options {
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    max-width: 85%;
-    min-width: 80%;
-}
 
 #two-canvases-wrapper {
     display: flex;
@@ -97,13 +90,11 @@ main {
     width: 100%;
 }
 
-#canvas-wrapper {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
 
-    align-items: center;
-    justify-content: center; 
+#input-canvas {
+    height: 100%;
+    width: 100%;
+    background-color: #394359;
 }
 
 #processing-options {
@@ -113,10 +104,7 @@ main {
     justify-content: flex-start;
 }
 
-.algorithm-info {
-    max-width: 85ch;
-    min-width: 30ch;
-}
+
 #algorithm-info {
     display: flex;
     flex-direction: column;
@@ -161,10 +149,6 @@ main {
     text-indent: 3em;
 }
 
-#input-canvas {
-    height: 100%;
-    width: 100%;
-}
 
 .select-option {
     background-color: #eeeeee;
@@ -329,8 +313,7 @@ input[type=range]:focus::-ms-fill-upper {
 }
 
 /* for mobile phones */
-@media only screen and (max-width: 768px) and (orientation: portrait) {
-/* @media (orientation: portrait) { */
+@media only screen and (max-width: 768px) {
     body, main {
         width: 100%;
     }
@@ -386,6 +369,15 @@ input[type=range]:focus::-ms-fill-upper {
         padding-left: 1em;
     }
 
+    #canvas-wrapper {
+        width: 100%;
+        height: 45vh;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center; 
+    }
+
     #input-image {
         display: flex;
         align-items: center;
@@ -435,11 +427,8 @@ input[type=range]:focus::-ms-fill-upper {
     }
 }
 
-@media only screen and (min-width: 768px) and (orientation: landscape) {
-    #options {
-        display: flex;
-    }
-
+/* @media only screen and (min-width: 768px) and (orientation: landscape) { */
+@media only screen and (min-width: 769px)  {
     #open-algorithms-wrapper {
         display: none;
     }
@@ -448,6 +437,10 @@ input[type=range]:focus::-ms-fill-upper {
 
     } */
 
+    #upload-image-algorithms {
+        padding-bottom: 1.5em;
+        /* border-bottom: 1px solid #d1d1d1; */
+    }
     #upload-image, #upload-image:hover, #upload-image:active {
         font-size: 1.2em;
         font-family: inherit;
@@ -472,7 +465,41 @@ input[type=range]:focus::-ms-fill-upper {
         align-items: center;
         justify-content: center;
     }
+    #canvas-wrapper {
+        width: 100%;
+        height: 70vh;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center; 
+    }
+    #sidebar {
+        height: 90vh;
+        min-width: 20%;
+        max-width: 30%;
+    }
 
+    #image-options {
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        max-width: 80%;
+        min-width: 70%;
+    }
+
+    #options {
+        display: flex;
+        margin-top: 2em;
+        
+    }
+    #algorithm-info {
+        padding-left: 1em;
+        padding-right: 1em;
+    }
+
+    #processing-options {
+        padding-top: 2em;
+    }
 }
 
 /* for tablets */

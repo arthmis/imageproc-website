@@ -108,7 +108,6 @@ async function main() {
         active_input.style.display = "none";
         active_option = document.createElement("p");
         processing_options.style.display = "none";
-        document.getElementById("input-canvas").style.backgroundColor = "white";
         // will have to make sure this displays the new image without 
         // any weird bugs 
         draw_canvases.display_only_processed_image();
@@ -379,9 +378,9 @@ async function main() {
         );
 
     }
+
     box_blur_slider.addEventListener("input", debounce(box_slider_func, 51));
-    // box_blur_slider.addEventListener("input", throttle(slider_func, 100));
-    // box_blur_slider.addEventListener("input", slider_func);
+
     function scale_img_dimensions_to_canvas(img, canvas) {
 
         let scale = 0;
@@ -412,23 +411,13 @@ async function main() {
         toggle_algorithms_sidebar();
     });
     function toggle_algorithms_sidebar() {
-        if (window.matchMedia("(max-width: 768px) and (orientation: portrait)")) {
-            if (sidebar.classList.contains("mobile-hidden")) {
-                sidebar.classList.remove("mobile-hidden");        
-                sidebar.classList.add("mobile-visible");        
-                algorithms_arrow.classList.toggle("fa-angle-right");
-                algorithms_arrow.classList.toggle("fa-angle-down");
-            } else if (sidebar.classList.contains("mobile-visible")) {
-                sidebar.classList.remove("mobile-visible");
-                sidebar.classList.add("mobile-hidden");
-                algorithms_arrow.classList.toggle("fa-angle-down");
-                algorithms_arrow.classList.toggle("fa-angle-right");
-            } else {
-                console.log("sidebar should have either class");
-            }
-        }
-        
+        if (window.matchMedia("(max-width: 768px)").matches) {
+                sidebar.classList.toggle("mobile-hidden");
+                sidebar.classList.toggle("mobile-visible");
 
+                algorithms_arrow.classList.toggle("fa-angle-right");
+                algorithms_arrow.classList.toggle("fa-angle-down");
+        }
     }
 }
 
