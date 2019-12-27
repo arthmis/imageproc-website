@@ -104,10 +104,20 @@ async function main() {
         // this will need some more working if I decide to
         // make active_input and active_option null capable
         // variables
-        active_option.classList.remove("select-option");
-        active_input.style.display = "none";
-        active_option = document.createElement("p");
-        processing_options.style.display = "none";
+        if (active_option !== null) {
+            active_option.classList.remove("select-option");
+            active_option = null;
+        }
+
+        if (active_input !== null) {
+            active_input.style.display = "none";
+        }
+
+        // might need to check if algorithim-info is still displaying something
+        // even if it's not null
+        if (active_info !== null) {
+            active_info.style.display = "none";
+        }
         // will have to make sure this displays the new image without 
         // any weird bugs 
         draw_canvases.display_only_processed_image();
@@ -151,21 +161,73 @@ async function main() {
     let invert_option = document.getElementById("invert-option");
     let blur_option = document.getElementById("blur-options");
     let gamma_option = document.getElementById("gamma-option");
-    let active_option = document.createElement("p"); // creates dummy element so it wouldn't be null
+    // let active_option = document.createElement("p"); // creates dummy element so it wouldn't be null
+    let active_option = null;
 
-    let gamma_value_elem = document.getElementById("gamma-value");
-    let box_blur_value_elem = document.getElementById("box-blur-value");
     let processing_options = document.getElementById("processing-options");
 
     // maybe make this null
     // also maybe make this null
-    let active_input = document.createElement("p"); // creates dummy element so it wouldn't be null
+    // let active_input = document.createElement("p"); // creates dummy element so it wouldn't be null
+    let active_input = null;
 
     let invert_info = document.getElementById("invert-info");
     let box_blur_info = document.getElementById("box-blur-info");
     let gamma_info = document.getElementById("gamma-info");
-    let active_info = document.createElement("p");
+    // let active_info = document.createElement("p");
+    let active_info = null;
 
+    function change_active_option(algorithm_option, algorithm_input, algorithm_info) {
+
+        if (active_info === null) {
+            active_info = algorithm_info;
+            active_info.style.display = "";
+        } 
+        else {
+            active_info.style.display = "none";
+            active_info = algorithm_info;
+            active_info.style.display = "";
+        }
+
+        if (active_input === null) {
+            processing_options.style.display = "";
+            active_input = algorithm_input;
+            active_input.style.display = "";
+        } 
+        else {
+            active_input.style.display = "none";
+            active_input = algorithm_input;
+            active_input.style.display = "";
+            processing_options.style.display = "";
+        }
+
+        if (active_option === null) {
+            active_option = algorithm_option;
+            active_option.classList.add("select-option");
+        } 
+        else {
+            active_option.classList.remove("select-option");
+            active_option = algorithm_option;
+            active_option.classList.add("select-option");
+        }
+    }
+    function deactivate_option(algorithm_option) {
+        algorithm_option.classList.remove("select-option");
+        active_input.style.display = "none";
+
+        active_info.style.display = "none";
+
+        active_option = null;
+        active_input = null;
+        active_info = null;
+        processing_options.style.display = "none";
+
+        toggle_algorithms_sidebar();
+
+        raw_images.set_output_image_to_original();
+        draw_canvases.draw_image(raw_images.original_img_canvas());
+        
+    }
     let options = document.getElementById("options");
     // these events should check if they are the active option and if clicked again
     // they should deactivate and present the original image
@@ -181,35 +243,12 @@ async function main() {
             }
 
             if (active_option === invert_option) {
-                invert_option.classList.remove("select-option");
-                active_input.style.display = "none";
-                active_option = document.createElement("p");
-
-                active_info.style.display = "none";
-
-                toggle_algorithms_sidebar();
-
-                raw_images.set_output_image_to_original();
-                draw_canvases.draw_image(raw_images.original_img_canvas());
+                deactivate_option(invert_option);
             } else {
-                // makes active input a dummy element
-                active_info.style.display = "none";
-                active_info = invert_info;
-                active_info.style.display = "";
-
-                active_input.style.display = "none";
-                active_input = document.createElement("p");
-
-                invert_option.classList.add("select-option");
-                active_option = invert_option;
+                change_active_option(invert_option, invert_button, invert_info);
 
                 toggle_algorithms_sidebar();
 
-                // modifies the original image separately in case there needs
-                // to be resizing done. This way I don't have to re modify
-                // the original image and resize
-                // eventually this operation will occur in a web worker so it doesn't
-                // block the ui
                 image_worker.postMessage(
                     {
                         message: "INVERT",
@@ -229,49 +268,18 @@ async function main() {
             }
 
             if (active_option === blur_option) {
-                blur_option.classList.remove("select-option");
-                active_option = document.createElement("p");
-                active_input.style.display = "none";
-
-                active_info.style.display = "none";
-
-                processing_options.style.display = "none";
-
-                toggle_algorithms_sidebar();
-
-                raw_images.set_output_image_to_original();
-                draw_canvases.draw_image(raw_images.original_img_canvas());
+                deactivate_option(blur_option);
             } else {
-                blur_option.classList.add("select-option");
-                active_option = blur_option;
-
-                active_info.style.display = "none";
-                active_info = box_blur_info;
-                active_info.style.display = "";
-
-                active_input.style.display = "none";
-                // displays the slider for box blur
-                box_blur_slider_wrapper.style.display = "";
-                active_input = box_blur_slider_wrapper;
-
-                processing_options.style.display = "";
+                change_active_option(blur_option, box_blur_slider_wrapper, box_blur_info);
 
                 toggle_algorithms_sidebar();
 
-                // puts the box blur slider at 1 because the default is in the middle
-                // this way the user doesn't get an image blurred at 500 when they
-                // click on box blur
-                // box_blur_slider = document.getElementById("box-blur-slider");
+                // puts the box blur slider at 1 because the default position is in the middle
                 box_blur_slider.value = 1;
                 box_blur_value_elem.value = box_blur_slider.value;
 
                 let kernel_size = box_blur_slider.valueAsNumber;
 
-                // modifies the original image separately in case there needs
-                // to be resizing done. This way I don't have to re modify
-                // the original image and resize
-                // eventually this operation will occur in a web worker so it doesn't
-                // block the ui
                 image_worker.postMessage(
                     {
                         message: "BOX BLUR",
@@ -289,32 +297,9 @@ async function main() {
                 return;
             }
             if (active_option === gamma_option) {
-                gamma_option.classList.remove("select-option");
-                active_option = document.createElement("p");
-                active_input.style.display = "none";
-
-                active_info.style.display = "none";
-
-                processing_options.style.display = "none";
-
-                toggle_algorithms_sidebar();
-
-                raw_images.set_output_image_to_original();
-                draw_canvases.draw_image(raw_images.original_img_canvas());
+                deactivate_option(gamma_option);
             } else {
-                gamma_option.classList.add("select-option");
-                active_option = gamma_option;
-
-                active_info.style.display = "none";
-                active_info = gamma_info;
-                active_info.style.display = "";
-
-                active_input.style.display = "none";
-                // displays the slider for gamma transformation 
-                gamma_slider_wrapper.style.display = "";
-                active_input = gamma_slider_wrapper;
-
-                processing_options.style.display = "";
+                change_active_option(gamma_option, gamma_slider_wrapper, gamma_info);
 
                 toggle_algorithms_sidebar();
 
@@ -322,14 +307,12 @@ async function main() {
                 gamma_slider.value = 1;
                 gamma_value_elem.value = 1;
 
-                let gamma = gamma_slider.valueAsNumber;
-
                 image_worker.postMessage(
                     {
                         message: "GAMMA",
                         image: raw_images.preview_img().data.buffer,
                         width: raw_images.preview_img().width,
-                        gamma: gamma,
+                        gamma: gamma_slider.valueAsNumber,
                     },
                     [raw_images.original_img().data.buffer]
                 );
@@ -339,8 +322,21 @@ async function main() {
 
     }), 33);
 
+    let invert_button = document.getElementById("invert-button");
+    invert_button.addEventListener("click", debounce(() => {
+        image_worker.postMessage(
+            {
+                message: "INVERT",
+                image: raw_images.output_img().data.buffer,
+                width: raw_images.output_img().width,
+            },
+            [raw_images.output_img().data.buffer]
+        );
+    }), 33);
+
     let gamma_slider_wrapper = document.getElementById("gamma-slider-wrapper");
     let gamma_slider = document.getElementById("gamma-slider");
+    let gamma_value_elem = document.getElementById("gamma-value");
     let gamma_slider_func = (event) => {
         let gamma = event.target.valueAsNumber;
         gamma_value_elem.value = gamma;
@@ -361,6 +357,7 @@ async function main() {
 
     let box_blur_slider_wrapper = document.getElementById("box-blur-slider-wrapper");
     let box_blur_slider = document.getElementById("box-blur-slider");
+    let box_blur_value_elem = document.getElementById("box-blur-value");
     let box_slider_func = (event) => {
         // function slider_func(event) {
         let kernel_size = event.target.valueAsNumber;
