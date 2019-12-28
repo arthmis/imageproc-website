@@ -2,6 +2,9 @@ self.importScripts('../../wasm/proc.js');
 
 const {invert, box_blur, gamma_transform} = wasm_bindgen;
 
+// let user_image = new Uint8ClampedArray(0);
+let user_image = null;
+
 async function initialize() {
     await wasm_bindgen('../../wasm/proc_bg.wasm');
     
@@ -13,7 +16,7 @@ async function initialize() {
         let inverted_raw_data = new Uint8ClampedArray(
             invert(img, width)
         );
-        // return new ImageData(inverted_raw_data, width);
+
         return inverted_raw_data;
     }
 
@@ -27,7 +30,6 @@ async function initialize() {
             )
         );
 
-        // return new ImageData(box_blur_raw_data, img.width)
         return box_blur_raw_data;
     }
 
@@ -41,22 +43,35 @@ async function initialize() {
 
     self.addEventListener('message', event => {
         let message = event.data.message;
-        let image_data = new Uint8Array();
+        // let image_data = new Uint8Array();
+        let image_data = null;
         let width = 0;
 
         if (message === "INVERT") {
             width = event.data.width;
+        } else if (message === "INVERT BUTTON") {
+            width = event.data.width;
             image_data = new Uint8Array(event.data.image);
         } else if (message === "BOX BLUR") {
             width = event.data.width;
-            image_data = new Uint8Array(event.data.image); 
         } else if (message === "GAMMA") {
             width = event.data.width;
-            image_data = new Uint8Array(event.data.image);
+        } else if (message === "USER IMAGE") {
+            user_image = new Uint8ClampedArray(event.data.image);
         }
 
         if (message === "INVERT") {
-            console.log("inverting");
+            image_data = invert_image(user_image, width);
+            self.postMessage(
+                {
+                    message: "INVERTED",
+                    image: image_data.buffer,
+                    width: width,
+                },
+                [image_data.buffer]
+            );
+        } 
+        else if (message === "INVERT BUTTON") {
             image_data = invert_image(image_data, width);
             self.postMessage(
                 {
@@ -66,9 +81,9 @@ async function initialize() {
                 },
                 [image_data.buffer]
             );
-        } else if (message === "BOX BLUR") {
-            console.log("box blurring");
-            image_data = box_blur_image(image_data, width, event.data.kernel_size);
+        }
+        else if (message === "BOX BLUR") {
+            image_data = box_blur_image(user_image, width, event.data.kernel_size);
             self.postMessage(
                 {
                     message: "BOX BLUR",
@@ -78,8 +93,7 @@ async function initialize() {
                 [image_data.buffer]
             );
         } else if (message === "GAMMA") {
-            console.log("performing gamma transformation");
-            image_data = gamma(image_data, width, event.data.gamma);
+            image_data = gamma(user_image, width, event.data.gamma);
             self.postMessage(
                 {
                     message: "GAMMA",
@@ -87,9 +101,8 @@ async function initialize() {
                     width: width,
                 },
                 [image_data.buffer]
-            )
+            );
         } else {
-            console.log("Message was unrecognized");
             self.postMessage("Unrecognized message", []);
         }
     });
