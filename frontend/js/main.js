@@ -39,7 +39,7 @@ function main() {
             console.log(`${event.data.message}`);
         }
         else if (event.data.message === "INVERTED") {
-            console.log(`${event.data.message}`);
+            // console.log(`${event.data.message}`);
             let image = new ImageData(
                 new Uint8ClampedArray(event.data.image), event.data.width
             );
@@ -49,7 +49,7 @@ function main() {
             draw_canvases.draw_image(raw_images.output_img_canvas());
         }
         else if (event.data.message === "BOX BLUR") {
-            console.log(`${event.data.message}`);
+            // console.log(`${event.data.message}`);
             let image = new ImageData(
                 new Uint8ClampedArray(event.data.image), event.data.width
             );
@@ -57,7 +57,7 @@ function main() {
             draw_canvases.draw_image(raw_images.output_img_canvas());
         }
         else if (event.data.message === "GAMMA") {
-            console.log(`${event.data.message}`);
+            // console.log(`${event.data.message}`);
             let image = new ImageData(
                 new Uint8ClampedArray(event.data.image), event.data.width
             );
@@ -65,7 +65,7 @@ function main() {
             draw_canvases.draw_image(raw_images.output_img_canvas());
         }
         else {
-            console.log(`unrecognized message from web worker: ${event.data.message}`);
+            // console.log(`unrecognized message from web worker: ${event.data.message}`);
         }
     };
 
@@ -86,6 +86,14 @@ function main() {
             raw_images = new RawImage(
                 original_img,
                 draw_canvases.processed_image_canvas,
+            );
+            image_worker.postMessage(
+                {
+                    message: "USER IMAGE",
+                    image: raw_images.preview_img().data.buffer,
+                    width: raw_images.preview_img().width,
+                },
+                [raw_images.original_img().data.buffer]
             );
 
         });
@@ -264,10 +272,8 @@ function main() {
                 image_worker.postMessage(
                     {
                         message: "INVERT",
-                        image: raw_images.preview_img().data.buffer,
                         width: raw_images.preview_img().width,
                     },
-                    [raw_images.original_img().data.buffer]
                 );
 
             }
@@ -295,11 +301,9 @@ function main() {
                 image_worker.postMessage(
                     {
                         message: "BOX BLUR",
-                        image: raw_images.preview_img().data.buffer,
                         width: raw_images.preview_img().width,
                         kernel_size: kernel_size,
                     },
-                    [raw_images.original_img().data.buffer]
                 );
             }
         }
@@ -322,11 +326,9 @@ function main() {
                 image_worker.postMessage(
                     {
                         message: "GAMMA",
-                        image: raw_images.preview_img().data.buffer,
                         width: raw_images.preview_img().width,
                         gamma: gamma_slider.valueAsNumber,
                     },
-                    [raw_images.original_img().data.buffer]
                 );
             }
 
@@ -338,7 +340,7 @@ function main() {
     invert_button.addEventListener("click", debounce(() => {
         image_worker.postMessage(
             {
-                message: "INVERT",
+                message: "INVERT BUTTON",
                 image: raw_images.output_img().data.buffer,
                 width: raw_images.output_img().width,
             },
@@ -357,15 +359,13 @@ function main() {
         image_worker.postMessage(
             {
                 message: "GAMMA",
-                image: raw_images.preview_img().data.buffer,
                 width: raw_images.preview_img().width,
                 gamma: gamma,
             },
-            [raw_images.original_img().data.buffer]
         );
 
     }
-    gamma_slider.addEventListener("input", debounce(gamma_slider_func, 51));
+    gamma_slider.addEventListener("input", debounce(gamma_slider_func, 100));
 
     let box_blur_slider_wrapper = document.getElementById("box-blur-slider-wrapper");
     let box_blur_slider = document.getElementById("box-blur-slider");
@@ -379,16 +379,15 @@ function main() {
         image_worker.postMessage(
             {
                 message: "BOX BLUR",
-                image: raw_images.preview_img().data.buffer,
                 width: raw_images.preview_img().width,
                 kernel_size: kernel_size,
             },
-            [raw_images.original_img().data.buffer]
         );
 
     }
 
-    box_blur_slider.addEventListener("input", debounce(box_slider_func, 51));
+    box_blur_slider.addEventListener("input", debounce(box_slider_func, 150));
+    // box_blur_slider.addEventListener("change", box_slider_func);
 
     function scale_img_dimensions_to_canvas(img, canvas) {
 
