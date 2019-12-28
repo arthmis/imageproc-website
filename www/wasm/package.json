@@ -1,0 +1,12 @@
+{
+  "name": "proc",
+  "collaborators": [
+    "lazypassion <25536767+lazypassion@users.noreply.github.com>"
+  ],
+  "version": "0.1.0",
+  "files": [
+    "proc_bg.wasm",
+    "proc.js"
+  ],
+  "browser": "proc.js"
+}

@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html>
+
+    <head>
+        <title>Image Processing</title>
+        <meta content="text/html;charset=UTF-8" http-equiv="Content-Type"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.5, user-scalable=no">
+        <link rel="stylesheet" type = "text/css" href="main.css"/>
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+
+    </head>
+
+    <body>
+        <nav class="navbar">
+            <a href="index.html">
+                <!-- Icon made by Freepik from www.flaticon.com -->
+                <!-- <img src="./icons/house-black-silhouette-without-door.svg" alt="home page"> -->
+                <i class="fa fa-home" aria-hidden="true" style="font-size:2em;"></i>
+            </a>
+            
+            <a href="https://github.com/lazypassion/imageproc-website">
+                <i class="fa fa-github" aria-hidden="true" style="font-size:1.4em;"></i>
+                Github
+            </a>
+        </nav>
+        <div id="upload-image-algorithms">
+            <div id="open-algorithms-wrapper">
+                <button id="open-algorithms">
+                    <i id="open-algorithms-arrow" class="fa fa-angle-right" aria-hidden="true" style="font-size:1.2em;"></i>
+                    Algorithms
+                </button>
+            </div>
+            <div id="input-image"> 
+                <input type="file" id="file-input" accept="image/png, image/jpeg" style="display: none;">
+                <button id="upload-image">
+                    <i class="fa fa-upload" aria-hidden="true" style="font-size:1em;"></i>
+                    Upload Image
+                </button>
+            </div>
+        </div>
+        <main>
+            <div id="main-content">
+                <div id="sidebar" class="mobile-hidden">
+                    <div id="options">
+                        <ul class="processing-category"><span>Algorithms</span>
+                            <li id="invert-option" class="sidebar-elem sidebar-first-elem">Invert</li>
+                            <li id="gamma-option" class="sidebar-elem">Gamma</li>
+                            <li id="blur-options" class="sidebar-elem">Box Blur</li>
+                        </ul>
+                    </div>
+                </div>
+                <div id="image-options">
+                    <div id="canvas-wrapper">
+                        <button id="large-upload-button">
+                            <i class="fa fa-upload large-button" aria-hidden="true"></i>
+                            <span class="large-button">Upload Image</span> 
+                        </button>
+                        <canvas id="input-canvas"></canvas>
+                    </div>
+                    <div id="processing-options" style="display: none;">
+                        <div id="invert-button" class="algorithm-button-wrapper algorithm-input-styling" style="display:none;">
+                            <button >Invert</button>
+                        </div>
+                        <div id="box-blur-slider-wrapper" class="algorithm-input-styling" style="display: none;">
+                            <div class="slider-value">
+                                <label for=box-blur-value">blur diameter</label>
+                                <input id="box-blur-value" type="text" name="box-blur-value" readonly>
+                            </div>
+                            <div class="slider">
+                                <input class="slider-style" id="box-blur-slider" type="range" name="box-blur" min="1" max="51" step="2">
+                            </div>
+                        </div>
+                        <div id="gamma-slider-wrapper" class="algorithm-input-styling" style="display: none;">
+                            <div class="slider-value">
+                                <label for="gamma-value">Gamma</label>
+                                <input id="gamma-value" type="text" name="gamma-value" readonly>
+                            </div>
+                            <div class="slider">
+                                <input class="slider-style" id="gamma-slider" type="range" name="gamma" min="0.1" max="5" step="0.01">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="algorithm-info">
+                <div id="invert-info" class="algorithm-info algorithm-explanation" style="display: none;">
+                    <h2>How Invert works</h2>
+                    <p>
+                        Color inversion is when the luminance of the pixel gets mapped to the opposite.
+                        In other words, white gets mapped to black and black is mapped to white. If we assume
+                        an image with the color channels red, green, blue and 8 bits per channel, then
+                        the formula to map the luminance value is given by:
+                        <p class="formula">
+                            <i>I<sub>invert</sub>(x, y) = Luminance<sub>max</sub> - I(x, y)</i>
+                        </p>
+                        where <i>I</i> is the image, <i>Luminance<sub>max</sub></i> is 255 for an image with 8 bits
+                        per color channel, and <i>x</i> and <i>y</i> are the coordinates of the pixel.
+                        Using the above formula, if you have the RGB pixel <i>I(x, y)</i> = (50, 120, 200)
+                        then <i>I<sub>invert</sub>(x, y)</i> = (205, 135, 55).
+                    </p>
+                </div>
+                <div id="box-blur-info" class="algorithm-info algorithm-explanation" style="display: none;">
+                    <h2>How Box Blur works</h2>
+                    <p>
+                        Box blur is a <a href="https://en.wikipedia.org/wiki/Convolution">convolution filter</a> that blurs an image. 
+                        It is also known as a mean filter. What it essentially does is take the average of the pixel
+                        it is centered on and all of the neighboring pixels within the filter's radius. Then it 
+                        uses the averaged value for the blurred image.
+                    </p>
+                    <p>
+                        The <a href="https://en.wikipedia.org/wiki/Kernel_(image_processing)">kernel</a> used 
+                        for the box blur convolution filter in image processing comes in the form of an
+                        <i>nxn</i> matrix divided by the scalar value of <i>n * n</i> where <i>n</i> is the diameter 
+                        of the kernel in pixels. For example: 
+                    </p>
+                    <div class="diagram">
+                        <img src="images/box-blur.png" alt="box blur kernel" style="width: 20em; height: 20em;">
+                        <p>
+                            <i>3x3</i> Box Blur Kernel 
+                        </p>
+                    </div>
+                    <p>
+                        The above kernel is 3 pixels wide by 3 pixels high. Each square overlaps a pixel on the image.
+                        The kernel can be any diameter from 1 to <span style="font-size: 1.5em;">&infin;</span>;
+                        larger kernels create a stronger blur. They are odd in size because they need to be centered
+                        on a pixel.
+                    </p>
+                    <p>Heres a demo of how box blur kernel convolves with an image: </p>
+                    <div class="diagram">
+                        <img class="box-blur-demo" src="./images/box-blur.gif" alt="box blur animation">
+                        <p>
+                            Short demo of <i>3x3</i> box blur. The right matrix is the original image
+                            and the left matrix is the result of the convolution of the box blur kernel
+                            and the right image.                                 </p>
+                    </div>
+                    <p>
+                        The kernel starts at the first pixel of the image at the 
+                        top left corner, with the value of 25. It continues by sliding to the right
+                        and calculating the average of each pixel within the kernel window at each pixel
+                        until the end of the first row then moves down to the next row.
+                    </p>
+                    <footer>
+                        <h2>Sources and Related Reading</h2>
+                        <p><a href="https://en.wikipedia.org/wiki/Box_blur">https://en.wikipedia.org/wiki/Box_blur</a></p>
+                    </footer>
+                </div>
+                <div id="gamma-info" class="algorithm-info algorithm-explanation" style="display: none;">
+
+                    <h2>How Gamma works</h2>
+                    <p>
+                        Gamma, otherwise known as gamma encoding and decoding, or gamma correction, refers to expanding or compressing an image's range 
+                        of intensity values. When an imaging system captures an image the light intensity information
+                        is captured linearly. In other words, if the light intensity is recorded by the camera
+                        with a value of 100, then 200 would be the equivalent of twice the brightness of 100.
+                        However, the human vision system perceives light nonlinearly. We are more sensitive to darker tones
+                        than lighter tones. Gamma encoding takes advantage of our perception of light intensity by transforming 
+                        the linear output of digital imaging devices into a perceptually uniform scale. 
+
+                    </p>
+                    <p>
+                        An example of perceptual brightness vs linear brightness differences is shown by the diagram below:
+                    </p>
+                    <div class="diagram">
+                        <img class="gamma-images" src="./images/linear_image.jpeg" alt="Linear Image example">
+                        <p>
+                            Perceptually linear image
+                        </p>
+                        <img class="gamma-images" src="./images/gamma_encoded_image.jpeg" alt="gamma encoded image">
+                        <p>
+                            Linear image
+                        </p>
+                    </div>
+                    <p>
+                        The above images show the effect of an encoded image and an image without gamma
+                        encoding. 
+                        
+                        The transformation for gamma encoding is:
+                        <p class="formula">
+                            <i>I<sub>encoded</sub>(x, y) = I<sub>linear</sub>(x, y)<sup>1/&#947</sup></i>
+                            <p style="text-indent: 1em">
+                                where &#947 is the gamma value, x and y are the pixel coordinates, and I is the image.</p>
+                        </p>
+
+                        The difference in value between each shade for the perceptually linear image 
+                        isn't the same; however, the delta between each shade on the linear image is the same.
+                        However, the linear image doesn't appear to have a natural progression between each shade
+                        while the perceptually linear image does. The difference between each shade looks more uniform in the
+                        perceptually linear image because of our nonlinear vision system. When being displayed the monitor and GPU
+                        apply another gamma transformation, which is supposed to effectively undo the gamma encoding already applied to image.
+                        This is known as gamma decoding. The transformation used for gamma decoding is given by:
+                        
+                        <p class="formula">
+                            <i>I<sub>linear</sub>(x, y) = I<sub>encoded</sub>(x, y)<sup>&#947</sup></i>
+                        </p>
+                            
+                        The monitor expects a gamma to be applied to the image before being displayed. The reason
+                        why the perceptually linear image looks uniform is because the gamma applied by the display devices
+                        closely approximates the perceptual uniformity the human vision system expects. For most display devices, the gamma 
+                        encoding they expect is given by:
+
+                        <p class="formula">
+                            <i>I<sub>encoded</sub>(x, y) = I<sub>linear</sub>(x, y)<sup>1/2.2</sup></i>
+                        </p>
+                        Then to display the image, the monitor will apply the gamma:
+                        <p class="formula">
+                            <i>I<sub>linear</sub>(x, y) = I<sub>encoded</sub>(x, y)<sup>2.2</sup></i>
+                        </p>
+                        to decode the image.
+                    </p>
+                    <h2>Why Gamma is Useful</h2>
+                    <p>
+                        Generally images are stored using 8 bit <abbr title="red, green, blue"> RGB</abbr> channels.
+                        Looking at the above linear and perceptually linear image, if 8 bits were used
+                        for the linear images, then too many bits would be used to represent lighter values, while
+                        too few would be used for darker tones, which humans are more sensitive too. In order to describe
+                        more darker tones using linear gamma encoding, one would have to use 11 bits to get sufficient 
+                        representation to avoid <a href="https://www.cambridgeincolour.com/tutorials/posterization.htm">image posterization</a>.
+                        In other words, 11 bits has to be used in order to get smooth gradients in the image, which are
+                        important for things like skies. However, if images are stored using 8 bit gamma encoded values,
+                        then it's possible to get smooth gradients using only 8 bits because gamma encoding <q cite="https://www.cambridgeincolour.com/tutorials/gamma-correction.htm">redistributes
+                        tonal levels closer to how our eyes perceive them</q>. Gamma encoding helps describe images using fewer
+                        bits, thus using less storage and memory. 
+                    </p>
+                    <footer>
+                        <h2>Sources and Related Reading</h2>
+                        <p><a href="https://blog.johnnovak.net/2016/09/21/what-every-coder-should-know-about-gamma/">https://blog.johnnovak.net/2016/09/21/what-every-coder-should-know-about-gamma/</a></p>
+                        <p><a href="https://www.cambridgeincolour.com/tutorials/gamma-correction.htm">https://www.cambridgeincolour.com/tutorials/gamma-correction.htm</a></p>
+                        <p><a href="https://en.wikipedia.org/wiki/Gamma_correction">https://en.wikipedia.org/wiki/Gamma_correction</a></p>
+                    </footer>
+                </div>
+            </div>
+        </main>
+
+        <script type="module" src="./js/dist/index.js"></script>
+    </body>
+</html>
