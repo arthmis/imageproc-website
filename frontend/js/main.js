@@ -32,7 +32,7 @@ const throttle = (func, limit) => {
     }
 }
 
-async function main() {
+function main() {
     let image_worker = new Worker("./js/dist/bundle_worker.js");
     image_worker.onmessage = event => {
         if (event.data.message === "wasm INITIALIZED") {
@@ -98,7 +98,9 @@ async function main() {
     file_input.addEventListener("change", () => {
         let image = file_input.files[0];
         import_and_display(image);
+
         file_input.value = null;
+        large_upload_button.style.display = "none";
         // deselects any active option and hides any sliders
         // that were in effect if user is selecting a new image
         // this will need some more working if I decide to
@@ -123,10 +125,20 @@ async function main() {
         draw_canvases.display_only_processed_image();
     });
 
+    let large_upload_button = document.getElementById("large-upload-button");
+    large_upload_button.addEventListener("click", () => {
+        if (window.matchMedia("(max-width: 768px)")) {
+            if (sidebar.classList.contains("mobile-visible")) {
+                sidebar.classList.remove("mobile-visible");
+                sidebar.classList.add("mobile-hidden");
+            }
+        }
+        file_input.click();
+    });
     // this button activates the file input event
     let upload_image = document.getElementById("upload-image");
     upload_image.addEventListener("click", () => {
-        if (window.matchMedia("(max-width: 768px) and (orientation: portrait)")) {
+        if (window.matchMedia("(max-width: 768px)")) {
             if (sidebar.classList.contains("mobile-visible")) {
                 sidebar.classList.remove("mobile-visible");
                 sidebar.classList.add("mobile-hidden");

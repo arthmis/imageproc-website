@@ -6,10 +6,17 @@ html, body, #main, #image-options {
     margin: 0;
 }
 
+:root {
+    --main-background-color: #394359;
+    --button-color: #ba6c65;
+    --button-hover-color: #bb4c42;
+    /* --main-background-color: #646464; */
+}
+
 body {
     font-size: 16px;
     font-family: "Open Sans", Arial, sans-serif;
-    background-color: #394359;
+    background-color: var(--main-background-color);
     color: white;
 }
 
@@ -18,16 +25,16 @@ a:link, a:visited, a:hover, a:active {
 }
 
 a:link {
-    color: red;
+    color: rgb(238, 88, 88);
 }
 a:visited {
-    color: darkred;
+    color: lightcoral;
 }
 a:hover {
-    color: lightcoral;
+    color: rgb(195, 119, 119);
 }
 a:active {
-    color: lightcoral;
+    color: rgb(214, 93, 93);
 }
 
 main {
@@ -73,13 +80,11 @@ main {
     cursor: pointer;
 }
 
-
 #sidebar {
     height: 90vh;
     min-width: 15%;
     max-width: 20%;
 }
-
 
 #options {
     flex-direction: column;
@@ -89,8 +94,6 @@ main {
     height: 100%;
 }
 
-
-
 #two-canvases-wrapper {
     display: flex;
     flex-direction: column;
@@ -98,11 +101,40 @@ main {
     width: 100%;
 }
 
-
 #input-canvas {
     height: 100%;
     width: 100%;
-    background-color: #394359;
+    background-color: var(--main-background-color);
+}
+
+#large-upload-button {
+    position: absolute;
+    width: 12em;
+    height: 12em; 
+    background-color: var(--main-background-color);
+    border: 5px dashed #ffffff;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+#large-upload-button:hover {
+    border: 5px dashed var(--button-hover-color);
+    cursor: default;
+}
+
+#large-upload-button > i {
+    font-size: 6em;
+}
+#large-upload-button > span {
+    font-size: 1.5em;
+}
+#large-upload-button * {
+    color: white;
+}
+
+#large-upload-button:hover * {
+    color: var(--button-hover-color);
 }
 
 #processing-options {
@@ -144,7 +176,8 @@ main {
 }
 
 .algorithm-info > h2 {
-    color: #D05353;
+    /* color: #D05353; */
+    color: #e6a86f;
 }
 
 .algorithm-explanation {
@@ -179,9 +212,8 @@ main {
     text-indent: 3em;
 }
 
-
 .select-option {
-    background-color: #eeeeee;
+    background-color: #1d3258;
 }
 
 .processing-category {
@@ -221,12 +253,13 @@ main {
     padding-bottom: 1em;
 }
 .sidebar-elem:hover {
-    background-color: #eeeeee;
+    background-color: #273758;
     cursor: pointer;
 }
 
 .sidebar-elem:active {
     box-shadow: none;
+    background-color: #273758;
 }
 
 .slider, .slider-value {
@@ -242,7 +275,8 @@ main {
     text-align: right;
     width: 2.5em;
     font-size: 1em;
-    background-color: #394359;
+    /* background-color: #394359; */
+    background-color: var(--main-background-color);
     color: white;
 }
 
@@ -251,7 +285,8 @@ main {
 }
 .slider > input[type=range] {
     width: 100%;
-    background-color: #394359;
+    /* background-color: #394359; */
+    background-color: var(--main-background-color);
 }
 /* from css tricks on styling sliders */
 /* Special styling for WebKit/Blink */
@@ -378,9 +413,9 @@ input[type=range]:focus::-ms-fill-upper {
         font-size: 1em;
         max-width: 10em;
         /* min-width: 8em; */
-        border: 1px solid black;
+        border: 1px solid var(--button-color);
         color: white;
-        background-color: #ba6c65;
+        background-color: var(--button-color);
         border-radius: 0.3em;
         font-family: inherit;
     }
@@ -389,7 +424,7 @@ input[type=range]:focus::-ms-fill-upper {
     }
 
     #open-algorithms:active, #upload-image:active {
-        background-color: #bb4c42;
+        background-color: var(--button-hover-color);
     }
 
     #open-algorithms-wrapper {
@@ -431,7 +466,7 @@ input[type=range]:focus::-ms-fill-upper {
     }
     #sidebar {
         height: 85vh;
-        min-width: 50%;
+        min-width: 40%;
         align-self: flex-start;
     }
     .processing-category > span {
@@ -455,36 +490,30 @@ input[type=range]:focus::-ms-fill-upper {
     }
 }
 
-/* @media only screen and (min-width: 768px) and (orientation: landscape) { */
 @media only screen and (min-width: 1100px)  {
     #open-algorithms-wrapper {
         display: none;
     }
-    /* #open-algorithms {
-        display: none;
-
-    } */
 
     #upload-image-algorithms {
         padding-bottom: 1.5em;
-        /* border-bottom: 1px solid #d1d1d1; */
     }
     #upload-image, #upload-image:hover, #upload-image:active {
         font-size: 1.2em;
         font-family: inherit;
         height: 2em;
-        border: 0.1em solid #eeeeee;
+        /* border: 0.1em solid #eeeeee; */
+        border: 1px solid var(--button-color);
         border-radius: 0.3em;
         color: white;
-        background-color: #ba6c65;
+        background-color: var(--button-color);
     }
 
     #upload-image:hover, #upload-image:active {
-        background-color: #bb4c42;
+        background-color: var(--button-hover-color);
     }
 
     #input-image {
-        /* padding: 1em; */
         height: 3em;
         max-width: 12em;
         min-width: 8em;
@@ -534,31 +563,25 @@ input[type=range]:focus::-ms-fill-upper {
     #open-algorithms-wrapper {
         display: none;
     }
-    /* #open-algorithms {
-        display: none;
-
-    } */
 
     #upload-image-algorithms {
         padding-bottom: 1.5em;
-        /* border-bottom: 1px solid #d1d1d1; */
     }
     #upload-image, #upload-image:hover, #upload-image:active {
         font-size: 1.2em;
         font-family: inherit;
         height: 2em;
-        border: 0.1em solid #eeeeee;
+        border: 1px solid var(--button-color);
         border-radius: 0.3em;
         color: white;
-        background-color: #ba6c65;
+        background-color: var(--button-color);
     }
 
     #upload-image:hover, #upload-image:active {
-        background-color: #bb4c42;
+        background-color: var(--button-hover-color);
     }
 
     #input-image {
-        /* padding: 1em; */
         height: 3em;
         max-width: 12em;
         min-width: 8em;
@@ -579,7 +602,6 @@ input[type=range]:focus::-ms-fill-upper {
     #input-canvas {
         height: 100%;
         width: 95%;
-        /* width: 100%; */
     }
 
     #sidebar {
@@ -610,4 +632,3 @@ input[type=range]:focus::-ms-fill-upper {
         padding-top: 1em;
     }
 }
-/* for tablets */

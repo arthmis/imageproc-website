@@ -31,6 +31,11 @@ li {
     list-style-type: none;
 }
 
+li > i.fa-square {
+    font-size: 0.5em;
+    padding-right: 1em;
+}
+
 /* #algorithms {
     max-height: 5%;
     width: 100%;
@@ -79,27 +84,28 @@ li {
 }
 
 
-/* .youtube {
-/
+.youtube {
     position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
+    /* top: 0;
+    left: 0; */
     height: 100%;
-} */
+    width: 100%;
 
-/* .youtube-wrapper iframe, .youtube-wrapper object, .youtube-wrapper embed {
+}
+
+.youtube-wrapper { 
     position: relative;
     padding-bottom: 56.25%;
-    padding-top: 30px;
     height: 0;
-} */
+    width: 100%;
+}
 
-@media (orientation: portrait) {
+@media (max-width: 999px) {
     main {
         display: flex;
         flex-direction: column;
         width: 100%;
+        align-items: center;
     }
 
     #header-body {
@@ -120,12 +126,18 @@ li {
     }
 
     header {
+        display: flex;
+        flex-direction: column;
         width: 100%;
     }
     header > h1 {
         font-size: 1.8em;
         color: #D05353;
     } 
+
+    #header-body {
+        align-self: center;
+    }
 
     .navbar {
         display: flex;
@@ -161,13 +173,13 @@ li {
     }
 
     footer {
+        /* display: flex;
+        flex-direction: column; */
         background: rgb(233, 233, 233);
     }
     #related-fields {
-        max-width: 90ch;
-        min-width: 30ch;
-        width: 100%;
-        padding-left: 1em;
+        padding-left: 1.5em;
+        padding-right: 1.5em;
     }
     #related-fields > p > a {
         text-decoration: none;
@@ -175,7 +187,7 @@ li {
     
 }
 
-@media (orientation: landscape) {
+@media only screen and (min-width: 1000px) {
     main {
         background-color: white;
         display: flex;
@@ -194,8 +206,6 @@ li {
     #main-body {
         width: 100%;
         background-color: white;
-    }
-    #header-body {
     }
     header {
         display: flex;
@@ -254,9 +264,8 @@ li {
     footer {
         display: flex;
         flex-direction: column;
-        align-items: stretch;
+        align-items: center;
         justify-content: center;
-        flex-grow: 1;
         width: 100%;
         /* max-width: 100ch; */
         /* min-width: 40ch; */
@@ -269,9 +278,10 @@ li {
         /* display: flex; */
         /* flex-direction: column; */
         /* justify-content: flex-start; */
-        max-width: 100ch;
+        max-width: 90ch;
         min-width: 30ch;
-        padding-left: 3em;
+        width: 90ch;
+        /* padding-left: 3em; */
     }
     #related-fields > p > a {
         text-decoration: none;
