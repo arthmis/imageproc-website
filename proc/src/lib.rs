@@ -6,6 +6,7 @@ use wasm_bindgen::prelude::*;
 
 use image_processing::pixel_ops::*;
 use image_processing::blur::*;
+use image_processing::edge_detection::sobel_mut;
 
 // useful console logging macro from rustwasm documentation
 macro_rules! console_log {
@@ -26,22 +27,6 @@ pub fn invert(input_image: Vec<u8>, width: u32) -> Vec<u8> {
 
     image.into_vec()
 }
-
-// #[wasm_bindgen]
-// pub fn resize_img(
-//     input_image: Vec<u8>,
-//     width: u32,
-//     new_width: u32,
-//     new_height: u32,
-// ) -> Vec<u8> {
-//     let height = (input_image.len() as u32 / CHANNEL_COUNT) / width;
-//     let image: RgbaImage =
-//         image::ImageBuffer::from_vec(width, height, input_image)
-//             .expect("expected image from canvas");
-//     let resized_img: RgbaImage =
-//         resize(&image, new_width, new_height, FilterType::CatmullRom);
-//     resized_img.into_vec()
-// }
 
 #[wasm_bindgen]
 pub fn box_blur(input_image: Vec<u8>, width: u32, kernel_size: u32) -> Vec<u8> {
@@ -67,5 +52,20 @@ pub fn gamma_transform(input_image: Vec<u8>, width: u32, gamma: f32) -> Vec<u8> 
     power_law_transform_mut(&mut image, gamma);
 
     image.into_vec()
-    
+}
+
+#[wasm_bindgen]
+pub fn sobel_edge_detection(input_image: Vec<u8>, width: u32, threshold: u8) -> Vec<u8> {
+    let height = (input_image.len() as u32 / CHANNEL_COUNT) / width;
+    let mut image: RgbaImage = 
+        image::ImageBuffer::from_vec(width, height, input_image)
+            .expect("expected image from canvas");
+
+    let mut gray_image: GrayImage = image.convert();
+
+    sobel_mut(&mut gray_image, threshold);
+
+    let image: RgbaImage = gray_image.convert();
+
+    image.into_vec()
 }

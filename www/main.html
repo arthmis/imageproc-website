@@ -46,7 +46,8 @@
                         <ul class="processing-category"><span>Algorithms</span>
                             <li id="invert-option" class="sidebar-elem sidebar-first-elem">Invert</li>
                             <li id="gamma-option" class="sidebar-elem">Gamma</li>
-                            <li id="blur-options" class="sidebar-elem">Box Blur</li>
+                            <li id="box-blur-option" class="sidebar-elem">Box Blur</li>
+                            <li id="sobel-option" class="sidebar-elem">Sobel Edge Detector</li>
                         </ul>
                     </div>
                 </div>
@@ -78,6 +79,15 @@
                             </div>
                             <div class="slider">
                                 <input class="slider-style" id="gamma-slider" type="range" name="gamma" min="0.1" max="5" step="0.01">
+                            </div>
+                        </div>
+                        <div id="sobel-slider-wrapper" class="algorithm-input-styling" style="display: none;">
+                            <div class="slider-value">
+                                <label for="sobel-threshold">Threshold</label>
+                                <input id="sobel-threshold" type="text" name="sobel-threshold" readonly>
+                            </div>
+                            <div class="slider">
+                                <input class="slider-style" id="sobel-slider" type="range" name="sobel" min="0" max="255" step="1">
                             </div>
                         </div>
                     </div>
@@ -146,7 +156,6 @@
                     </footer>
                 </div>
                 <div id="gamma-info" class="algorithm-info algorithm-explanation" style="display: none;">
-
                     <h2>How Gamma works</h2>
                     <p>
                         Gamma, otherwise known as gamma encoding and decoding, or gamma correction, refers to expanding or compressing an image's range 
@@ -228,6 +237,9 @@
                         <p><a href="https://www.cambridgeincolour.com/tutorials/gamma-correction.htm">https://www.cambridgeincolour.com/tutorials/gamma-correction.htm</a></p>
                         <p><a href="https://en.wikipedia.org/wiki/Gamma_correction">https://en.wikipedia.org/wiki/Gamma_correction</a></p>
                     </footer>
+                </div>
+                <div id="sobel-info" class="algorithm-info algorithm-explanation" style="display: none;">
+                    <!-- <h2>Sobel Edge Detector</h2> -->
                 </div>
             </div>
         </main>
