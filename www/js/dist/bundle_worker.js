@@ -100,9 +100,6 @@ const {invert, box_blur, gamma_transform, sobel_edge_detection} = wasm_bindgen;
 // let user_image = new Uint8ClampedArray(0);
 let user_image = null;
 
-// let user_image = new Uint8ClampedArray(0);
-let user_image = null;
-
 async function initialize() {
     await wasm_bindgen('../../wasm/proc_bg.wasm');
     
