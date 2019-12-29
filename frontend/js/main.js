@@ -64,6 +64,14 @@ function main() {
             raw_images.set_output_image(image);
             draw_canvases.draw_image(raw_images.output_img_canvas());
         }
+        else if (event.data.message === "SOBEL") {
+
+            let image = new ImageData(
+                new Uint8ClampedArray(event.data.image), event.data.width
+            );
+            raw_images.set_output_image(image);
+            draw_canvases.draw_image(raw_images.output_img_canvas());
+        }
         else {
             // console.log(`unrecognized message from web worker: ${event.data.message}`);
         }
@@ -179,8 +187,9 @@ function main() {
     });
 
     let invert_option = document.getElementById("invert-option");
-    let blur_option = document.getElementById("blur-options");
+    let blur_option = document.getElementById("box-blur-option");
     let gamma_option = document.getElementById("gamma-option");
+    let sobel_option = document.getElementById("sobel-option");
     // let active_option = document.createElement("p"); // creates dummy element so it wouldn't be null
     let active_option = null;
 
@@ -194,6 +203,7 @@ function main() {
     let invert_info = document.getElementById("invert-info");
     let box_blur_info = document.getElementById("box-blur-info");
     let gamma_info = document.getElementById("gamma-info");
+    let sobel_info = document.getElementById("sobel-info");
     // let active_info = document.createElement("p");
     let active_info = null;
 
@@ -279,7 +289,7 @@ function main() {
             }
 
         }
-        if (event.target.matches("#blur-options")) {
+        if (event.target.matches("#box-blur-option")) {
             if (raw_images === null) {
                 alert("Upload an image to use these algorithms");
                 return;
@@ -331,7 +341,31 @@ function main() {
                     },
                 );
             }
+        }
+        if (event.target.matches("#sobel-option")) {
+            if (raw_images === null) {
+                alert("Upload an image to use these algorithms");
+                return;
+            }
+            if (active_option === sobel_option) {
+                deactivate_option(sobel_option);
+            } else {
+                change_active_option(sobel_option, sobel_slider_wrapper, sobel_info);
 
+                toggle_algorithms_sidebar();
+
+                // starts sobel detector at halfway for threshold
+                sobel_slider.value = 123;
+                sobel_threshold.value = 123;
+
+                image_worker.postMessage(
+                    {
+                        message: "SOBEL",
+                        width: raw_images.preview_img().width,
+                        threshold: sobel_slider.valueAsNumber,
+                    },
+                );
+            }
         }
 
     }), 33);
@@ -371,7 +405,6 @@ function main() {
     let box_blur_slider = document.getElementById("box-blur-slider");
     let box_blur_value_elem = document.getElementById("box-blur-value");
     let box_slider_func = (event) => {
-        // function slider_func(event) {
         let kernel_size = event.target.valueAsNumber;
         box_blur_value_elem.value = kernel_size;
 
@@ -383,11 +416,25 @@ function main() {
                 kernel_size: kernel_size,
             },
         );
-
     }
 
     box_blur_slider.addEventListener("input", debounce(box_slider_func, 150));
     // box_blur_slider.addEventListener("change", box_slider_func);
+
+    const sobel_slider_wrapper = document.getElementById("sobel-slider-wrapper");
+    const sobel_slider = document.getElementById("sobel-slider"); 
+    let sobel_threshold = document.getElementById("sobel-threshold");
+    sobel_slider.addEventListener("input", debounce((event) => {
+        let threshold = event.target.valueAsNumber;
+        sobel_threshold.value = threshold;
+        image_worker.postMessage(
+            {
+                message: "SOBEL",
+                width: raw_images.preview_img().width,
+                threshold: threshold,
+            },
+        );
+    }), 100);
 
     function scale_img_dimensions_to_canvas(img, canvas) {
 

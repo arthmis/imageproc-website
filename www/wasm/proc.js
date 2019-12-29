@@ -74,6 +74,21 @@
         return v0;
     };
 
+    /**
+    * @param {Uint8Array} input_image
+    * @param {number} width
+    * @param {number} threshold
+    * @returns {Uint8Array}
+    */
+    __exports.sobel_edge_detection = function(input_image, width, threshold) {
+        const retptr = 8;
+        const ret = wasm.sobel_edge_detection(retptr, passArray8ToWasm(input_image), WASM_VECTOR_LEN, width, threshold);
+        const memi32 = getInt32Memory();
+        const v0 = getArrayU8FromWasm(memi32[retptr / 4 + 0], memi32[retptr / 4 + 1]).slice();
+        wasm.__wbindgen_free(memi32[retptr / 4 + 0], memi32[retptr / 4 + 1] * 1);
+        return v0;
+    };
+
     function init(module) {
 
         let result;

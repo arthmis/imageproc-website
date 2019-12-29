@@ -1,6 +1,9 @@
 self.importScripts('../../wasm/proc.js');
 
-const {invert, box_blur, gamma_transform} = wasm_bindgen;
+const {invert, box_blur, gamma_transform, sobel_edge_detection} = wasm_bindgen;
+
+// let user_image = new Uint8ClampedArray(0);
+let user_image = null;
 
 // let user_image = new Uint8ClampedArray(0);
 let user_image = null;
@@ -41,6 +44,14 @@ async function initialize() {
         return gamma_transform_raw_data;
     }
 
+    function sobel(img, width, threshold) {
+        let sobel_raw_data = new Uint8ClampedArray(
+            sobel_edge_detection(img, width, threshold)
+        );
+
+        return sobel_raw_data
+    }
+
     self.addEventListener('message', event => {
         let message = event.data.message;
         // let image_data = new Uint8Array();
@@ -49,14 +60,21 @@ async function initialize() {
 
         if (message === "INVERT") {
             width = event.data.width;
-        } else if (message === "INVERT BUTTON") {
+        } 
+        else if (message === "INVERT BUTTON") {
             width = event.data.width;
             image_data = new Uint8Array(event.data.image);
-        } else if (message === "BOX BLUR") {
+        } 
+        else if (message === "BOX BLUR") {
             width = event.data.width;
-        } else if (message === "GAMMA") {
+        } 
+        else if (message === "GAMMA") {
             width = event.data.width;
-        } else if (message === "USER IMAGE") {
+        } 
+        else if(message === "SOBEL") {
+            width = event.data.width;
+        }
+        else if(message === "USER IMAGE") {
             user_image = new Uint8ClampedArray(event.data.image);
         }
 
@@ -92,7 +110,8 @@ async function initialize() {
                 },
                 [image_data.buffer]
             );
-        } else if (message === "GAMMA") {
+        } 
+        else if (message === "GAMMA") {
             image_data = gamma(user_image, width, event.data.gamma);
             self.postMessage(
                 {
@@ -102,7 +121,19 @@ async function initialize() {
                 },
                 [image_data.buffer]
             );
-        } else {
+        } 
+        else if (message === "SOBEL") {
+            image_data = sobel(user_image, width, event.data.threshold);
+            self.postMessage(
+                {
+                    message: "SOBEL",
+                    image: image_data.buffer,
+                    width: width,
+                },
+                [image_data.buffer]
+            );
+        }
+        else {
             self.postMessage("Unrecognized message", []);
         }
     });
