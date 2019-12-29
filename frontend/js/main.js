@@ -423,7 +423,7 @@ function main() {
     const sobel_slider_wrapper = document.getElementById("sobel-slider-wrapper");
     const sobel_slider = document.getElementById("sobel-slider"); 
     let sobel_threshold = document.getElementById("sobel-threshold");
-    sobel_slider.addEventListener("input", debounce((event) => {
+    function sobel_edge_detector(event) {
         let threshold = event.target.valueAsNumber;
         sobel_threshold.value = threshold;
         image_worker.postMessage(
@@ -433,7 +433,8 @@ function main() {
                 threshold: threshold,
             },
         );
-    }), 100);
+    }
+    sobel_slider.addEventListener("input", debounce(sobel_edge_detector, 100)); 
 
     function scale_img_dimensions_to_canvas(img, canvas) {
 
