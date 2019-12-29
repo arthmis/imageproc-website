@@ -65,6 +65,7 @@ function main() {
             draw_canvases.draw_image(raw_images.output_img_canvas());
         }
         else if (event.data.message === "SOBEL") {
+
             let image = new ImageData(
                 new Uint8ClampedArray(event.data.image), event.data.width
             );
