@@ -64,8 +64,11 @@ pub fn sobel_edge_detection(input_image: Vec<u8>, width: u32, threshold: u8) -> 
     let mut gray_image: GrayImage = image.convert();
 
     sobel_mut(&mut gray_image, threshold);
-
-    let image: RgbaImage = gray_image.convert();
+    for (gray_pixel, color_pixel) in gray_image.pixels().zip(image.pixels_mut()) {
+        color_pixel[0] = gray_pixel[0];
+        color_pixel[1] = gray_pixel[0];
+        color_pixel[2] = gray_pixel[0];
+    }
 
     image.into_vec()
 }
