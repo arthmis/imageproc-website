@@ -1,6 +1,9 @@
 wasm:
-    wasm-pack build -t no-modules -d ../frontend/wasm/ --no-typescript
+    wasm-pack build -t no-modules -d ../frontend/wasm/ --no-typescript --debug
+
+wasm-deploy:
+    wasm-pack build -t no-modules -d ../frontend/wasm/ --no-typescript --release
 
 wasm-opt:
-    wasm-pack build -t no-modules -d ../frontend/wasm/ --no-typescript 
+    wasm-pack build -t no-modules -d ../frontend/wasm/ --no-typescript --release
     wasm-opt -O3 ../frontend/wasm/proc_bg.wasm -o ../frontend/wasm/proc_bg.wasm

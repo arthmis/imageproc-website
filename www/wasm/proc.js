@@ -2,6 +2,10 @@
     const __exports = {};
     let wasm;
 
+    function _assertNum(n) {
+        if (typeof(n) !== 'number') throw new Error('expected a number argument');
+    }
+
     let cachegetUint8Memory = null;
     function getUint8Memory() {
         if (cachegetUint8Memory === null || cachegetUint8Memory.buffer !== wasm.memory.buffer) {
@@ -37,6 +41,8 @@
     */
     __exports.invert = function(input_image, width) {
         const retptr = 8;
+        _assertNum(retptr);
+        _assertNum(width);
         const ret = wasm.invert(retptr, passArray8ToWasm(input_image), WASM_VECTOR_LEN, width);
         const memi32 = getInt32Memory();
         const v0 = getArrayU8FromWasm(memi32[retptr / 4 + 0], memi32[retptr / 4 + 1]).slice();
@@ -52,6 +58,9 @@
     */
     __exports.box_blur = function(input_image, width, kernel_size) {
         const retptr = 8;
+        _assertNum(retptr);
+        _assertNum(width);
+        _assertNum(kernel_size);
         const ret = wasm.box_blur(retptr, passArray8ToWasm(input_image), WASM_VECTOR_LEN, width, kernel_size);
         const memi32 = getInt32Memory();
         const v0 = getArrayU8FromWasm(memi32[retptr / 4 + 0], memi32[retptr / 4 + 1]).slice();
@@ -67,6 +76,9 @@
     */
     __exports.gamma_transform = function(input_image, width, gamma) {
         const retptr = 8;
+        _assertNum(retptr);
+        _assertNum(width);
+        _assertNum(gamma);
         const ret = wasm.gamma_transform(retptr, passArray8ToWasm(input_image), WASM_VECTOR_LEN, width, gamma);
         const memi32 = getInt32Memory();
         const v0 = getArrayU8FromWasm(memi32[retptr / 4 + 0], memi32[retptr / 4 + 1]).slice();
@@ -82,6 +94,9 @@
     */
     __exports.sobel_edge_detection = function(input_image, width, threshold) {
         const retptr = 8;
+        _assertNum(retptr);
+        _assertNum(width);
+        _assertNum(threshold);
         const ret = wasm.sobel_edge_detection(retptr, passArray8ToWasm(input_image), WASM_VECTOR_LEN, width, threshold);
         const memi32 = getInt32Memory();
         const v0 = getArrayU8FromWasm(memi32[retptr / 4 + 0], memi32[retptr / 4 + 1]).slice();
@@ -89,10 +104,22 @@
         return v0;
     };
 
+    let cachedTextDecoder = new TextDecoder('utf-8', { ignoreBOM: true, fatal: true });
+
+    cachedTextDecoder.decode();
+
+    function getStringFromWasm(ptr, len) {
+        return cachedTextDecoder.decode(getUint8Memory().subarray(ptr, ptr + len));
+    }
+
     function init(module) {
 
         let result;
         const imports = {};
+        imports.wbg = {};
+        imports.wbg.__wbindgen_throw = function(arg0, arg1) {
+            throw new Error(getStringFromWasm(arg0, arg1));
+        };
 
         if ((typeof URL === 'function' && module instanceof URL) || typeof module === 'string' || (typeof Request === 'function' && module instanceof Request)) {
 

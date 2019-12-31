@@ -4,6 +4,9 @@ wasm:
 wasm-opt:
     just proc/wasm-opt
 
+wasm-deploy:
+    just proc/wasm-deploy
+
 deploy: 
     npm run build
     just wasm
