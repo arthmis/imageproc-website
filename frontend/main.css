@@ -80,12 +80,6 @@ main {
     cursor: pointer;
 }
 
-#sidebar {
-    height: 90vh;
-    min-width: 15%;
-    max-width: 20%;
-}
-
 #options {
     flex-direction: column;
     justify-content: flex-start;
@@ -251,6 +245,7 @@ main {
     padding: 0;
     padding-top: 1em;
     padding-bottom: 1em;
+    text-align: center;
 }
 .sidebar-elem:hover {
     background-color: #273758;
@@ -388,12 +383,13 @@ input[type=range]:focus::-ms-fill-upper {
         align-items: center;
     }
     .mobile-hidden {
-        display: none;
+        visibility: hidden;
         position: absolute;
         z-index: 1;
     }
     .mobile-visible {
         display: flex;
+        visibility: visible;
         position: absolute;
         z-index: 1;
         justify-content: center;
@@ -466,9 +462,43 @@ input[type=range]:focus::-ms-fill-upper {
     }
     #sidebar {
         height: 85vh;
-        min-width: 40%;
+        width: 40%;
         align-self: flex-start;
+        background-color: #434a58;
+        /* visibility: hidden; */
     }
+    .slideopen {
+        animation-duration: 0.2s;
+        animation-name: slideopen;
+    }
+    @keyframes slideopen {
+        from {
+            width: 0%;
+            visibility: hidden;
+        }
+
+        to {
+            width: 40%;
+            visibility: visible;
+        }
+    }
+    .slideclose {
+        animation-duration: 0.2s;
+        animation-name: slideclose;
+    }
+    @keyframes slideclose {
+        from {
+            visibility: visible;
+            width: 40%;
+        }
+
+        to {
+            width: 0%;
+            /* background-color: #434a58; */
+            visibility: hidden;
+        }
+    }
+
     .processing-category > span {
         align-self: center;
     }
