@@ -468,11 +468,21 @@ function main() {
     });
     function toggle_algorithms_sidebar() {
         if (window.matchMedia("(max-width: 768px)").matches) {
-                sidebar.classList.toggle("mobile-hidden");
-                sidebar.classList.toggle("mobile-visible");
 
-                algorithms_arrow.classList.toggle("fa-angle-right");
-                algorithms_arrow.classList.toggle("fa-angle-down");
+            if (sidebar.classList.contains("slideopen")) {
+                sidebar.classList.toggle("slideclose"); 
+            }
+            else if (sidebar.classList.contains("slideclose") || sidebar.classList.contains("mobile-hidden")) {
+                sidebar.classList.toggle("slideopen");
+            }
+            // sidebar.classList.toggle("slideclose");
+            // sidebar.classList.toggle("slideopen");
+
+            sidebar.classList.toggle("mobile-hidden");
+            sidebar.classList.toggle("mobile-visible");
+
+            algorithms_arrow.classList.toggle("fa-angle-right");
+            algorithms_arrow.classList.toggle("fa-angle-down");
         }
     }
 }
