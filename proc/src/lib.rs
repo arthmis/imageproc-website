@@ -5,15 +5,20 @@ use image::{GrayImage, RgbaImage};
 use wasm_bindgen::prelude::*;
 
 use image_processing::pixel_ops::*;
-use image_processing::blur::*;
+use image_processing::blur::{box_filter_mut, MeanKernel};
 use image_processing::edge_detection::sobel_mut;
 
+use wee_alloc;
+
+#[global_allocator]
+static ALLOC: wee_alloc::WeeAlloc = wee_alloc::WeeAlloc::INIT;
+
 // useful console logging macro from rustwasm documentation
-macro_rules! console_log {
-    ( $( $t:tt )* ) => {
-        web_sys::console::log_1(&format!( $( $t) *).into());
-    }
-}
+// macro_rules! console_log {
+//     ( $( $t:tt )* ) => {
+//         web_sys::console::log_1(&format!( $( $t) *).into());
+//     }
+// }
 
 const CHANNEL_COUNT: u32 = 4;
 

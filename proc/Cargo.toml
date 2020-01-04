@@ -10,14 +10,15 @@ edition = "2018"
 crate-type = ["cdylib"]
 
 [dependencies]
-wasm-bindgen = "0.2.50"
-js-sys = "0.3.27"
+wasm-bindgen = "0.2.56"
+js-sys = "0.3.33"
 image = "0.22.2"
 num-traits = "0.2.8"
 image_processing = { path = "../../image-processing" }
+wee_alloc = "0.4.5"
 
-[dependencies.web-sys]
-version = "0.3.27"
+[dev-dependencies.web-sys]
+version = "0.3.33"
 features = [
     'console',
 ]
@@ -26,6 +27,6 @@ features = [
 opt-level = 3 
 lto = true
 
-[profile.debug]
-opt-level = 3 
-debug = true
+# [profile.debug]
+# opt-level = 3 
+# debug = true
