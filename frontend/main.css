@@ -180,7 +180,9 @@ main {
 }
 
 .diagram {
-    width: 100%;
+    /* width: 90%; */
+    min-width: 30ch;
+    max-width: 85ch;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -192,12 +194,7 @@ main {
     color: #686868;
     line-height: 1.2;
 }
-.box-blur-demo {
-    width: 100%;
-    height: auto; 
-}
-
-.gamma-images {
+.diagram-image {
     width: 100%;
     height: auto; 
 }
@@ -460,12 +457,13 @@ input[type=range]:focus::-ms-fill-upper {
         flex-direction: column;
         justify-content: flex-start;
     }
+
     #sidebar {
         height: 85vh;
         width: 40%;
+        top: 7em;
         align-self: flex-start;
         background-color: #434a58;
-        /* visibility: hidden; */
     }
     .slideopen {
         animation-duration: 0.2s;
@@ -494,7 +492,6 @@ input[type=range]:focus::-ms-fill-upper {
 
         to {
             width: 0%;
-            /* background-color: #434a58; */
             visibility: hidden;
         }
     }
@@ -560,6 +557,7 @@ input[type=range]:focus::-ms-fill-upper {
         align-items: center;
         justify-content: center; 
     }
+
     #sidebar {
         height: 90vh;
         min-width: 12%;
