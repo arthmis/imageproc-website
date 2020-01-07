@@ -154,12 +154,12 @@ function main() {
     // this button activates the file input event
     let upload_image = document.getElementById("upload-image");
     upload_image.addEventListener("click", () => {
-        if (window.matchMedia("(max-width: 768px)")) {
-            if (sidebar.classList.contains("mobile-visible")) {
-                sidebar.classList.remove("mobile-visible");
-                sidebar.classList.add("mobile-hidden");
-            }
-        }
+        // if (window.matchMedia("(max-width: 768px)")) {
+        //     if (sidebar.classList.contains("mobile-visible")) {
+        //         sidebar.classList.remove("mobile-visible");
+        //         sidebar.classList.add("mobile-hidden");
+        //     }
+        // }
         file_input.click();
     });
 
@@ -463,26 +463,35 @@ function main() {
     let sidebar = document.getElementById("sidebar");
     let algorithms_button = document.getElementById("open-algorithms");
     let algorithms_arrow = document.getElementById("open-algorithms-arrow");
-    algorithms_button.addEventListener("click", () => {
+    algorithms_button.addEventListener("click", (event) => {
         toggle_algorithms_sidebar();
     });
+
+    function close_sidebar(event) {
+        if (
+            !event.target.matches("#sidebar") && 
+            !event.target.matches("#open-algorithms") && 
+            !event.target.matches("#sidebar *")
+        ) {
+            toggle_algorithms_sidebar();
+        }
+    }
     function toggle_algorithms_sidebar() {
         if (window.matchMedia("(max-width: 768px)").matches) {
-
             if (sidebar.classList.contains("slideopen")) {
-                sidebar.classList.toggle("slideclose"); 
+                sidebar.classList.remove("slideopen", "mobile-visible");
+                sidebar.classList.add("slideclose", "mobile-hidden");
+                algorithms_arrow.classList.remove("fa-angle-down");
+                algorithms_arrow.classList.add("fa-angle-right");
+                window.removeEventListener("click", close_sidebar);
             }
             else if (sidebar.classList.contains("slideclose") || sidebar.classList.contains("mobile-hidden")) {
-                sidebar.classList.toggle("slideopen");
+                sidebar.classList.remove("slideclose", "mobile-hidden"); 
+                sidebar.classList.add("slideopen", "mobile-visible");
+                algorithms_arrow.classList.remove("fa-angle-right");
+                algorithms_arrow.classList.add("fa-angle-down");
+                window.addEventListener("click", close_sidebar);
             }
-            // sidebar.classList.toggle("slideclose");
-            // sidebar.classList.toggle("slideopen");
-
-            sidebar.classList.toggle("mobile-hidden");
-            sidebar.classList.toggle("mobile-visible");
-
-            algorithms_arrow.classList.toggle("fa-angle-right");
-            algorithms_arrow.classList.toggle("fa-angle-down");
         }
     }
 }
