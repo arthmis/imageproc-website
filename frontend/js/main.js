@@ -2,35 +2,35 @@ import { DrawCanvases } from "./draw_canvases.js";
 import { RawImage } from "./raw_image.js";
 
 const debounce = (func, delay) => {
-    let inDebounce;
+    let in_debounce;
     return function () {
         const context = this;
         const args = arguments;
-        clearTimeout(inDebounce);
-        inDebounce = setTimeout(() => func.apply(context, args), delay);
+        clearTimeout(in_debounce);
+        in_debounce = setTimeout(() => func.apply(context, args), delay);
     }
 }
 
-const throttle = (func, limit) => {
-    let lastFunc;
-    let lastRan;
-    return function () {
-        const context = this;
-        const args = arguments;
-        if (!lastRan) {
-            func.apply(context, args);
-            lastRan = Date.now();
-        } else {
-            clearTimeout(lastFunc);
-            lastFunc = setTimeout(function () {
-                if ((Date.now() - lastRan) >= limit) {
-                    func.apply(context, args);
-                    lastRan = Date.now();
-                }
-            }, limit - (Date.now() - lastRan));
-        }
-    }
-}
+// const throttle = (func, limit) => {
+//     let lastFunc;
+//     let lastRan;
+//     return function () {
+//         const context = this;
+//         const args = arguments;
+//         if (!lastRan) {
+//             func.apply(context, args);
+//             lastRan = Date.now();
+//         } else {
+//             clearTimeout(lastFunc);
+//             lastFunc = setTimeout(function () {
+//                 if ((Date.now() - lastRan) >= limit) {
+//                     func.apply(context, args);
+//                     lastRan = Date.now();
+//                 }
+//             }, limit - (Date.now() - lastRan));
+//         }
+//     }
+// }
 
 function main() {
     let image_worker = new Worker("./js/dist/bundle_worker.js");
@@ -151,15 +151,10 @@ function main() {
         }
         file_input.click();
     });
+
     // this button activates the file input event
     let upload_image = document.getElementById("upload-image");
     upload_image.addEventListener("click", () => {
-        // if (window.matchMedia("(max-width: 768px)")) {
-        //     if (sidebar.classList.contains("mobile-visible")) {
-        //         sidebar.classList.remove("mobile-visible");
-        //         sidebar.classList.add("mobile-hidden");
-        //     }
-        // }
         file_input.click();
     });
 
@@ -190,14 +185,10 @@ function main() {
     let blur_option = document.getElementById("box-blur-option");
     let gamma_option = document.getElementById("gamma-option");
     let sobel_option = document.getElementById("sobel-option");
-    // let active_option = document.createElement("p"); // creates dummy element so it wouldn't be null
     let active_option = null;
 
     let processing_options = document.getElementById("processing-options");
 
-    // maybe make this null
-    // also maybe make this null
-    // let active_input = document.createElement("p"); // creates dummy element so it wouldn't be null
     let active_input = null;
 
     let invert_info = document.getElementById("invert-info");
@@ -463,7 +454,7 @@ function main() {
     let sidebar = document.getElementById("sidebar");
     let algorithms_button = document.getElementById("open-algorithms");
     let algorithms_arrow = document.getElementById("open-algorithms-arrow");
-    algorithms_button.addEventListener("click", (event) => {
+    algorithms_button.addEventListener("click", () => {
         toggle_algorithms_sidebar();
     });
 

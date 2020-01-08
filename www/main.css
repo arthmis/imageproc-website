@@ -10,7 +10,7 @@ html, body, #main, #image-options {
     --main-background-color: #394359;
     --button-color: #ba6c65;
     --button-hover-color: #bb4c42;
-    /* --main-background-color: #646464; */
+    --min-article-width: 20ch;
 }
 
 body {
@@ -144,7 +144,7 @@ main {
     align-items: center;
 }
 .algorithm-button-wrapper > button {
-    font-size: 1.2em;
+    font-size: 1em;
     font-family: inherit;
     height: 2em;
     border-radius: 0.3em;
@@ -166,29 +166,40 @@ main {
     flex-direction: column;
     align-items: center;
     max-width: 85ch;
-    min-width: 30ch;
+    min-width: var(--min-article-width);
 }
 
-.algorithm-info > h2 {
-    /* color: #D05353; */
+.algorithm-info footer {
+    min-width: var(--min-article-width);
+    max-width: 85ch;
+    width: 100%;
+}
+.algorithm-info footer p a {
+    display: block;
+    padding: 0;
+    margin: 0;
+    max-width: 85ch;
+    width: 100%;
+}
+
+.algorithm-info h2 {
     color: #e6a86f;
 }
 
 .algorithm-explanation {
     line-height: 1.5;
-    font-size: 1em;
+    font-size: 1.2em;
 }
 
 .diagram {
-    /* width: 90%; */
-    min-width: 30ch;
+    min-width: var(--min-article-width);
     max-width: 85ch;
     display: flex;
     flex-direction: column;
     align-items: center;
 }
 
-.diagram > p {
+.diagram p {
     max-width: 45ch;
     font-size: 0.9em;
     color: #686868;
@@ -220,7 +231,7 @@ main {
     padding: 0;
 }
 
-.processing-category > span {
+.processing-category span {
     align-self: flex-start;
     margin-left: 0.4em;
 }
@@ -255,7 +266,8 @@ main {
 }
 
 .slider, .slider-value {
-    width: 20em;
+    min-width: 15em;
+    max-width: 20em;
 }
 
 .slider-value {
@@ -267,7 +279,6 @@ main {
     text-align: right;
     width: 2.5em;
     font-size: 1em;
-    /* background-color: #394359; */
     background-color: var(--main-background-color);
     color: white;
 }
@@ -277,54 +288,40 @@ main {
 }
 .slider > input[type=range] {
     width: 100%;
-    /* background-color: #394359; */
     background-color: var(--main-background-color);
 }
 /* from css tricks on styling sliders */
 /* Special styling for WebKit/Blink */
 input[type=range]::-webkit-slider-thumb {
   -webkit-appearance: none;
-  /* border: 1px solid #ffffff; */
   height: 1.5em;
   width: 2.5em;
   border-radius: 3px;
   background: #e4e4e4;
-  /* cursor: pointer; */
-  /* You need to specify a margin in Chrome, but in Firefox and IE it is automatic */ 
-  /* margin-top: -14px;  */
-  /* box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d; Add cool effects to your sliders! */
 }
 
 /* All the same stuff for Firefox */
 input[type=range]::-moz-range-thumb {
-  /* box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d; */
-  /* border: 1px solid #000000; */
   height: 1.5em;
   width: 2.5em;
   border-radius: 3px;
   background: #e4e4e4;
-  /* cursor: pointer; */
 }
 
 /* All the same stuff for IE */
 input[type=range]::-ms-thumb {
-  /* box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d; */
-  /* border: 1px solid #ffffff; */
   height: 1.5em;
   width: 2.5em;
   border-radius: 3px;
   background: #d1d1d1;
-  /* cursor: pointer; */
 }
 
 input[type=range]::-webkit-slider-runnable-track {
   width: 100%;
   height: 8.4px;
   cursor: pointer;
-  /* box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d; */
   background: #7e7e7e;
   border-radius: 1.3px;
-  /* border: 0.2px solid #010101; */
 }
 
 input[type=range]:focus::-webkit-slider-runnable-track {
@@ -335,10 +332,8 @@ input[type=range]::-moz-range-track {
   width: 100%;
   height: 8.4px;
   cursor: pointer;
-  /* box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d; */
   background: #7e7e7e;
   border-radius: 1.3px;
-  /* border: 0.2px solid #010101; */
 }
 
 input[type=range]::-ms-track {
@@ -352,18 +347,14 @@ input[type=range]::-ms-track {
 }
 input[type=range]::-ms-fill-lower {
   background: #7e7e7e;
-  /* border: 0.2px solid #010101; */
   border-radius: 2.6px;
-  /* box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d; */
 }
 input[type=range]:focus::-ms-fill-lower {
   background: #7e7e7e;
 }
 input[type=range]::-ms-fill-upper {
   background: #7e7e7e;
-  /* border: 0.2px solid #010101; */
   border-radius: 2.6px;
-  /* box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d; */
 }
 input[type=range]:focus::-ms-fill-upper {
   background: #7e7e7e;
@@ -403,16 +394,18 @@ input[type=range]:focus::-ms-fill-upper {
 
     #upload-image, #open-algorithms {
         height: 2em;
-        font-size: 1em;
-        max-width: 10em;
-        /* min-width: 8em; */
+        font-size: 1.2em;
+        /* max-width: 10em; */
+        min-width: 6em;
+        width: 100%;
         border: 1px solid var(--button-color);
         color: white;
         background-color: var(--button-color);
         border-radius: 0.3em;
         font-family: inherit;
     }
-    #upload-image-algorithms > #open-algorithms {
+
+    #open-algorithms {
         padding-left: 1em;
     }
 
@@ -512,12 +505,78 @@ input[type=range]:focus::-ms-fill-upper {
     }
 
     #algorithm-info {
-        padding-left: 1.5em;
-        padding-right: 1.5em;
+        padding-left: 1em;
+        padding-right: 1em;
+    }
+
+    .algorithm-info footer {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        /* overflow-x: scroll; */
+        
+        min-width: var(--min-article-width);
+        width: 100%;
+    }
+    .algorithm-info footer p a {
+        display: block;
+        padding: 0;
+        margin: 0;
+        max-width: 40ch;
+        width: 100%;
+    }
+}
+@media only screen and (max-width: 450px) {
+    .algorithm-info footer {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        overflow-x: scroll;
+        
+        min-width: var(--min-article-width);
+        width: 100%;
+    }
+    .algorithm-info footer p a {
+        display: block;
+        padding: 0;
+        margin: 0;
+        max-width: 23ch;
+        width: 100%;
+    }
+
+}
+
+@media only screen and (max-width: 340px) {
+    #upload-image, #open-algorithms {
+        height: 2em;
+        font-size: 1em;
+        max-width: 10em;
+        width: 100%;
+        border: 1px solid var(--button-color);
+        color: white;
+        background-color: var(--button-color);
+        border-radius: 0.3em;
+        font-family: inherit;
+    }
+    .sidebar-elem {
+        font-size: 0.7em;
+    }
+}
+@media only screen and (max-width: 300px) {
+    #upload-image, #open-algorithms {
+        height: 2em;
+        font-size: 0.7em;
+        max-width: 10em;
+        width: 100%;
+        border: 1px solid var(--button-color);
+        color: white;
+        background-color: var(--button-color);
+        border-radius: 0.3em;
+        font-family: inherit;
     }
 }
 
-@media only screen and (min-width: 1100px)  {
+@media only screen and (min-width: 769px)  {
     #open-algorithms-wrapper {
         display: none;
     }
@@ -585,78 +644,8 @@ input[type=range]:focus::-ms-fill-upper {
     #processing-options {
         padding-top: 2em;
     }
-}
 
-@media only screen and (min-width: 769px) and (max-width: 1099px)  {
-    #open-algorithms-wrapper {
-        display: none;
-    }
-
-    #upload-image-algorithms {
-        padding-bottom: 1.5em;
-    }
-    #upload-image, #upload-image:hover, #upload-image:active {
-        font-size: 1.2em;
-        font-family: inherit;
-        height: 2em;
-        border: 1px solid var(--button-color);
-        border-radius: 0.3em;
-        color: white;
-        background-color: var(--button-color);
-    }
-
-    #upload-image:hover, #upload-image:active {
-        background-color: var(--button-hover-color);
-    }
-
-    #input-image {
-        height: 3em;
-        max-width: 12em;
-        min-width: 8em;
-        width: 100%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-    }
-    #canvas-wrapper {
-        width: 100%;
-        height: 70vh;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center; 
-    }
-
-    #input-canvas {
-        height: 100%;
-        width: 95%;
-    }
-
-    #sidebar {
-        height: 90vh;
-        min-width: 20%;
-        max-width: 30%;
-    }
-
-    #image-options {
-        display: flex;
-        flex-direction: column;
-        justify-content: flex-start;
-        max-width: 80%;
-        min-width: 70%;
-    }
-
-    #options {
-        display: flex;
-        margin-top: 2em;
-        
-    }
-    #algorithm-info {
-        padding-left: 1em;
-        padding-right: 1em;
-    }
-
-    #processing-options {
-        padding-top: 1em;
+    .slider, .slider-value {
+        min-width: 20em;
     }
 }
