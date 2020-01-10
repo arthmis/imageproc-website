@@ -1,6 +1,4 @@
-use image::imageops::resize;
 use image::ConvertBuffer;
-use image::FilterType;
 use image::{GrayImage, RgbaImage};
 use wasm_bindgen::prelude::*;
 
@@ -14,11 +12,12 @@ use wee_alloc;
 static ALLOC: wee_alloc::WeeAlloc = wee_alloc::WeeAlloc::INIT;
 
 // useful console logging macro from rustwasm documentation
-// macro_rules! console_log {
-//     ( $( $t:tt )* ) => {
-//         web_sys::console::log_1(&format!( $( $t) *).into());
-//     }
-// }
+#[allow(unused_macros)]
+macro_rules! console_log {
+    ( $( $t:tt )* ) => {
+        web_sys::console::log_1(&format!( $( $t) *).into());
+    }
+}
 
 const CHANNEL_COUNT: u32 = 4;
 
@@ -68,7 +67,6 @@ pub fn sobel_edge_detection(input_image: Vec<u8>, width: u32, threshold: u8) -> 
 
     let mut gray_image: GrayImage = image.convert();
 
-    // console_log!("here");
     sobel_mut(&mut gray_image, threshold);
     for (gray_pixel, color_pixel) in gray_image.pixels().zip(image.pixels_mut()) {
         color_pixel[0] = gray_pixel[0];
