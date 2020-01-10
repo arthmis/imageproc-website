@@ -85,7 +85,7 @@
                                 <input id="sobel-threshold" type="text" name="sobel-threshold" readonly>
                             </div>
                             <div class="slider">
-                                <input class="slider-style" id="sobel-slider" type="range" name="sobel" min="0" max="255" step="1">
+                                <input class="slider-style" id="sobel-slider" type="range" name="sobel" min="1" max="255" step="1">
                             </div>
                         </div>
                     </div>
@@ -243,6 +243,82 @@
                 </div>
                 <div id="sobel-info" class="algorithm-info algorithm-explanation" style="display: none;">
                     <h2>Sobel Edge Detector</h2>
+                    <p>
+                        The Sobel edge detector is one of the more basic edge detectors
+                        used in image processing. The goal of an edge detector is to find areas of an image
+                        where there are abrupt brightness changes as well as abrupt color changes.
+                        Most edge detectors primarily work with brightness changes because it's easier
+                        to work with grayscale images, that only show luminance, than color images. Color images
+                        require a little more work because two colors might be different and form an edge
+                        between each other, but have the same brightness. Which means they wouldn't be detected 
+                        by popular edge detectors like the Canny edge detector and Sobel.
+                    </p>
+                    <p>
+                        The Sobel operator finds edges by using two <i>3 x 3</i> <a href="https://en.wikipedia.org/wiki/Convolution">convolution kernels</a> to find the difference
+                        between two regions of an image. Finding the edges of an image is broken into two steps. 
+                        One operator goes through the image to find the vertical edges and another is used to find
+                        horizontal edges. The two kernels are: 
+                    </p>
+                    <div class="diagram">
+                        <img class="diagram-image" src="./images/sobel_operators.png" alt="sobel edge operators">
+                        <p>The left kernel finds horizontal edges<br> 
+                        The right kernel finds vertical edges</p> 
+                    </div>
+                    <p>
+                        An edge is essentially described as the difference in intensity between two areas.
+                        The horizontal edges are found by subtracting the right
+                        half of the <a href="https://en.wikipedia.org/wiki/Kernel_(image_processing)">kernel</a> 
+                        from the left half of the kernel as it passes over the image. The vertical edges are found by 
+                        subtracting the bottom half of the kernel from the top half of the kernel. 
+                        Finally, the two different results for the vertical and horizontal edges are 
+                        combined together using the formula
+                        <p class="formula">
+                            <i>I(x, y) = sqrt((I<sub>h</sub>(x, y))<sup>2</sup> + (I<sub>v</sub>(x, y))<sup>2</sup>)</i>
+                        </p>
+                        <p>
+                            Where I<sub>h</sub> is the horizontal edge image, I<sub>v</sub> is the vertical edge
+                            image, x and y are the pixel coordinates and sqrt() is square root.
+                        </p>
+                    </p>
+                    <div class="diagram">
+                        <img class="diagram-image" src="images/horizontal_edges.jpeg" alt="horizontal edge image">
+                        <p>Horizontal edge image</p>
+                    </div>
+                    <div class="diagram">
+                        <img class="diagram-image" src="images/vertical_edges.jpeg" alt="vertical edge image">
+                        <p>Vertical edge image</p>
+                    </div>
+                    <p>
+                        Once the two edge images are consolidated a threshold is applied to the image. The threshold
+                        is used to decide whether the difference between two areas is enough to determine
+                        that it is a strong edge. Thresholding is useful for preventing image noise from showing up
+                        on the final edge image. Lower thresholds will show more edges but will also show more noise while
+                        a higher threshold will show less noise but will also show stronger edges. Determining the ideal
+                        threshold is dependent on the application and the amount of noise already found in an image.
+                        The threshold used for the example assumes an 8 bit image and has a range of 0 to 255. When
+                        thresholding an image, if the pixel of the final edge image has the brightness of 200 and 
+                        the threshold is 100 then that pixel is usually given max brightness because it's above the threshold. Anything
+                        below that threshold is given a brightness of 0. This makes it easier to see the edges. 
+                        I went for an inverted thresholding because it looks like a sketch.
+                    </p>
+                    <div class="diagram">
+                        <img class="diagram-image" src="images/final_edges_before_threshold.jpeg" alt="final edge image before thresholding">
+                        <p>Final edges before thresholding</p>
+                    </div>
+                    <div class="diagram">
+                        <img class="diagram-image" src="images/final_edges.jpeg" alt="final edge image">
+                        <p>Final edges image after thresholding</p>
+                    </div>
+                    <p>
+                        To help with noise control and aid in edge detection, low pass filters or a <a href="https://en.wikipedia.org/wiki/Median_filter">median filter</a> are usually used on 
+                        images prior to edge detection. Low pass filters like <a href="https://en.wikipedia.org/wiki/Box_blur">Box blur</a> and <a href="https://en.wikipedia.org/wiki/Gaussian_blur">Gaussian blur</a> can average
+                        away noise while maintaining most of the edge information of the image. A median filter are 
+                        usually used for noise reduction and make a good preprocessing step before edge detection.
+                    </p>
+                    <footer>
+                        <h2>Sources and Related Reading</h2>
+                        <p><a href="https://en.wikipedia.org/wiki/Sobel_operator">Sobel Operator - Wiki</a></p>
+                    </footer>
                 </div>
             </div>
         </main>
