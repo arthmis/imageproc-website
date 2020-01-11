@@ -2,7 +2,7 @@
 
 This website aims to demonstrate different image processing algorithms and data structures used for different imaging applications.
 
-To build this project you need [node.js] (https://nodejs.org) and [wasm-pack] (https://rustwasm.github.io/wasm-pack/installer/).
+To build this project you need [node.js](https://nodejs.org) specifically npm and [wasm-pack](https://rustwasm.github.io/wasm-pack/installer/).
 
 After those two are installed then you can execute these commands
 
