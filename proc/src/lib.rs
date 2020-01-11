@@ -2,9 +2,9 @@ use image::ConvertBuffer;
 use image::{GrayImage, RgbaImage};
 use wasm_bindgen::prelude::*;
 
-use image_processing::pixel_ops::*;
 use image_processing::blur::{box_filter_mut, MeanKernel};
 use image_processing::edge_detection::sobel_mut;
+use image_processing::pixel_ops::*;
 
 use wee_alloc;
 
@@ -43,7 +43,6 @@ pub fn box_blur(input_image: Vec<u8>, width: u32, kernel_size: u32) -> Vec<u8> {
     box_filter_mut(kernel, &mut image);
 
     image.into_vec()
-    
 }
 
 #[wasm_bindgen]
@@ -59,9 +58,13 @@ pub fn gamma_transform(input_image: Vec<u8>, width: u32, gamma: f32) -> Vec<u8> 
 }
 
 #[wasm_bindgen]
-pub fn sobel_edge_detection(input_image: Vec<u8>, width: u32, threshold: u8) -> Vec<u8> {
+pub fn sobel_edge_detection(
+    input_image: Vec<u8>,
+    width: u32,
+    threshold: u8,
+) -> Vec<u8> {
     let height = (input_image.len() as u32 / CHANNEL_COUNT) / width;
-    let mut image: RgbaImage = 
+    let mut image: RgbaImage =
         image::ImageBuffer::from_vec(width, height, input_image)
             .expect("expected image from canvas");
 
