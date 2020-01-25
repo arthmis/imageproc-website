@@ -1,6 +1,7 @@
 # Image Processing Website
 
 This website aims to demonstrate different image processing algorithms and data structures used for different imaging applications.
+The image processing library used for algorithms can be found [here](https://github.com/arthmis/image-processing). It is only for personal use.
 
 To build this project you need [node.js](https://nodejs.org) specifically npm and [wasm-pack](https://rustwasm.github.io/wasm-pack/installer/).
 
