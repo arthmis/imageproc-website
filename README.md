@@ -8,7 +8,10 @@ To build this project you need [node.js](https://nodejs.org) specifically npm an
 After those two are installed then you can execute these commands
 
 ```
+git clone https://github.com/arthmis/imageproc-website.git
+cd imageproc-website/
 npm install
+npm run build
 cd proc/
 wasm-pack build -t no-modules -d ../frontend/wasm/ --no-typescript
 ```
