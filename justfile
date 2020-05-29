@@ -2,7 +2,7 @@ wasm:
     just proc/wasm
 
 deploy: 
-    npm run build
+    npm run deploy 
     just wasm
     cp -r frontend/fonts www
     cp -r frontend/images www
