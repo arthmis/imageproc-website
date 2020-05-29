@@ -2,7 +2,6 @@ self.importScripts('../../wasm/proc.js');
 
 const {invert, box_blur, gamma_transform, sobel_edge_detection} = wasm_bindgen;
 
-// let user_image = new Uint8ClampedArray(0);
 let user_image = null;
 
 async function initialize() {

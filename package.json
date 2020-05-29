@@ -5,9 +5,9 @@
   "private": true,
   "main": "dist/main.js",
   "scripts": {
-    "build": "webpack",
-    "watch": "webpack -w ",
-    "deploy": "webpack"
+    "build": "webpack --mode=development",
+    "watch": "webpack -w --mode=development",
+    "deploy": "webpack --mode=production"
   },
   "repository": {
     "type": "git",

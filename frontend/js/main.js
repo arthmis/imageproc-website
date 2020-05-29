@@ -158,8 +158,6 @@ function main() {
         file_input.click();
     });
 
-    // takes original image and resizes it 
-    // currently doesn't reapply edit made by current processing algorithm
     window.addEventListener('resize', () => {
         if (raw_images !== null) {
             // uses original image to resize to the new output canvas 
@@ -181,6 +179,7 @@ function main() {
         }
     });
 
+    // TODO: make these null when initializing
     let invert_option = document.getElementById("invert-option");
     let blur_option = document.getElementById("box-blur-option");
     let gamma_option = document.getElementById("gamma-option");
@@ -191,11 +190,11 @@ function main() {
 
     let active_input = null;
 
+    // TODO: make these null when initializing
     let invert_info = document.getElementById("invert-info");
     let box_blur_info = document.getElementById("box-blur-info");
     let gamma_info = document.getElementById("gamma-info");
     let sobel_info = document.getElementById("sobel-info");
-    // let active_info = document.createElement("p");
     let active_info = null;
 
     function change_active_option(algorithm_option, algorithm_input, algorithm_info) {
