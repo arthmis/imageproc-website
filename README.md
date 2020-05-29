@@ -1,13 +1,17 @@
 # Image Processing Website
 
 This website aims to demonstrate different image processing algorithms and data structures used for different imaging applications.
+The image processing library used for algorithms can be found [here](https://github.com/arthmis/image-processing). It is only for personal use.
 
-To build this project you need [node.js] (https://nodejs.org) and [wasm-pack] (https://rustwasm.github.io/wasm-pack/installer/).
+To build this project you need [node.js](https://nodejs.org) specifically npm and [wasm-pack](https://rustwasm.github.io/wasm-pack/installer/).
 
 After those two are installed then you can execute these commands
 
 ```
+git clone https://github.com/arthmis/imageproc-website.git
+cd imageproc-website/
 npm install
+npm run build
 cd proc/
 wasm-pack build -t no-modules -d ../frontend/wasm/ --no-typescript
 ```
