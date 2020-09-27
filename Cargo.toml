@@ -2,4 +2,5 @@
 
 members = [
     "proc",
+    "image_processing"
 ]

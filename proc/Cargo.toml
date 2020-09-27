@@ -1,8 +1,14 @@
 [package]
 name = "proc"
-version = "0.1.0"
-authors = ["lazypassion <25536767+lazypassion@users.noreply.github.com>"]
+version = "0.5.0"
+authors = ["arthmis20@gmail.com"]
 edition = "2018"
+
+[package.metadata.wasm-pack.profile.release]
+wasm-opt = ["-O3", "--enable-mutable-globals"]
+
+[package.metadata.wasm-pack.profile.dev]
+wasm-opt = ["-O3", "--enable-mutable-globals"]
 
 [lib]
 crate-type = ["cdylib"]
@@ -12,7 +18,7 @@ wasm-bindgen = "0.2.56"
 js-sys = "0.3.33"
 image = "0.22.2"
 num-traits = "0.2.8"
-image_processing = { git = "https://github.com/lazypassion/image-processing.git" }
+image_processing = { path = "../image_processing" }
 wee_alloc = "0.4.5"
 
 [dev-dependencies.web-sys]
@@ -23,4 +29,10 @@ features = [
 
 [profile.release]
 opt-level = 3 
-lto = true
+lto = "thin"
+codegen-units = 1
+
+[profile.dev]
+opt-level = 2 
+lto = "thin"
+codegen-units = 256

@@ -1,6 +1,6 @@
 {
   "name": "imageproc_website",
-  "version": "0.1.0",
+  "version": "0.5.0",
   "description": "Displays different image processing algorithms",
   "private": true,
   "main": "dist/main.js",
@@ -11,17 +11,17 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/lazypassion/imageproc-website.git"
+    "url": "git+https://github.com/arthmist/imageproc-website.git"
   },
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/lazypassion/imageproc-website/issues"
+    "url": "https://github.com/arthmis/imageproc-website/issues"
   },
-  "homepage": "https://github.com/lazypassion/imageproc-website#readme",
+  "homepage": "https://github.com/arthmis/imageproc-website#readme",
   "devDependencies": {
     "eslint": "^6.8.0",
-    "webpack": "^4.43.0",
-    "webpack-cli": "^3.3.11"
+    "webpack": "^4.44.2",
+    "webpack-cli": "^3.3.12"
   }
 }

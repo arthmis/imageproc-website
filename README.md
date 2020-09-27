@@ -9,9 +9,10 @@ After those two are installed then you can execute these commands
 
 ```
 git clone https://github.com/arthmis/imageproc-website.git
-cd imageproc-website/
+cd imageproc-website/frontend
 npm install
 npm run build
+cd ..
 cd proc/
 wasm-pack build -t no-modules -d ../frontend/wasm/ --no-typescript
 ```
