@@ -1,0 +1,48 @@
+[package]
+name = "image_processing"
+version = "0.1.0"
+authors = ["arthmis20@gmail.com"]
+edition = "2018" 
+
+
+[dependencies]
+image = "0.22.2"
+
+[features]
+display-window = ["sdl2"]
+
+[dependencies.sdl2]
+version = "0.32.1"
+default-features = false
+features = ["bundled"]
+optional = true 
+
+[dev-dependencies]
+criterion = "0.3.3"
+
+[profile.release]
+opt-level = 3 
+lto = "thin" 
+codegen-units = 1
+
+[profile.dev]
+opt-level = 2
+codegen-units = 256
+lto = "thin"
+
+# benchmarks
+[[bench]]
+name = "sobel"
+harness = false
+
+[[bench]]
+name = "blur"
+harness = false
+
+[[bench]]
+name = "transpose"
+harness = false
+
+[[bench]]
+name = "pixel_ops"
+harness = false
