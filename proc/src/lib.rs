@@ -1,4 +1,4 @@
-use image::ConvertBuffer;
+use image::buffer::ConvertBuffer;
 use image::{GrayImage, RgbaImage};
 use wasm_bindgen::prelude::*;
 
@@ -40,7 +40,8 @@ pub fn box_blur(input_image: Vec<u8>, width: u32, kernel_size: u32) -> Vec<u8> {
             .expect("expected image from canvas");
 
     let kernel = MeanKernel::new(kernel_size);
-    box_filter_mut(kernel, &mut image);
+    // box_filter_mut(kernel, &mut image);
+    image = box_filter_mut(kernel, image);
 
     image.into_vec()
 }

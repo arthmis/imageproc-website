@@ -2,7 +2,7 @@
 name = "image_processing"
 version = "0.1.0"
 authors = ["arthmis20@gmail.com"]
-edition = "2018" 
+edition = "2021"
 
 
 [dependencies]
@@ -15,14 +15,14 @@ display-window = ["sdl2"]
 version = "0.32.1"
 default-features = false
 features = ["bundled"]
-optional = true 
+optional = true
 
 [dev-dependencies]
 criterion = "0.3.3"
 
 [profile.release]
-opt-level = 3 
-lto = "thin" 
+opt-level = 3
+lto = "thin"
 codegen-units = 1
 
 [profile.dev]

@@ -1,6 +1,3 @@
 [workspace]
 
-members = [
-    "proc",
-    "image_processing"
-]
+members = ["proc", "image_processing", "leptos-ui"]
